@@ -7,7 +7,7 @@
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 
-			<class>com.skilldistillery.todoapp.entities.User</class>
+			<class>com.skilldistillery.goodapples.entities.User</class>
 
 
 
