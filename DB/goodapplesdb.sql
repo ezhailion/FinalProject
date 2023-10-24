@@ -16,6 +16,19 @@ CREATE SCHEMA IF NOT EXISTS `goodapplesdb` DEFAULT CHARACTER SET utf8 ;
 USE `goodapplesdb` ;
 
 -- -----------------------------------------------------
+-- Table `gender`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `gender` ;
+
+CREATE TABLE IF NOT EXISTS `gender` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `description` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user` ;
@@ -24,32 +37,39 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
-  `date_of_birth` DATETIME NULL,
+  `date_of_birth` DATE NULL,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `enabled` TINYINT NOT NULL,
   `role` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
+  `email` VARCHAR(100) NULL,
   `create_date` DATETIME NULL,
   `last_update` DATETIME NULL,
   `phone` VARCHAR(45) NULL,
   `image_url` VARCHAR(2000) NULL,
+  `about_me` TEXT NULL,
+  `gender_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+  INDEX `fk_user_gender1_idx` (`gender_id` ASC),
+  CONSTRAINT `fk_user_gender1`
+    FOREIGN KEY (`gender_id`)
+    REFERENCES `gender` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `class`
+-- Table `classroom`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `class` ;
+DROP TABLE IF EXISTS `classroom` ;
 
-CREATE TABLE IF NOT EXISTS `class` (
+CREATE TABLE IF NOT EXISTS `classroom` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `period` VARCHAR(45) NULL,
-  `start_time` DATETIME NULL,
-  `end_time` DATETIME NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `start_time` TIME NULL,
+  `end_time` TIME NULL,
   `teacher_id` INT NOT NULL,
   `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
@@ -70,7 +90,8 @@ DROP TABLE IF EXISTS `student` ;
 CREATE TABLE IF NOT EXISTS `student` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `accommodations` VARCHAR(2000) NULL,
+  `accommodations` TEXT NULL,
+  `nickname` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_student_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_student_user1`
@@ -82,13 +103,13 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `behavior`
+-- Table `report`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `behavior` ;
+DROP TABLE IF EXISTS `report` ;
 
-CREATE TABLE IF NOT EXISTS `behavior` (
+CREATE TABLE IF NOT EXISTS `report` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `notes` VARCHAR(2000) NULL,
+  `notes` TEXT NULL,
   `teacher_id` INT NOT NULL,
   `student_id` INT NOT NULL,
   `create_date` DATETIME NULL,
@@ -111,28 +132,34 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `celebration`
+-- Table `behavior_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `celebration` ;
+DROP TABLE IF EXISTS `behavior_type` ;
 
-CREATE TABLE IF NOT EXISTS `celebration` (
+CREATE TABLE IF NOT EXISTS `behavior_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(2000) NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `challenge`
+-- Table `behavior`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `challenge` ;
+DROP TABLE IF EXISTS `behavior` ;
 
-CREATE TABLE IF NOT EXISTS `challenge` (
+CREATE TABLE IF NOT EXISTS `behavior` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(2000) NULL,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
+  `behavior_type_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_behavior_behavior_type1_idx` (`behavior_type_id` ASC),
+  CONSTRAINT `fk_behavior_behavior_type1`
+    FOREIGN KEY (`behavior_type_id`)
+    REFERENCES `behavior_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -146,20 +173,27 @@ CREATE TABLE IF NOT EXISTS `message` (
   `content` VARCHAR(2000) NOT NULL,
   `create_date` DATETIME NULL,
   `last_update` DATETIME NULL,
-  `teacher_id` INT NOT NULL,
-  `parent_id` INT NOT NULL,
+  `sender_id` INT NOT NULL,
+  `recipient_id` INT NOT NULL,
   `enabled` TINYINT NULL,
+  `message_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_message_user1_idx` (`teacher_id` ASC),
-  INDEX `fk_message_user2_idx` (`parent_id` ASC),
+  INDEX `fk_message_user1_idx` (`sender_id` ASC),
+  INDEX `fk_message_user2_idx` (`recipient_id` ASC),
+  INDEX `fk_message_message1_idx` (`message_id` ASC),
   CONSTRAINT `fk_message_user1`
-    FOREIGN KEY (`teacher_id`)
+    FOREIGN KEY (`sender_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_message_user2`
-    FOREIGN KEY (`parent_id`)
+    FOREIGN KEY (`recipient_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_message_message1`
+    FOREIGN KEY (`message_id`)
+    REFERENCES `message` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -172,9 +206,9 @@ DROP TABLE IF EXISTS `student_has_class` ;
 
 CREATE TABLE IF NOT EXISTS `student_has_class` (
   `student_id` INT NOT NULL,
-  `class_id` INT NOT NULL,
-  PRIMARY KEY (`student_id`, `class_id`),
-  INDEX `fk_student_has_class_class1_idx` (`class_id` ASC),
+  `classroom_id` INT NOT NULL,
+  PRIMARY KEY (`student_id`, `classroom_id`),
+  INDEX `fk_student_has_class_class1_idx` (`classroom_id` ASC),
   INDEX `fk_student_has_class_student1_idx` (`student_id` ASC),
   CONSTRAINT `fk_student_has_class_student1`
     FOREIGN KEY (`student_id`)
@@ -182,8 +216,8 @@ CREATE TABLE IF NOT EXISTS `student_has_class` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_student_has_class_class1`
-    FOREIGN KEY (`class_id`)
-    REFERENCES `class` (`id`)
+    FOREIGN KEY (`classroom_id`)
+    REFERENCES `classroom` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -214,61 +248,13 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `behavior_has_celebration`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `behavior_has_celebration` ;
-
-CREATE TABLE IF NOT EXISTS `behavior_has_celebration` (
-  `behavior_id` INT NOT NULL,
-  `celebration_id` INT NOT NULL,
-  PRIMARY KEY (`behavior_id`, `celebration_id`),
-  INDEX `fk_behavior_has_celebration_celebration1_idx` (`celebration_id` ASC),
-  INDEX `fk_behavior_has_celebration_behavior1_idx` (`behavior_id` ASC),
-  CONSTRAINT `fk_behavior_has_celebration_behavior1`
-    FOREIGN KEY (`behavior_id`)
-    REFERENCES `behavior` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_behavior_has_celebration_celebration1`
-    FOREIGN KEY (`celebration_id`)
-    REFERENCES `celebration` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `behavior_has_challenge`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `behavior_has_challenge` ;
-
-CREATE TABLE IF NOT EXISTS `behavior_has_challenge` (
-  `behavior_id` INT NOT NULL,
-  `challenge_id` INT NOT NULL,
-  PRIMARY KEY (`behavior_id`, `challenge_id`),
-  INDEX `fk_behavior_has_challenge_challenge1_idx` (`challenge_id` ASC),
-  INDEX `fk_behavior_has_challenge_behavior1_idx` (`behavior_id` ASC),
-  CONSTRAINT `fk_behavior_has_challenge_behavior1`
-    FOREIGN KEY (`behavior_id`)
-    REFERENCES `behavior` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_behavior_has_challenge_challenge1`
-    FOREIGN KEY (`challenge_id`)
-    REFERENCES `challenge` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `reflection`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `reflection` ;
 
 CREATE TABLE IF NOT EXISTS `reflection` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `content` VARCHAR(2000) NULL,
+  `content` TEXT NULL,
   `scale` INT NOT NULL,
   `create_date` DATETIME NULL,
   `last_update` DATETIME NULL,
@@ -285,17 +271,56 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `resources`
+-- Table `resource`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `resources` ;
+DROP TABLE IF EXISTS `resource` ;
 
-CREATE TABLE IF NOT EXISTS `resources` (
+CREATE TABLE IF NOT EXISTS `resource` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NOT NULL,
+  `title` VARCHAR(200) NOT NULL,
   `link` VARCHAR(2000) NOT NULL,
   `image_url` VARCHAR(2000) NULL,
   `enabled` TINYINT NULL,
-  PRIMARY KEY (`id`))
+  `behavior_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `create_date` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_resources_behavior1_idx` (`behavior_id` ASC),
+  INDEX `fk_resource_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_resources_behavior1`
+    FOREIGN KEY (`behavior_id`)
+    REFERENCES `behavior` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_resource_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `report_has_behavior`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `report_has_behavior` ;
+
+CREATE TABLE IF NOT EXISTS `report_has_behavior` (
+  `report_id` INT NOT NULL,
+  `behavior_id` INT NOT NULL,
+  PRIMARY KEY (`report_id`, `behavior_id`),
+  INDEX `fk_report_has_behavior_behavior1_idx` (`behavior_id` ASC),
+  INDEX `fk_report_has_behavior_report1_idx` (`report_id` ASC),
+  CONSTRAINT `fk_report_has_behavior_report1`
+    FOREIGN KEY (`report_id`)
+    REFERENCES `report` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_report_has_behavior_behavior1`
+    FOREIGN KEY (`behavior_id`)
+    REFERENCES `behavior` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
@@ -310,11 +335,21 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `gender`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `gender` (`id`, `name`, `description`) VALUES (1, 'unspecified', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`) VALUES (1, 'admin', 'admin', NULL, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (1, 'admin', 'admin', NULL, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 COMMIT;
 
