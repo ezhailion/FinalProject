@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `enabled` TINYINT NOT NULL,
-  `role` VARCHAR(45) NULL,
+  `role` VARCHAR(45) NOT NULL,
   `email` VARCHAR(100) NULL,
   `create_date` DATETIME NULL,
   `last_update` DATETIME NULL,
@@ -340,6 +340,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `goodapplesdb`;
 INSERT INTO `gender` (`id`, `name`, `description`) VALUES (1, 'unspecified', NULL);
+INSERT INTO `gender` (`id`, `name`, `description`) VALUES (2, 'male', NULL);
+INSERT INTO `gender` (`id`, `name`, `description`) VALUES (3, 'female', NULL);
 
 COMMIT;
 
@@ -349,7 +351,120 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (1, 'admin', 'admin', NULL, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (1, 'teacher', 'teacher', NULL, 'teacher', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'teacher', NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (2, 'parent', 'parent', NULL, 'parent', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'parent', NULL, NULL, NULL, NULL, NULL, NULL, 2);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (3, 'student', 'student', NULL, 'student', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'student', NULL, NULL, NULL, NULL, NULL, NULL, 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `classroom`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `classroom` (`id`, `name`, `start_time`, `end_time`, `teacher_id`, `enabled`) VALUES (1, 'good class', NULL, NULL, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `student`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (1, 3, 'allergic to peanuts', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `report`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (1, 'good kid', 1, 1, '2023-10-24', '2023-10-24', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `behavior_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `behavior_type` (`id`, `name`) VALUES (1, 'good');
+INSERT INTO `behavior_type` (`id`, `name`) VALUES (2, 'bad');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `behavior`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (1, NULL, 'integrity', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `message`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (1, 'Hello there.. message content', '2023-10-24', '2023-10-24', 1, 2, 1, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `student_has_class`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `parent_has_student`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (2, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `reflection`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `reflection` (`id`, `content`, `scale`, `create_date`, `last_update`, `student_id`, `enabled`) VALUES (1, 'good day', 5, '2023-10-24', '2023-10-24', 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `resource`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (1, 'helpful info', 'www.google.com', NULL, 1, 1, 1, '2023-10-24');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `report_has_behavior`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `goodapplesdb`;
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (1, 1);
 
 COMMIT;
 
