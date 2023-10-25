@@ -1,12 +1,14 @@
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,6 +19,9 @@ public class User {
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	@ManyToMany(mappedBy="parents")
+	private List<Student> parentsKids;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -60,6 +65,14 @@ public class User {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	
+	public List<Student> getParentsKids() {
+		return parentsKids;
+	}
+	public void setParentsKids(List<Student> parentsKids) {
+		this.parentsKids = parentsKids;
 	}
 	public String getUsername() {
 		return username;

@@ -1,6 +1,7 @@
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,6 +22,14 @@ public class Report {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	//TODO json_ignore for behavior
+	//TODO add and remove methods
+	@ManyToMany
+	@JoinTable(name = "report_has_behavior", 
+				joinColumns=@JoinColumn(name = "report_id"),
+				inverseJoinColumns=@JoinColumn(name = "behavior_id"))
+	private List<Behavior> behaviors;
 	
 	private String notes;
 	
@@ -45,6 +57,16 @@ public class Report {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	public List<Behavior> getBehaviors() {
+		return behaviors;
+	}
+
+
+	public void setBehaviors(List<Behavior> behaviors) {
+		this.behaviors = behaviors;
 	}
 
 

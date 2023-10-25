@@ -1,11 +1,13 @@
 package com.skilldistillery.goodapples.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Behavior {
@@ -13,6 +15,12 @@ public class Behavior {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	
+	//TODO json_ignore for report
+	//TODO add and remove methods
+	@ManyToMany(mappedBy="behaviors")
+	private List<Report> reports;
 	
 	private String description;
 	
@@ -28,6 +36,15 @@ public class Behavior {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
 	}
 
 	public String getDescription() {

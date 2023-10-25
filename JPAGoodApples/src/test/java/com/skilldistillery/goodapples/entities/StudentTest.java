@@ -12,13 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class StudentTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
-	
-	private User parent;
+	private Student student;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,28 +31,29 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
-		parent = em.find(User.class, 2);
+		student = em.find(Student.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user = null;
-		parent = null;
+		student = null;
 	}
 
 	@Test
 	void test_basic_mapping() {
-		assertNotNull(user);
-		assertEquals("teacher", user.getUsername());
-		assertEquals("teacher", user.getFirstName());
+		assertNotNull(student);
+		assertEquals("allergic to peanuts", student.getAccommodations());
 	}
 	
 	@Test
-	void test_mtm_parents_to_kids() {
-		assertTrue(parent.getParentsKids().size() > 0);
-		
+	void test_mtm_student_behave_mappin() {
+		assertTrue(student.getClassrooms().size() > 0);
+	}
+	
+	@Test
+	void test_mtm_student_to_parents() {
+		assertTrue(student.getParents().size() > 0);
 	}
 
 }
