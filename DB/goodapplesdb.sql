@@ -415,6 +415,9 @@ COMMIT;
 START TRANSACTION;
 USE `goodapplesdb`;
 INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (1, 'Hello there.. message content', '2023-10-24', '2023-10-24', 1, 2, 1, NULL);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (2, 'reply to message one', '2023-10-25', '2023-10-25', 2, 1, 1, 1);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (3, 'second reply to message one', '2023-10-25', '2023-10-25', 2, 1, 1, 1);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (4, 'first reply to message two', '2023-10-25', '2023-10-25', 1, 2, 1, 2);
 
 COMMIT;
 
