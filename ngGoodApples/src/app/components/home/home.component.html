@@ -14,7 +14,7 @@
 
       <!-- FIX ME -->
       <!-- click event route to register component -->
-      <button class="btn btn-lg btn-dark mx-5">Register</button>
+      <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/register']">Register</button>
     </div>
   </div>
   <div id="imageMain" class="row text-center mt-5">
@@ -51,6 +51,6 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark" (click)="modal.close(login(loginUser))">Login</button>
-	</div>
+  </div>
 </ng-template>
 

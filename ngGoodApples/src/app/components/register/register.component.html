@@ -1,1 +1,105 @@
-<p>register works!</p>
+<form class="form-control mx-5">
+  <div class="row">
+    <div class="col">
+      <label for="firstName">First Name</label>
+      <input class="form-control mb-3" type="text" name="firstName" />
+    </div>
+    <div class="col">
+      <label for="lastName">Last Name</label>
+      <input class="form-control mb-3" type="text" name="lastName" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="username">Username</label>
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="username"
+        [(ngModel)]="newUser.username"
+      />
+    </div>
+    <div class="col-4">
+      <label for="password">Password</label>
+      <input
+        class="form-control mb-3"
+        type="password"
+        name="password"
+        [(ngModel)]="newUser.password"
+      />
+    </div>
+    <div class="col-4">
+      <label for="dateOfBirth">Date of Birth</label>
+      <input class="form-control mb-3" type="date" name="dateOfBirth" />
+    </div>
+  </div>
+  <div class="row">
+    <!-- FIXME -- NEED GENDER LIST FROM DATABASE -->
+    <!-- <div class="col">
+            <label for="gender">Gender</label>
+            <select
+            class="form-select mb-3"
+            name="gender"
+            [(ngModel)]="newUser.gender.id"
+            >
+            <option
+            *ngFor="let gender of genders"
+            name="gender"
+            value="{{ gender.id }}"
+            >
+            {{ gender.name }}
+          </option>
+        </select>
+      </div> -->
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <label for="imageUrl">Image URL</label>
+      <input class="form-control mb-3" type="text" name="imageUrl" />
+    </div>
+    <div class="col mt-3">
+      <div class="form-check">
+        <input
+        class="form-check-input"
+        type="radio"
+        name="role"
+        />
+        <label class="form-check-label" for="teacher">
+          Teacher
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="role"
+        />
+        <label class="form-check-label" for="parent">
+          Parent
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <label for="email">Email</label>
+      <input class="form-control mb-3" type="text" name="email" />
+    </div>
+    <div class="col-6">
+      <label for="phone">Phone</label>
+      <input class="form-control mb-3" type="text" name="phone" />
+    </div>
+  </div>
+  <div class="text-center">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="register(newUser)"
+    >
+      Register Account
+    </button>
+  </div>
+  <p class="lead text-danger text-center" *ngIf="invalidRegistration">
+    Registration failed! Please try again.
+  </p>
+</form>

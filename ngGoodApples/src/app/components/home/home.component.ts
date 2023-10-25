@@ -12,8 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomeComponent {
   loginUser: User = new User();
   invalidLogin: boolean = false;
-  newUser: User = new User();
-  invalidRegistration: boolean = false;
 
   constructor(private auth: AuthService, private router: Router,  private modalService: NgbModal){}
 
@@ -32,31 +30,6 @@ export class HomeComponent {
       }
     })
   }
-
-  register(user: User): void {
-    console.log('Registering user:');
-    console.log(user);
-    this.auth.register(user).subscribe({
-      next: (registeredUser) => {
-        this.auth.login(user.username, user.password).subscribe({
-          next: (loggedInUser) => {
-            //FIXME
-            //this.router.navigateByUrl('/todo');
-          },
-          error: (problem) => {
-            console.error('HomeComponent.register(): Error logging in user:');
-            console.error(problem);
-          }
-        });
-      },
-      error: (oops) => {
-        console.error('HomeComponent.register(): Error registering account');
-        console.error(oops);
-        this.invalidRegistration = true;
-      }
-    });
-  }
-
 
   open(content: any) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
