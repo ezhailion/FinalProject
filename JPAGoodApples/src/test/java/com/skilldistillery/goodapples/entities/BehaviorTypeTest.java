@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BehaviorTest {
+class BehaviorTypeTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Behavior behavior;
+	private BehaviorType behaviorType;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,28 +31,28 @@ class BehaviorTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		behavior = em.find(Behavior.class, 1);
+		behaviorType = em.find(BehaviorType.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		behavior = null;
+		behaviorType = null;
 	}
 
-	@Test
-	void test_basic_mapping() {
-		assertNotNull(behavior);
-		assertEquals("integrity", behavior.getName());
-	}
 	
 	@Test
-	void test_mtm_report_to_behave_mappin() {
-		assertTrue(behavior.getReports().size() > 0);
+	void test_mtm_behaviorType_to_resource_mappin() {
+		assertEquals("good", behaviorType.getName());
 	}
 	@Test
-	void test_mto_bahvior_to_behaviorType_mappin() {
-		assertEquals("good", behavior.getBehaviorType().getName());;
+	void test_mtm() {
+		assertEquals("good", behaviorType.getName());
 	}
-
+	@Test
+	void test_otm_behaviorType_to_behavior() {
+		assertTrue(behaviorType.getBehaviors().size() > 0);
+	}
+	
+	
 }

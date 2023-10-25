@@ -14,12 +14,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 class ResourceTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private Resource resources;
-	
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -55,5 +55,9 @@ class ResourceTest {
 	@Test
 	void test_mto_user_to_resources() {
 		assertEquals("teacher", resources.getUser().getFirstName());
+	}
+	@Test
+	void test_mto_resource_to_behavior() {
+		assertEquals("integrity", resources.getBehavior().getName());
 	}
 }

@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Behavior {
@@ -21,6 +24,9 @@ public class Behavior {
 	//TODO add and remove methods
 	@ManyToMany(mappedBy="behaviors")
 	private List<Report> reports;
+	
+	@OneToMany(mappedBy="behavior")
+	private List<Resource> resources;
 	
 	private String description;
 	
@@ -37,8 +43,19 @@ public class Behavior {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@ManyToOne
+	@JoinColumn(name="behavior_type_id")
+	private BehaviorType behaviorType;
 
-	
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
+	}
+
 	public List<Report> getReports() {
 		return reports;
 	}
@@ -49,6 +66,15 @@ public class Behavior {
 
 	public String getDescription() {
 		return description;
+	}
+
+	
+	public BehaviorType getBehaviorType() {
+		return behaviorType;
+	}
+
+	public void setBehaviorType(BehaviorType behaviorType) {
+		this.behaviorType = behaviorType;
 	}
 
 	public void setDescription(String description) {
