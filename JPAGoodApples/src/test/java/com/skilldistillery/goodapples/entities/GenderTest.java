@@ -45,10 +45,6 @@ class GenderTest {
 		assertNotNull(gender);
 		assertEquals("unspecified", gender.getName());
 	}
-	@Test
-	void test_otm_user() {
-		assertNotNull(gender);
-		assertTrue(gender.getUsers().size() > 0);
-	}
+
 
 }

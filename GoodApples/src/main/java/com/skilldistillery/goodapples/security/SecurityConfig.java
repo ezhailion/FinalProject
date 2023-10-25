@@ -29,7 +29,9 @@ public class SecurityConfig {
         .csrf().disable()
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // For CORS, the preflight request
+        .antMatchers(HttpMethod.GET, "/api/resources/*").permitAll()     // will hit the OPTIONS on the route
         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()     // will hit the OPTIONS on the route
+        .antMatchers("/api/users/*/classes").hasAuthority("teacher")
         .antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.
         .anyRequest().permitAll()               // All other requests are allowed without authentication.
         .and()

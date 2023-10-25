@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Gender {
 	
@@ -21,8 +23,6 @@ public class Gender {
 	private String name;
 	private String description;
 	
-	@OneToMany(mappedBy="gender")
-	private List<User> users;
 	
 	public Gender() {
 		super();
@@ -45,12 +45,7 @@ public class Gender {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<User> getUsers() {
-		return users;
-	}
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

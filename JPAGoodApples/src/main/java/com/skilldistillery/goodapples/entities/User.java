@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 	
@@ -29,9 +31,11 @@ public class User {
 	@OneToOne(mappedBy="whoami")
 	private Student student;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="teacher")
 	private List<Classroom> classes;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="parents")
 	private List<Student> parentsKids;
 	
@@ -67,9 +71,11 @@ public class User {
 	@Column(name="about_me")
 	private String aboutMe;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="sender")
 	private List<Message> sentMessages;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="recipient")
 	private List<Message> recievedMessages;
 	
@@ -77,8 +83,11 @@ public class User {
 	@JoinColumn(name="gender_id")
 	private Gender gender;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="teacher")
 	private List<Report> reports;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Resource> resources;
  	

@@ -25,13 +25,13 @@ export class RegisterComponent {
             //this.router.navigateByUrl('/todo');
           },
           error: (problem) => {
-            console.error('HomeComponent.register(): Error logging in user:');
+            console.error('RegisterComponent.register(): Error logging in user:');
             console.error(problem);
           }
         });
       },
       error: (oops) => {
-        console.error('HomeComponent.register(): Error registering account');
+        console.error('RegisterComponent.register(): Error registering account');
         console.error(oops);
         this.invalidRegistration = true;
       }

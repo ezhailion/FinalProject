@@ -2,11 +2,21 @@
   <div class="row">
     <div class="col">
       <label for="firstName">First Name</label>
-      <input class="form-control mb-3" type="text" name="firstName" />
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="firstName"
+        [(ngModel)]="newUser.firstName"
+      />
     </div>
     <div class="col">
       <label for="lastName">Last Name</label>
-      <input class="form-control mb-3" type="text" name="lastName" />
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="lastName"
+        [(ngModel)]="newUser.lastName"
+      />
     </div>
   </div>
   <div class="row">
@@ -30,10 +40,16 @@
     </div>
     <div class="col-4">
       <label for="dateOfBirth">Date of Birth</label>
-      <input class="form-control mb-3" type="date" name="dateOfBirth" />
+      <input
+        class="form-control mb-3"
+        type="date"
+        name="dateOfBirth"
+        [(ngModel)]="newUser.dateOfBirth"
+      />
     </div>
   </div>
   <div class="row">
+
     <!-- FIXME -- NEED GENDER LIST FROM DATABASE -->
     <!-- <div class="col">
             <label for="gender">Gender</label>
@@ -55,39 +71,54 @@
   <div class="row">
     <div class="col-8">
       <label for="imageUrl">Image URL</label>
-      <input class="form-control mb-3" type="text" name="imageUrl" />
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="imageUrl"
+        [(ngModel)]="newUser.imageUrl"
+      />
     </div>
     <div class="col mt-3">
       <div class="form-check">
         <input
-        class="form-check-input"
-        type="radio"
-        name="role"
+          class="form-check-input"
+          type="radio"
+          name="role"
+          value="teacher"
+          [(ngModel)]="newUser.role"
         />
-        <label class="form-check-label" for="teacher">
-          Teacher
-        </label>
+        <label class="form-check-label" for="teacher"> Teacher </label>
       </div>
       <div class="form-check">
         <input
           class="form-check-input"
           type="radio"
           name="role"
+          value="parent"
+          [(ngModel)]="newUser.role"
         />
-        <label class="form-check-label" for="parent">
-          Parent
-        </label>
+        <label class="form-check-label" for="parent"> Parent </label>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-6">
       <label for="email">Email</label>
-      <input class="form-control mb-3" type="text" name="email" />
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="email"
+        [(ngModel)]="newUser.email"
+      />
     </div>
     <div class="col-6">
       <label for="phone">Phone</label>
-      <input class="form-control mb-3" type="text" name="phone" />
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="phone"
+        [(ngModel)]="newUser.phone"
+      />
     </div>
   </div>
   <div class="text-center">
