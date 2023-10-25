@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Student {
@@ -35,6 +36,9 @@ public class Student {
 				inverseJoinColumns=@JoinColumn(name = "parent_id"))
 	private List<User> parents;
 	
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User whoami;
 	
 	private String accommodations;
 	
@@ -56,6 +60,22 @@ public class Student {
 	}
 	
 	
+
+	public User getWhoami() {
+		return whoami;
+	}
+
+	public void setWhoami(User whoami) {
+		this.whoami = whoami;
+	}
+
+	public List<Reflection> getReflections() {
+		return reflections;
+	}
+
+	public void setReflections(List<Reflection> reflections) {
+		this.reflections = reflections;
+	}
 
 	public List<User> getParents() {
 		return parents;

@@ -51,5 +51,8 @@ class ClassroomTest {
 		assertTrue(classroom.getStudents().size() > 0);
 	}
 	
-
+	@Test
+	void test_mto_classes_to_teacher() {
+		assertEquals("teacher", classroom.getTeacher().getFirstName());
+	}
 }

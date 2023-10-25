@@ -1,3 +1,5 @@
+// !!!!!!!!!!! COMPLETED !!!!!!!!!!!!!!!!
+
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Classroom {
@@ -18,6 +21,10 @@ public class Classroom {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name="teacher_id")
+	private User teacher;
 	
 	@ManyToMany(mappedBy="classrooms")
 	private List<Student> students;
@@ -45,6 +52,14 @@ public class Classroom {
 	}
 
 	
+	public User getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
+	}
+
 	public List<Student> getStudents() {
 		return students;
 	}

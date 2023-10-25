@@ -55,5 +55,10 @@ class StudentTest {
 	void test_mtm_student_to_parents() {
 		assertTrue(student.getParents().size() > 0);
 	}
+	
+	@Test
+	void test_oto_whoami() {
+		assertEquals("student", student.getWhoami().getFirstName());
+	}
 
 }

@@ -1,6 +1,8 @@
 package com.skilldistillery.goodapples.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,6 +21,7 @@ class UserTest {
 	private User teacher;
 	
 	private User parent;
+	private User student;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -35,6 +38,7 @@ class UserTest {
 		em = emf.createEntityManager();
 		teacher = em.find(User.class, 1);
 		parent = em.find(User.class, 2);
+		student = em.find(User.class, 3);
 		
 	}
 
@@ -43,6 +47,8 @@ class UserTest {
 		em.close();
 		teacher = null;
 		parent = null;
+		student = null;
+		
 	}
 
 	@Test
@@ -69,4 +75,13 @@ class UserTest {
 		
 	}
 
+	@Test
+	void test_otm_classes() {
+		assertTrue(teacher.getClasses().size() > 0);
+	}
+	
+	@Test
+	void test_oto_student() {
+		assertEquals("allergic to peanuts", student.getStudent().getAccommodations());
+	}
 }

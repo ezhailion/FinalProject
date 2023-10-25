@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,6 +24,13 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+
+	@OneToOne(mappedBy="whoami")
+	private Student student;
+	
+	@OneToMany(mappedBy="teacher")
+	private List<Classroom> classes;
 	
 	@ManyToMany(mappedBy="parents")
 	private List<Student> parentsKids;
@@ -80,6 +88,20 @@ public class User {
 	}
 	
 	
+	
+	
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	public List<Classroom> getClasses() {
+		return classes;
+	}
+	public void setClasses(List<Classroom> classes) {
+		this.classes = classes;
+	}
 	public List<Student> getParentsKids() {
 		return parentsKids;
 	}
