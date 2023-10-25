@@ -21,8 +21,20 @@ export class RegisterComponent {
       next: (registeredUser) => {
         this.auth.login(user.username, user.password).subscribe({
           next: (loggedInUser) => {
-            //FIXME
-            //this.router.navigateByUrl('/todo');
+            if (loggedInUser.role === "teacher"){
+              this.router.navigateByUrl('/teacher');
+            }
+
+            if (loggedInUser.role === "parent"){
+              this.router.navigateByUrl('/parent');
+            }
+
+            if (loggedInUser.role === "student"){
+            this.router.navigateByUrl('/student');
+            }
+
+            //TODO: what if (somehow) no role? 404?
+
           },
           error: (problem) => {
             console.error('RegisterComponent.register(): Error logging in user:');

@@ -20,8 +20,17 @@ export class HomeComponent {
     console.log(user);
     this.auth.login(user.username, user.password).subscribe({
       next: (loggedInUser) => {
-        //FIXME
-        //this.router.navigateByUrl('/todo');
+          if (loggedInUser.role === "teacher"){
+            this.router.navigateByUrl('/teacher');
+          }
+
+          if (loggedInUser.role === "parent"){
+            this.router.navigateByUrl('/parent');
+          }
+
+          if (loggedInUser.role === "student"){
+          this.router.navigateByUrl('/student');
+          }
       },
       error: (oops) => {
         console.error('HomeComponent.login(): Error logging in user:');
