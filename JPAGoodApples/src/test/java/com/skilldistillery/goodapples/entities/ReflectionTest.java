@@ -45,5 +45,10 @@ class ReflectionTest {
 		assertNotNull(reflection);
 		assertEquals("good day", reflection.getContent());
 	}
+	@Test
+	void test_mto_student() {
+		assertNotNull(reflection);
+		assertEquals("allergic to peanuts", reflection.getStudent().getAccommodations());
+	}
 
 }

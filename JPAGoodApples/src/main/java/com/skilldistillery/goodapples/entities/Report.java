@@ -1,8 +1,7 @@
-//!!!!!!!!!!!!!!! COMPLETE !!!!!!!!!!!!!!!!!
-
 package com.skilldistillery.goodapples.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,101 +10,139 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-public class Reflection {
-	
+public class Report {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String content;
-	private int scale;
+	//TODO json_ignore for behavior
+	//TODO add and remove methods
+	@ManyToMany
+	@JoinTable(name = "report_has_behavior", 
+				joinColumns=@JoinColumn(name = "report_id"),
+				inverseJoinColumns=@JoinColumn(name = "behavior_id"))
+	private List<Behavior> behaviors;
 	
-	@Column(name="create_date")
+	private String notes;
+	
 	@CreationTimestamp
-	private LocalDate createDate;
+	@Column(name = "create_date")
+	private LocalDateTime createDate;
 	
-	@Column(name="last_update")
 	@UpdateTimestamp
-	private LocalDate lastUpdate;
+	@Column(name = "last_update")
+	private LocalDateTime lastUpdate;
 	
+
 	private Boolean enabled;
 
+	@ManyToOne
+	@JoinColumn(name="teacher_id")
+	private User teacher;
 	@ManyToOne
 	@JoinColumn(name="student_id")
 	private Student student;
 	
-	public Reflection() {
+	public Report() {
 		super();
 	}
+
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getContent() {
-		return content;
+
+	public List<Behavior> getBehaviors() {
+		return behaviors;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setBehaviors(List<Behavior> behaviors) {
+		this.behaviors = behaviors;
 	}
 
-	public int getScale() {
-		return scale;
+
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setScale(int scale) {
-		this.scale = scale;
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
-	public LocalDate getCreateDate() {
+
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDate createDate) {
+
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 
-	public LocalDate getLastUpdate() {
+
+	public LocalDateTime getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(LocalDate lastUpdate) {
+
+	public void setLastUpdate(LocalDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+
 
 	public Boolean getEnabled() {
 		return enabled;
 	}
+
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 
 
+	public User getTeacher() {
+		return teacher;
+	}
+
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
+	}
+
 
 	public Student getStudent() {
 		return student;
 	}
 
+
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -115,17 +152,17 @@ public class Reflection {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Reflection other = (Reflection) obj;
+		Report other = (Report) obj;
 		return id == other.id;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Reflection [id=" + id + ", content=" + content + ", scale=" + scale + ", createDate=" + createDate
-				+ ", lastUpdate=" + lastUpdate + ", enabled=" + enabled + "]";
+		return "Report [id=" + id + ", notes=" + notes + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate
+				+ ", enabled=" + enabled + "]";
 	}
 	
 	
 	
-
 }

@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MessageTest {
+class BehaviorTypeTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Message message;
+	private BehaviorType behaviorType;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,37 +31,28 @@ class MessageTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		message = em.find(Message.class, 1);
+		behaviorType = em.find(BehaviorType.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		message = null;
+		behaviorType = null;
 	}
 
-	@Test
-	void test_basic_mapping() {
-		assertNotNull(message);
-		assertEquals("Hello there.. message content", message.getContent());
-	}
 	
 	@Test
-	void test_mto_user_and_sender() {
-		assertNotNull(message);
-		assertEquals("teacher", message.getSender().getFirstName());
-		assertEquals("parent", message.getRecipient().getFirstName());
+	void test_mtm_behaviorType_to_resource_mappin() {
+		assertEquals("good", behaviorType.getName());
 	}
-	
 	@Test
-	void test_mto_inReplyTo_messages() {
-		assertNotNull(message);
-		assertTrue(message.getInReplyToMessages().size() > 0);
-		Message messageReply = em.find(Message.class, 2);
-		assertNotNull(messageReply);
-		assertEquals("Hello there.. message content", messageReply.getMessageToReplyTo().getContent());
+	void test_mtm() {
+		assertEquals("good", behaviorType.getName());
+	}
+	@Test
+	void test_otm_behaviorType_to_behavior() {
+		assertTrue(behaviorType.getBehaviors().size() > 0);
 	}
 	
 	
-
 }

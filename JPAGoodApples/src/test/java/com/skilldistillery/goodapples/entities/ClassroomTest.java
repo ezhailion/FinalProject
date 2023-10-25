@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MessageTest {
+class ClassroomTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Message message;
+	private Classroom classroom;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,37 +31,28 @@ class MessageTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		message = em.find(Message.class, 1);
+		classroom = em.find(Classroom.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		message = null;
+		classroom = null;
 	}
 
 	@Test
 	void test_basic_mapping() {
-		assertNotNull(message);
-		assertEquals("Hello there.. message content", message.getContent());
+		assertNotNull(classroom);
+		assertEquals("good class", classroom.getName());
 	}
 	
 	@Test
-	void test_mto_user_and_sender() {
-		assertNotNull(message);
-		assertEquals("teacher", message.getSender().getFirstName());
-		assertEquals("parent", message.getRecipient().getFirstName());
+	void test_mtm_class_to_student() {
+		assertTrue(classroom.getStudents().size() > 0);
 	}
 	
 	@Test
-	void test_mto_inReplyTo_messages() {
-		assertNotNull(message);
-		assertTrue(message.getInReplyToMessages().size() > 0);
-		Message messageReply = em.find(Message.class, 2);
-		assertNotNull(messageReply);
-		assertEquals("Hello there.. message content", messageReply.getMessageToReplyTo().getContent());
+	void test_mto_classes_to_teacher() {
+		assertEquals("teacher", classroom.getTeacher().getFirstName());
 	}
-	
-	
-
 }

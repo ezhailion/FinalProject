@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MessageTest {
+class ReportTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Message message;
+	private Report report;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,37 +31,32 @@ class MessageTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		message = em.find(Message.class, 1);
+		report = em.find(Report.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		message = null;
+		report = null;
 	}
 
 	@Test
 	void test_basic_mapping() {
-		assertNotNull(message);
-		assertEquals("Hello there.. message content", message.getContent());
+		assertNotNull(report);
+		assertEquals("good kid", report.getNotes());
 	}
 	
 	@Test
-	void test_mto_user_and_sender() {
-		assertNotNull(message);
-		assertEquals("teacher", message.getSender().getFirstName());
-		assertEquals("parent", message.getRecipient().getFirstName());
+	void test_mtm_report_behave_mappin() {
+		assertTrue(report.getBehaviors().size() > 0);
 	}
-	
 	@Test
-	void test_mto_inReplyTo_messages() {
-		assertNotNull(message);
-		assertTrue(message.getInReplyToMessages().size() > 0);
-		Message messageReply = em.find(Message.class, 2);
-		assertNotNull(messageReply);
-		assertEquals("Hello there.. message content", messageReply.getMessageToReplyTo().getContent());
+	void test_mto_report_user_mapping() {
+		assertEquals("teacher", report.getTeacher().getFirstName());
 	}
-	
-	
 
+	@Test
+	void test_mto_report_student_mapping() {
+		assertEquals("allergic to peanuts", report.getStudent().getAccommodations());
+	}
 }

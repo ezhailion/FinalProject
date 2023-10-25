@@ -1,12 +1,19 @@
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,8 +22,18 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class User {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+
+	@OneToOne(mappedBy="whoami")
+	private Student student;
+	
+	@OneToMany(mappedBy="teacher")
+	private List<Classroom> classes;
+	
+	@ManyToMany(mappedBy="parents")
+	private List<Student> parentsKids;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -50,8 +67,21 @@ public class User {
 	@Column(name="about_me")
 	private String aboutMe;
 	
-	//TODO: gender relationship
+	@OneToMany(mappedBy="sender")
+	private List<Message> sentMessages;
 	
+	@OneToMany(mappedBy="recipient")
+	private List<Message> recievedMessages;
+	
+	@ManyToOne
+	@JoinColumn(name="gender_id")
+	private Gender gender;
+	
+	@OneToMany(mappedBy="teacher")
+	private List<Report> reports;
+	@OneToMany(mappedBy="user")
+	private List<Resource> resources;
+ 	
 	public User() {
 		super();
 	}
@@ -60,6 +90,28 @@ public class User {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	
+	
+	
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	public List<Classroom> getClasses() {
+		return classes;
+	}
+	public void setClasses(List<Classroom> classes) {
+		this.classes = classes;
+	}
+	public List<Student> getParentsKids() {
+		return parentsKids;
+	}
+	public void setParentsKids(List<Student> parentsKids) {
+		this.parentsKids = parentsKids;
 	}
 	public String getUsername() {
 		return username;
@@ -138,6 +190,36 @@ public class User {
 	}
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
+	}
+	public List<Message> getSentMessages() {
+		return sentMessages;
+	}
+	public void setSentMessages(List<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+	public List<Message> getRecievedMessages() {
+		return recievedMessages;
+	}
+	public void setRecievedMessages(List<Message> recievedMessages) {
+		this.recievedMessages = recievedMessages;
+	}
+	public Gender getGender() {
+		return gender;
+	}
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+	public List<Report> getReports() {
+		return reports;
+	}
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+	public List<Resource> getResources() {
+		return resources;
+	}
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
 	}
 	@Override
 	public int hashCode() {

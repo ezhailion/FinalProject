@@ -1,6 +1,8 @@
 package com.skilldistillery.goodapples.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,11 +14,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MessageTest {
+
+class ResourceTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Message message;
+	private Resource resources;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,37 +34,32 @@ class MessageTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		message = em.find(Message.class, 1);
+		resources = em.find(Resource.class, 1);
+		
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		message = null;
+		resources = null;
+		
 	}
 
 	@Test
 	void test_basic_mapping() {
-		assertNotNull(message);
-		assertEquals("Hello there.. message content", message.getContent());
+		assertNotNull(resources);
+		assertEquals("helpful info", resources.getTitle());
+		assertEquals("www.google.com", resources.getLink());
 	}
 	
 	@Test
-	void test_mto_user_and_sender() {
-		assertNotNull(message);
-		assertEquals("teacher", message.getSender().getFirstName());
-		assertEquals("parent", message.getRecipient().getFirstName());
+	void test_mto_user_to_resources() {
+		assertEquals("teacher", resources.getUser().getFirstName());
 	}
-	
+
 	@Test
-	void test_mto_inReplyTo_messages() {
-		assertNotNull(message);
-		assertTrue(message.getInReplyToMessages().size() > 0);
-		Message messageReply = em.find(Message.class, 2);
-		assertNotNull(messageReply);
-		assertEquals("Hello there.. message content", messageReply.getMessageToReplyTo().getContent());
+	void test_mto_resource_to_behavior() {
+		assertEquals("integrity", resources.getBehavior().getName());
 	}
-	
-	
 
 }

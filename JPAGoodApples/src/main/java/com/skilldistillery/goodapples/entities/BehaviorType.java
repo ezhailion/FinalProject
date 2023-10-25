@@ -1,5 +1,3 @@
-//!!!!!!!!! COMPLETE !!!!!!!!!!!!!!!
-
 package com.skilldistillery.goodapples.entities;
 
 import java.util.List;
@@ -10,51 +8,55 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Gender {
-	
+@Table(name = "behavior_type")
+public class BehaviorType {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@OneToMany(mappedBy="behaviorType")
+	private List<Behavior> behaviors;
+	
 	private String name;
-	private String description;
-	
-	@OneToMany(mappedBy="gender")
-	private List<User> users;
-	
-	public Gender() {
+
+	public BehaviorType() {
 		super();
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	
+	public List<Behavior> getBehaviors() {
+		return behaviors;
+	}
+
+	public void setBehaviors(List<Behavior> behaviors) {
+		this.behaviors = behaviors;
+	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public List<User> getUsers() {
-		return users;
-	}
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -63,14 +65,15 @@ public class Gender {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Gender other = (Gender) obj;
+		BehaviorType other = (BehaviorType) obj;
 		return id == other.id;
 	}
+
 	@Override
 	public String toString() {
-		return "Gender [id=" + id + ", name=" + name + ", description=" + description + "]";
+		return "BehaviorType [id=" + id + ", name=" + name + "]";
 	}
 	
 	
-
+	
 }

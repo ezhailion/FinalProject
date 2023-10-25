@@ -1,6 +1,9 @@
+//!!!!!!!!!!! COMPLETE !!!!!!!!!
+
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,6 +36,21 @@ public class Message {
 	private LocalDate lastUpdate;
 	
 	private Boolean enabled;
+	
+	@ManyToOne
+	@JoinColumn(name="sender_id")
+	private User sender;
+	
+	@ManyToOne
+	@JoinColumn(name="recipient_id")
+	private User recipient;
+	
+	@ManyToOne
+	@JoinColumn(name="message_id")
+	private Message messageToReplyTo;
+	
+	@OneToMany(mappedBy = "messageToReplyTo")
+	private List<Message> inReplyToMessages;
 	
 	//TODO: user and message relationships
 
@@ -75,6 +96,38 @@ public class Message {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public User getSender() {
+		return sender;
+	}
+
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+	public User getRecipient() {
+		return recipient;
+	}
+
+	public void setRecipient(User recipient) {
+		this.recipient = recipient;
+	}
+
+	public Message getMessageToReplyTo() {
+		return messageToReplyTo;
+	}
+
+	public void setMessageToReplyTo(Message messageToReplyTo) {
+		this.messageToReplyTo = messageToReplyTo;
+	}
+
+	public List<Message> getInReplyToMessages() {
+		return inReplyToMessages;
+	}
+
+	public void setInReplyToMessages(List<Message> inReplyToMessages) {
+		this.inReplyToMessages = inReplyToMessages;
 	}
 
 	@Override
