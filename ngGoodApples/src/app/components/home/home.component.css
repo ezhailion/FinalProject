@@ -1,0 +1,5 @@
+#imageMain {
+  background-image: url('https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg');
+  background-size: cover;
+  height: 75vh;
+}
