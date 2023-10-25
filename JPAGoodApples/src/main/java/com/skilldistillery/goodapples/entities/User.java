@@ -77,6 +77,11 @@ public class User {
 	@JoinColumn(name="gender_id")
 	private Gender gender;
 	
+	@OneToMany(mappedBy="teacher")
+	private List<Report> reports;
+	@OneToMany(mappedBy="user")
+	private List<Resource> resources;
+ 	
 	public User() {
 		super();
 	}
@@ -203,6 +208,18 @@ public class User {
 	}
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	public List<Report> getReports() {
+		return reports;
+	}
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+	public List<Resource> getResources() {
+		return resources;
+	}
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
 	}
 	@Override
 	public int hashCode() {

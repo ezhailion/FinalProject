@@ -1,6 +1,8 @@
 package com.skilldistillery.goodapples.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,11 +14,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ReportTest {
+class ResourceTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Report report;
+	private Resource resources;
+	
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,32 +34,26 @@ class ReportTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		report = em.find(Report.class, 1);
+		resources = em.find(Resource.class, 1);
+		
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		report = null;
+		resources = null;
+		
 	}
 
 	@Test
 	void test_basic_mapping() {
-		assertNotNull(report);
-		assertEquals("good kid", report.getNotes());
+		assertNotNull(resources);
+		assertEquals("helpful info", resources.getTitle());
+		assertEquals("www.google.com", resources.getLink());
 	}
 	
 	@Test
-	void test_mtm_report_behave_mappin() {
-		assertTrue(report.getBehaviors().size() > 0);
-	}
-	@Test
-	void test_mto_report_user_mapping() {
-		assertEquals("teacher", report.getTeacher().getFirstName());
-	}
-
-	@Test
-	void test_mto_report_student_mapping() {
-		assertEquals("allergic to peanuts", report.getStudent().getAccommodations());
+	void test_mto_user_to_resources() {
+		assertEquals("teacher", resources.getUser().getFirstName());
 	}
 }

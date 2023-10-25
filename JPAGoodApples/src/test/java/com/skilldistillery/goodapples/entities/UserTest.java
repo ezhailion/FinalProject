@@ -84,4 +84,13 @@ class UserTest {
 	void test_oto_student() {
 		assertEquals("allergic to peanuts", student.getStudent().getAccommodations());
 	}
+	@Test
+	void test_otm_user_to_report_mapping() {
+		assertTrue( teacher.getReports().size() > 0);
+		
+	}
+	@Test
+	void test_otm_user_to_resource_mapping() {
+		assertTrue(teacher.getResources().size() > 0);
+	}
 }

@@ -46,6 +46,9 @@ public class Student {
 	
 	@OneToMany(mappedBy="student")
 	private List<Reflection> reflections;
+	
+	@OneToMany(mappedBy="student")
+	private List<Report> reports;
 
 	public Student() {
 		super();
@@ -111,6 +114,14 @@ public class Student {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
 	}
 
 	@Override

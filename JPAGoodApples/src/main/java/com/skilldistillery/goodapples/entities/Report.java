@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -44,7 +46,13 @@ public class Report {
 
 	private Boolean enabled;
 
-
+	@ManyToOne
+	@JoinColumn(name="teacher_id")
+	private User teacher;
+	@ManyToOne
+	@JoinColumn(name="student_id")
+	private Student student;
+	
 	public Report() {
 		super();
 	}
@@ -107,6 +115,26 @@ public class Report {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+
+	public User getTeacher() {
+		return teacher;
+	}
+
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
+	}
+
+
+	public Student getStudent() {
+		return student;
+	}
+
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 

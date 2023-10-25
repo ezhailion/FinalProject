@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,6 +33,9 @@ public class Resource {
 	@CreationTimestamp
 	@Column(name = "create_date")
 	private LocalDateTime createDate;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	public Resource() {
 		super();
@@ -82,6 +87,14 @@ public class Resource {
 
 	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

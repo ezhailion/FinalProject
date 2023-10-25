@@ -61,4 +61,8 @@ class StudentTest {
 		assertEquals("student", student.getWhoami().getFirstName());
 	}
 
+	@Test
+	void test_otm_student_to_report_mapping() {
+		assertTrue(student.getReports().size() > 0);
+	}
 }
