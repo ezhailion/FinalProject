@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Student {
 
@@ -26,6 +28,8 @@ public class Student {
 	@JoinTable(name = "student_has_class", 
 				joinColumns=@JoinColumn(name = "student_id"),
 				inverseJoinColumns=@JoinColumn(name = "classroom_id"))
+	
+	@JsonIgnore
 	private List<Classroom> classrooms;
 	
 	//TODO json_ignore for behavior

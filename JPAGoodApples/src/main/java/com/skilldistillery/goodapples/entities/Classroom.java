@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Classroom {
 	
@@ -26,6 +28,8 @@ public class Classroom {
 	@JoinColumn(name="teacher_id")
 	private User teacher;
 	
+
+	@JsonIgnore
 	@ManyToMany(mappedBy="classrooms")
 	private List<Student> students;
 	
