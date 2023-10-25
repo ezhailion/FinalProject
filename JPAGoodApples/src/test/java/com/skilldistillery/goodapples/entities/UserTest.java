@@ -63,5 +63,10 @@ class UserTest {
 		assertTrue(parent.getRecievedMessages().size() > 0);
 		
 	}
+	@Test
+	void test_mto_gender() {
+		assertEquals("unspecified", teacher.getGender().getName());
+		
+	}
 
 }

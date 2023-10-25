@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -63,7 +65,9 @@ public class User {
 	@OneToMany(mappedBy="recipient")
 	private List<Message> recievedMessages;
 	
-	//TODO: gender relationship
+	@ManyToOne
+	@JoinColumn(name="gender_id")
+	private Gender gender;
 	
 	public User() {
 		super();
@@ -171,6 +175,12 @@ public class User {
 	}
 	public void setRecievedMessages(List<Message> recievedMessages) {
 		this.recievedMessages = recievedMessages;
+	}
+	public Gender getGender() {
+		return gender;
+	}
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 	@Override
 	public int hashCode() {

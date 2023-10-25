@@ -1,3 +1,5 @@
+//!!!!!!!!!!! COMPLETE !!!!!!!!!
+
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDate;
@@ -12,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.xml.ws.soap.MTOM;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
