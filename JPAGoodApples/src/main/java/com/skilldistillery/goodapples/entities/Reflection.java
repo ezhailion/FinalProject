@@ -1,3 +1,5 @@
+//!!!!!!!!!!!!!!! COMPLETE !!!!!!!!!!!!!!!!!
+
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDate;
@@ -8,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,7 +36,9 @@ public class Reflection {
 	
 	private Boolean enabled;
 
-	//TODO: student relationship
+	@ManyToOne
+	@JoinColumn(name="student_id")
+	private Student student;
 	
 	public Reflection() {
 		super();
@@ -84,6 +90,16 @@ public class Reflection {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Student {
@@ -38,6 +39,9 @@ public class Student {
 	private String accommodations;
 	
 	private String nickname;
+	
+	@OneToMany(mappedBy="student")
+	private List<Reflection> reflections;
 
 	public Student() {
 		super();
