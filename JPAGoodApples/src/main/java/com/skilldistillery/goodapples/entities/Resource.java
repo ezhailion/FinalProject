@@ -20,6 +20,10 @@ public class Resource {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@ManyToOne
+	@JoinColumn(name="behavior_id")
+	private Behavior behavior;
+	
 	private String title;
 	
 	private String link;
@@ -47,6 +51,14 @@ public class Resource {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Behavior getBehavior() {
+		return behavior;
+	}
+
+	public void setBehavior(Behavior behavior) {
+		this.behavior = behavior;
 	}
 
 	public String getTitle() {

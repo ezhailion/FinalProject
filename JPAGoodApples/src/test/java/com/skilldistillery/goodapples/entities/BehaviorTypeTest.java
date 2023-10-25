@@ -1,8 +1,6 @@
 package com.skilldistillery.goodapples.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,12 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-class ResourceTest {
+class BehaviorTypeTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Resource resources;
+	private BehaviorType behaviorType;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -34,32 +31,28 @@ class ResourceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		resources = em.find(Resource.class, 1);
-		
+		behaviorType = em.find(BehaviorType.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		resources = null;
-		
+		behaviorType = null;
 	}
 
-	@Test
-	void test_basic_mapping() {
-		assertNotNull(resources);
-		assertEquals("helpful info", resources.getTitle());
-		assertEquals("www.google.com", resources.getLink());
-	}
 	
 	@Test
-	void test_mto_user_to_resources() {
-		assertEquals("teacher", resources.getUser().getFirstName());
+	void test_mtm_behaviorType_to_resource_mappin() {
+		assertEquals("good", behaviorType.getName());
 	}
-
 	@Test
-	void test_mto_resource_to_behavior() {
-		assertEquals("integrity", resources.getBehavior().getName());
+	void test_mtm() {
+		assertEquals("good", behaviorType.getName());
 	}
-
+	@Test
+	void test_otm_behaviorType_to_behavior() {
+		assertTrue(behaviorType.getBehaviors().size() > 0);
+	}
+	
+	
 }

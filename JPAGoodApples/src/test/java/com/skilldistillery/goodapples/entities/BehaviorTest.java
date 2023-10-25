@@ -50,5 +50,9 @@ class BehaviorTest {
 	void test_mtm_report_to_behave_mappin() {
 		assertTrue(behavior.getReports().size() > 0);
 	}
+	@Test
+	void test_mto_bahvior_to_behaviorType_mappin() {
+		assertEquals("good", behavior.getBehaviorType().getName());;
+	}
 
 }

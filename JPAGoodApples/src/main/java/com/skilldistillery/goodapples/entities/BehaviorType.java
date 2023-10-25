@@ -1,11 +1,13 @@
 package com.skilldistillery.goodapples.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +17,9 @@ public class BehaviorType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@OneToMany(mappedBy="behaviorType")
+	private List<Behavior> behaviors;
 	
 	private String name;
 
@@ -28,6 +33,15 @@ public class BehaviorType {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	
+	public List<Behavior> getBehaviors() {
+		return behaviors;
+	}
+
+	public void setBehaviors(List<Behavior> behaviors) {
+		this.behaviors = behaviors;
 	}
 
 	public String getName() {
