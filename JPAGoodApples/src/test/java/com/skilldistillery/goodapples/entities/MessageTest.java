@@ -45,5 +45,23 @@ class MessageTest {
 		assertNotNull(message);
 		assertEquals("Hello there.. message content", message.getContent());
 	}
+	
+	@Test
+	void test_mto_user_and_sender() {
+		assertNotNull(message);
+		assertEquals("teacher", message.getSender().getFirstName());
+		assertEquals("parent", message.getRecipient().getFirstName());
+	}
+	
+	@Test
+	void test_mto_inReplyTo_messages() {
+		assertNotNull(message);
+		assertTrue(message.getInReplyToMessages().size() > 0);
+		Message messageReply = em.find(Message.class, 2);
+		assertNotNull(messageReply);
+		assertEquals("Hello there.. message content", messageReply.getMessageToReplyTo().getContent());
+	}
+	
+	
 
 }

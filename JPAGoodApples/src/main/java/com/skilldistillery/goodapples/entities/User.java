@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -55,6 +56,12 @@ public class User {
 	
 	@Column(name="about_me")
 	private String aboutMe;
+	
+	@OneToMany(mappedBy="sender")
+	private List<Message> sentMessages;
+	
+	@OneToMany(mappedBy="recipient")
+	private List<Message> recievedMessages;
 	
 	//TODO: gender relationship
 	
@@ -152,6 +159,18 @@ public class User {
 	}
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
+	}
+	public List<Message> getSentMessages() {
+		return sentMessages;
+	}
+	public void setSentMessages(List<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+	public List<Message> getRecievedMessages() {
+		return recievedMessages;
+	}
+	public void setRecievedMessages(List<Message> recievedMessages) {
+		this.recievedMessages = recievedMessages;
 	}
 	@Override
 	public int hashCode() {
