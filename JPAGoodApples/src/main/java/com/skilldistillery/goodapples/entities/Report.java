@@ -13,10 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Report {
@@ -31,6 +32,8 @@ public class Report {
 	@JoinTable(name = "report_has_behavior", 
 				joinColumns=@JoinColumn(name = "report_id"),
 				inverseJoinColumns=@JoinColumn(name = "behavior_id"))
+	
+	@JsonIgnore
 	private List<Behavior> behaviors;
 	
 	private String notes;
@@ -49,6 +52,8 @@ public class Report {
 	@ManyToOne
 	@JoinColumn(name="teacher_id")
 	private User teacher;
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="student_id")
 	private Student student;

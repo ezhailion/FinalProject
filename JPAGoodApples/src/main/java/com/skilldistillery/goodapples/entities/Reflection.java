@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Reflection {
 	
@@ -36,6 +38,7 @@ public class Reflection {
 	
 	private Boolean enabled;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="student_id")
 	private Student student;

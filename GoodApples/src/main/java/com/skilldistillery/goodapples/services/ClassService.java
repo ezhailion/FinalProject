@@ -3,6 +3,7 @@ package com.skilldistillery.goodapples.services;
 import java.util.List;
 
 import com.skilldistillery.goodapples.entities.Classroom;
+import com.skilldistillery.goodapples.entities.Student;
 
 public interface ClassService {
 	List<Classroom> index(String username);
@@ -10,4 +11,8 @@ public interface ClassService {
 	Classroom create(String username, Classroom newClass);
 	Classroom update (String username, int classId, Classroom updatedClass);
 	boolean destroy (String username, int classId);
+	
+	List<Student> indexStudents(int classId);
+	Student showStudent(int classId, int studentId);
+	
 }

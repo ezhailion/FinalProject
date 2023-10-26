@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.goodapples.entities.Classroom;
+import com.skilldistillery.goodapples.entities.Student;
 import com.skilldistillery.goodapples.entities.User;
 import com.skilldistillery.goodapples.repositories.ClassRepository;
 import com.skilldistillery.goodapples.repositories.UserRepository;
@@ -73,5 +74,34 @@ public class ClassServiceImpl implements ClassService {
 		}
 		return false;
 	}
+
+	@Override
+	public List<Student> indexStudents(int classId) {
+		Classroom classroom = classRepo.searchById(classId);
+		if (classroom == null) {
+			return null;
+		}
+		
+		return classroom.getStudents();
+	}
+
+	@Override
+	public Student showStudent(int classId, int studentId) {
+		Classroom classroom = classRepo.searchById(classId);
+		if (classroom == null) {
+			return null;
+		}
+		
+		Student student = null;
+		for (Student s : classroom.getStudents()) {
+			if (s.getId() == studentId) {
+				student = s;
+			}
+		}
+		
+		return student;
+	}
+	
+	
 
 }
