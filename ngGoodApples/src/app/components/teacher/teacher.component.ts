@@ -21,6 +21,7 @@ export class TeacherComponent {
 
   selectedStudent: Student = new Student();
 
+  createdClass: Classroom = new Classroom();
 constructor(
   private auth: AuthService,
   private router: Router,
@@ -74,6 +75,13 @@ constructor(
     this.studentService.showByClassId(classId, studentId).subscribe({
       next: student => this.selectedStudent = student,
       error: oopsiedoodles => console.error("Teach Component.loadStudent: retrieval err " + oopsiedoodles)
+    })
+  }
+
+  createNewClass(classroom: Classroom) {
+    this.classroomService.create(classroom).subscribe({
+      next: clz => this.createdClass = clz,
+      error: oops => console.error("Teach Component. createNewClass err " + oops)
     })
   }
 }
