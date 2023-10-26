@@ -1,4 +1,9 @@
 <div class="container-fluid">
   <h1>Hello, {{loggedInUser.firstName}}</h1>
+
+  <h3>My classes</h3>
   {{classes | json}}
+
+  <h3>Students from class 1</h3>
+  {{ selectedStudents | json }}
 </div>

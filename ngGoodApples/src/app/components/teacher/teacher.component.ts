@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Classroom } from 'src/app/models/classroom';
+import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClassroomService } from 'src/app/services/classroom.service';
+import { StudentService } from 'src/app/services/student.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
@@ -15,8 +17,13 @@ export class TeacherComponent {
   loggedInUser: User = new User();
   classes: Classroom[] = [];
 
+  selectedStudents: Student[] = [];
+
 constructor(
-  private auth: AuthService, private router: Router, private classroomService: ClassroomService
+  private auth: AuthService,
+  private router: Router,
+  private classroomService: ClassroomService,
+  private studentService: StudentService
 ){}
 
   ngOnInit() {
@@ -34,6 +41,9 @@ constructor(
       }
     })
     this.loadAllClasses();
+
+    // TEMP to test full stack students getting (only class 1 exists)
+    this.loadAllStudentsFromClass(1);
   }
 
   loadAllClasses() {
@@ -48,4 +58,10 @@ constructor(
     })
   }
 
+  loadAllStudentsFromClass(classId : number) {
+    this.studentService.indexByClass(classId).subscribe({
+      next: students => this.selectedStudents = students,
+      error: oopsies => console.error("TeachComponent.loadStudents: err retriveing" + oopsies)
+    })
+  }
 }
