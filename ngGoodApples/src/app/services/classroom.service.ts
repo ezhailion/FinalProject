@@ -37,7 +37,7 @@ private auth: AuthService
   }
 
 
-  // UNTESTED
+  // tested
   create(classroom: Classroom): Observable<Classroom> {
     return this.http.post<Classroom>(this.url, classroom, this.getHttpOptions()).pipe(
       catchError((err: any) => {
