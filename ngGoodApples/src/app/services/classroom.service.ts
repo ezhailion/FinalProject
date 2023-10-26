@@ -36,6 +36,17 @@ private auth: AuthService
     );
   }
 
+  // untested
+  show(classId : number): Observable<Classroom> {
+    return this.http.get<Classroom>(`${this.url}/${classId}`, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ClassroomService.show(): error retrieving a class: ' + err)
+        );
+      })
+    );
+  }
 
   // tested
   create(classroom: Classroom): Observable<Classroom> {
@@ -49,4 +60,17 @@ private auth: AuthService
     )
   }
 
+
+  //UNTESTED
+  disable(id : number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ClassroomService.create(): error creating classs: ' + err)
+        );
+      })
+    )
+
+  }
 }
