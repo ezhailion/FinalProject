@@ -57,6 +57,8 @@ constructor(
     this.classroomService.index().subscribe({
       next: (classes) => {
         this.classes = classes;
+        this.selectedStudent = null;
+        this.selectedStudents = null;
       },
       error: (oops) => {
         console.error('TeacherComponent.loadAllClasses(): error retrieving classes')
@@ -81,6 +83,7 @@ constructor(
     this.studentService.indexByClass(classId).subscribe({
       next: (students) => {
         this.selectedStudents = students;
+        this.selectedStudent = null;
       },
       error: oopsies => console.error("TeachComponent.loadStudents: err retriveing" + oopsies)
     })
