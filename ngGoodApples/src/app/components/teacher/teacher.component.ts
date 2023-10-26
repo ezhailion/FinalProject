@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Classroom } from 'src/app/models/classroom';
 import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/user';
@@ -24,6 +25,7 @@ export class TeacherComponent {
 constructor(
   private auth: AuthService,
   private router: Router,
+  private modalService: NgbModal,
   private classroomService: ClassroomService,
   private studentService: StudentService
 ){}
@@ -43,9 +45,12 @@ constructor(
         console.error(oops)
       }
     })
-
-
   }
+
+// this method is for the add class modal
+  open(content: any) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+	}
 
   loadAllClasses() {
     this.classroomService.index().subscribe({
@@ -77,7 +82,10 @@ constructor(
 
   createNewClass(classroom: Classroom) {
     this.classroomService.create(classroom).subscribe({
-      next: clz => this.createdClass = clz,
+      next: (clz) => {
+        this.createdClass = new Classroom ();
+        this.loadAllClasses();
+      },
       error: oops => console.error("Teach Component. createNewClass err " + oops)
     })
   }
