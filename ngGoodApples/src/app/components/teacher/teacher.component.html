@@ -3,9 +3,13 @@
     <div class="col">
       <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
     </div>
-    <div class="col mt-1">
+    <div class="col mt-1" *ngIf="!selectedStudents">
       <button class="btn btn-dark mx-1 mt-5 float-end">Edit Account Details</button>
       <button class="btn btn-outline-dark mx-1 mt-5 float-end" (click)="open(content)">Add New Class</button>
+    </div>
+    <div class="col mt-1" *ngIf="selectedStudents">
+      <button class="btn btn-dark mx-1 mt-5 float-end">Edit Class Details</button>
+      <button class="btn btn-outline-dark mx-1 mt-5 float-end" >Add New Student</button>
     </div>
 
     <div class="row mx-4 mt-5" *ngIf="!selectedStudents">
@@ -14,7 +18,7 @@
         <div class="grid-item text-center" *ngFor="let class of classes">
           <div class="card mx-3 mb-5" (click)="loadAllStudentsFromClass(class.id)">
             <div class="card-body">
-              <h5 class="">{{ class.name }}</h5>
+              <h5 class="">{{ class.name | titlecase }}</h5>
             </div>
           </div>
         </div>
@@ -23,12 +27,12 @@
 
 
     <div class="row mx-4 mt-5" *ngIf="selectedStudents">
-      <h3 class="mb-3">Students in {{selectedClass.name}}</h3>
+      <h3 class="mb-3">Students in {{selectedClass.name | titlecase}}</h3>
       <div class="grid">
         <div class="grid-item text-center" *ngFor="let student of selectedStudents">
           <div class="card mx-3 mb-5">
             <div class="card-body">
-              <h5 class="">{{ student.accommodations }}</h5>
+              <h5 class="">{{ student.whoami.firstName }} {{student.whoami.lastName}}</h5>
             </div>
           </div>
         </div>
