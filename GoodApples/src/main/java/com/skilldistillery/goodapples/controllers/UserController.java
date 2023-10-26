@@ -26,12 +26,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PutMapping("users/{userId}")
-	public User update(HttpServletRequest req, HttpServletResponse res, @PathVariable int userId,
+	@PutMapping("users")
+	public User update(HttpServletRequest req, HttpServletResponse res,
 			@RequestBody User userWithUpdates, Principal principal) {
 		User updatedUser = null;
 		try {
-			updatedUser = userService.update(userWithUpdates, userId, principal.getName());
+			updatedUser = userService.update(userWithUpdates, principal.getName());
 			if(updatedUser == null) {
 				res.setStatus(404);
 			}
@@ -41,7 +41,7 @@ public class UserController {
 			res.setStatus(400);
 		}
 				return updatedUser;
-		
+
 	}
 	
 	@PutMapping("users/disable/{userId}")

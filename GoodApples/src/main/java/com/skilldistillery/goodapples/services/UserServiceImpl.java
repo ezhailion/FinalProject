@@ -13,31 +13,28 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepo;
 
 	@Override
-	public User update(User user, int userId, String username) {
-		User authenticatedUser = userRepo.findByUsername(username);
-		
-		User updatingUser = userRepo.searchById(userId);
-		
-		if (authenticatedUser != null && authenticatedUser.getId() == updatingUser.getId()) {
-			if (updatingUser != null) {
-				updatingUser.setFirstName(user.getFirstName());
-				updatingUser.setLastName(user.getLastName());
-				updatingUser.setDateOfBirth(user.getDateOfBirth());
-				updatingUser.setUsername(user.getUsername());
-				updatingUser.setPassword(user.getPassword());
-				updatingUser.setEnabled(user.isEnabled());
-				updatingUser.setRole(user.getRole());
-				updatingUser.setEmail(user.getEmail());
-				updatingUser.setPhone(user.getPhone());
-				updatingUser.setImageUrl(user.getImageUrl());
-				updatingUser.setAboutMe(user.getAboutMe());
-				updatingUser.setGender(user.getGender());
-				userRepo.saveAndFlush(updatingUser);
-			}
+	public User update(User user, String username) {
+		User updatingUser = userRepo.findByUsername(username);
+
+		// User updatingUser = userRepo.searchById(userId);
+
+		if (updatingUser != null) {
+			updatingUser.setFirstName(user.getFirstName());
+			updatingUser.setLastName(user.getLastName());
+			updatingUser.setDateOfBirth(user.getDateOfBirth());
+			updatingUser.setUsername(user.getUsername());
+			updatingUser.setPassword(user.getPassword());
+			updatingUser.setEnabled(user.isEnabled());
+			updatingUser.setRole(user.getRole());
+			updatingUser.setEmail(user.getEmail());
+			updatingUser.setPhone(user.getPhone());
+			updatingUser.setImageUrl(user.getImageUrl());
+			updatingUser.setAboutMe(user.getAboutMe());
+			updatingUser.setGender(user.getGender());
+			userRepo.saveAndFlush(updatingUser);
 		}
-		else {
-			updatingUser = null;
-		}
+
+	
 		return updatingUser;
 	}
 
@@ -46,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		User userToDisable = userRepo.searchById(userId);
 		User authUser = userRepo.findByUsername(username);
 		if (authUser != null && authUser.getId() == userToDisable.getId()) {
-			if( userToDisable != null) {
+			if (userToDisable != null) {
 				userToDisable.setEnabled(false);
 				userRepo.saveAndFlush(userToDisable);
 				return true;
@@ -54,7 +51,5 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
-	
-	
 
 }
