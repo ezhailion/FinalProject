@@ -85,11 +85,12 @@ public class ClassController {
 		return updatedClassroom;
 	}
 
+	// CHANGING DELETE TO DISABLE 
 	@DeleteMapping("classes/{classId}")
 	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable int classId,
 			Principal principal) {
 		try {
-			if (classService.destroy(principal.getName(), classId)) {
+			if (classService.disable(principal.getName(), classId)) {
 				res.setStatus(204);
 			} else {
 				res.setStatus(404);
@@ -100,4 +101,6 @@ public class ClassController {
 			res.setStatus(400);
 		}
 	}
+	
+	
 }
