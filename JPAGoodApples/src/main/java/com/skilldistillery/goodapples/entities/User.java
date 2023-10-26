@@ -27,7 +27,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-
+	@JsonIgnore
 	@OneToOne(mappedBy="whoami")
 	private Student student;
 	
