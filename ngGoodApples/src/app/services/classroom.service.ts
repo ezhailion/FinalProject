@@ -60,6 +60,22 @@ private auth: AuthService
     )
   }
 
+  // UNTESTED
+  update (classroom : Classroom) {
+
+    return this.http.put<Classroom>(`${this.url}/${classroom.id}`,
+      classroom,
+      this.getHttpOptions()).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () => new Error('ClassroomService.create(): error creating classs: ' + err)
+          );
+        })
+      )
+
+
+  }
 
   //UNTESTED
   disable(id : number): Observable<void> {
