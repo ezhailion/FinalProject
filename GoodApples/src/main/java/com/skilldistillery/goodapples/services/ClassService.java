@@ -13,6 +13,8 @@ public interface ClassService {
 	Classroom update (String username, int classId, Classroom updatedClass);
 	boolean destroy (String username, int classId);
 	
+	boolean disable(String username, int classId);
+	
 	List<Student> indexStudents(int classId);
 	Student showStudent(int classId, int studentId);
 	

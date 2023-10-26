@@ -101,6 +101,21 @@ public class ClassServiceImpl implements ClassService {
 		
 		return student;
 	}
+
+	@Override
+	public boolean disable(String username, int classId) {
+		Classroom classToDisable = classRepo.searchById(classId);
+		if (classToDisable == null) {
+			return false;
+		}
+		User authUser = userRepo.findByUsername(username);
+		if (authUser != null && authUser.getId() == classToDisable.getTeacher().getId()) {
+			classToDisable.setEnabled(false);
+			classRepo.saveAndFlush(classToDisable);
+			return true;
+		}
+		return false;
+	}
 	
 	
 
