@@ -1,20 +1,28 @@
 <div class="container-fluid">
   <div class="row px-5">
-    <div class="col">
+    <div class="col" *ngIf="!selectedStudents && !selectedStudent">
       <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
     </div>
-    <div class="col mt-1">
+    <div class="col mt-1" *ngIf="!selectedStudents && !selectedStudent">
       <button class="btn btn-dark mx-1 mt-5 float-end">Edit Account Details</button>
       <button class="btn btn-outline-dark mx-1 mt-5 float-end" (click)="open(content)">Add New Class</button>
     </div>
+    <div class="col mt-1" *ngIf="selectedStudents">
+      <button class="btn btn-dark mx-1 mt-5 float-end">Edit Class Details</button>
+      <button class="btn btn-outline-dark mx-1 mt-5 float-end" >Add New Student</button>
+    </div>
+    <div class="col mt-1" *ngIf="selectedStudent">
+      <button class="btn btn-dark mx-1 mt-5 float-end">Edit {{selectedStudent.whoami.firstName}}'s Details</button>
+      <button class="btn btn-outline-dark mx-1 mt-5 float-end" >Add Report for {{selectedStudent.whoami.firstName}}</button>
+    </div>
 
-    <div class="row mx-4 mt-5" *ngIf="!selectedStudents">
+    <div class="row mx-4 mt-5" *ngIf="!selectedStudents && !selectedStudent">
       <h3 class="mb-3">Classes</h3>
       <div class="grid">
         <div class="grid-item text-center" *ngFor="let class of classes">
           <div class="card mx-3 mb-5" (click)="loadAllStudentsFromClass(class.id)">
             <div class="card-body">
-              <h5 class="">{{ class.name }}</h5>
+              <h5 class="">{{ class.name | titlecase }}</h5>
             </div>
           </div>
         </div>
@@ -22,16 +30,38 @@
     </div>
 
 
-    <div class="row mx-4 mt-5" *ngIf="selectedStudents">
-      <h3 class="mb-3">Students in {{selectedClass.name}}</h3>
+    <div class="row mx-4 mt-3" *ngIf="selectedStudents">
+      <span><button class="btn btn-secondary mb-3" (click) = "loadAllClasses()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+          <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+        Back to Classes
+      </button></span>
+      <h3 class="mb-3">Students in {{selectedClass.name | titlecase}}</h3>
       <div class="grid">
         <div class="grid-item text-center" *ngFor="let student of selectedStudents">
-          <div class="card mx-3 mb-5">
+          <div class="card mx-3 mb-5" (click)="loadStudentFromClass(selectedClass.id, student.id)">
             <div class="card-body">
-              <h5 class="">{{ student.accommodations }}</h5>
+              <h5 class="">{{ student.whoami.firstName }} {{student.whoami.lastName}}</h5>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="row mx-4 mt-3" *ngIf="selectedStudent">
+      <span><button class="btn btn-secondary mb-3" (click) = "loadAllStudentsFromClass(selectedClass.id)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+          <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+        Back to Students
+      </button></span>
+      <h3 class="mb-3">{{selectedStudent.whoami.firstName}} {{selectedStudent.whoami.lastName}}</h3>
+      <div class="col">
+        <p>Some stuff about the student here</p>
+      </div>
+      <div class="col">
+        <p>Other stuff about the student over here</p>
       </div>
     </div>
 
