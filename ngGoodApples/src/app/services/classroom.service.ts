@@ -1,7 +1,7 @@
+import { Classroom } from './../models/classroom';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Classroom } from '../models/classroom';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -35,4 +35,18 @@ private auth: AuthService
       })
     );
   }
+
+
+  // UNTESTED
+  create(classroom: Classroom): Observable<Classroom> {
+    return this.http.post<Classroom>(this.url, classroom, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ClassroomService.create(): error creating classs: ' + err)
+        );
+      })
+    )
+  }
+
 }
