@@ -23,7 +23,7 @@
 
 
     <div class="row mx-4 mt-5" *ngIf="selectedStudents">
-      <h3 class="mb-3">Students in INSERT CLASS NAME EVENTUALLY</h3>
+      <h3 class="mb-3">Students in {{selectedClass.name}}</h3>
       <div class="grid">
         <div class="grid-item text-center" *ngFor="let student of selectedStudents">
           <div class="card mx-3 mb-5">
@@ -34,12 +34,6 @@
         </div>
       </div>
     </div>
-
-
-    <h3>Student 1 from class 1</h3>
-    {{ selectedStudent | json }}
-  </div>
-</div>
 
 
 <!-- ADD CLASS FORM MODAL -->
