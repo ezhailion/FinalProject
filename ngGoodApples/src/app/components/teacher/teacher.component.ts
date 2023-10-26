@@ -19,6 +19,8 @@ export class TeacherComponent {
 
   selectedStudents: Student[] = [];
 
+  selectedStudent: Student = new Student();
+
 constructor(
   private auth: AuthService,
   private router: Router,
@@ -44,6 +46,9 @@ constructor(
 
     // TEMP to test full stack students getting (only class 1 exists)
     this.loadAllStudentsFromClass(1);
+
+    // TEMP to test full stack student getting (only 1 student in class 1)
+    this.loadStudentFromClass(1, 1);
   }
 
   loadAllClasses() {
@@ -62,6 +67,13 @@ constructor(
     this.studentService.indexByClass(classId).subscribe({
       next: students => this.selectedStudents = students,
       error: oopsies => console.error("TeachComponent.loadStudents: err retriveing" + oopsies)
+    })
+  }
+
+  loadStudentFromClass(classId: number, studentId: number) {
+    this.studentService.showByClassId(classId, studentId).subscribe({
+      next: student => this.selectedStudent = student,
+      error: oopsiedoodles => console.error("Teach Component.loadStudent: retrieval err " + oopsiedoodles)
     })
   }
 }
