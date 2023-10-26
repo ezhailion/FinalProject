@@ -6,7 +6,6 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClassroomService } from 'src/app/services/classroom.service';
 import { StudentService } from 'src/app/services/student.service';
-import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
   selector: 'app-teacher',
@@ -17,11 +16,11 @@ export class TeacherComponent {
   loggedInUser: User = new User();
   classes: Classroom[] = [];
 
-  selectedStudents: Student[] = [];
-
+  selectedStudents: Student[] | null = null;
   selectedStudent: Student = new Student();
 
   createdClass: Classroom = new Classroom();
+
 constructor(
   private auth: AuthService,
   private router: Router,
@@ -33,6 +32,7 @@ constructor(
     if(!this.auth.checkLogin()){
       this.router.navigateByUrl("mustBeLoggedIn");
     }
+    this.loadAllClasses();
 
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
@@ -43,13 +43,8 @@ constructor(
         console.error(oops)
       }
     })
-    this.loadAllClasses();
 
-    // TEMP to test full stack students getting (only class 1 exists)
-    this.loadAllStudentsFromClass(1);
 
-    // TEMP to test full stack student getting (only 1 student in class 1)
-    this.loadStudentFromClass(1, 1);
   }
 
   loadAllClasses() {
@@ -66,7 +61,9 @@ constructor(
 
   loadAllStudentsFromClass(classId : number) {
     this.studentService.indexByClass(classId).subscribe({
-      next: students => this.selectedStudents = students,
+      next: (students) => {
+        this.selectedStudents = students;
+      },
       error: oopsies => console.error("TeachComponent.loadStudents: err retriveing" + oopsies)
     })
   }
