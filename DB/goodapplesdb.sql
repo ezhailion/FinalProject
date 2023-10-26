@@ -432,7 +432,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (1, 'good kid', 1, 1, '2023-10-24', '2023-10-24', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (1, 'Eric made many astute observations during todays lecture.', 4, 1, '2023-10-02', '2023-10-02', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (2, 'Eric worked well with his classmates on the group project.', 4, 1, '2023-10-04', '2023-10-04', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (3, 'Eric really struggled with his lesson today but kept trying until he grasped the concepts. He was also getting a bit confrontational with one of the students.', 4, 1, '2023-10-05', '2023-10-05', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (4, 'Eric put gum in a girls hair today. When confronted, he addmited to commiting the deed.', 4, 1, '2023-10-10', '2023-10-10', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (5, 'Eric was not paying attention in class. He was rushing trying to complete a past due assignment for another class. He also called me Mr. meenie.', 4, 1, '2023-10-11', '2023-10-11', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (6, 'Eric showed no interest in any aspect of class today.', 4, 1, '2023-10-15', '2023-10-15', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (7, 'Eric help a kid that was being bullied. He informed the staff of the situation.', 4, 1, '2023-10-19', '2023-10-19', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (8, 'Eric found my walet and returned it to me with no missing items.', 4, 1, '2023-10-20', '2023-10-20', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (9, 'Eric worked well with his classmates on a difficult project.', 4, 1, '2023-10-23', '2023-10-23', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (10, 'Eric and his classmates put in a lot of effort in their project but the end result was lacking. Eric took responsibility for the poor result.', 4, 1, '2023-10-24', '2023-10-24', 1);
 
 COMMIT;
 
@@ -453,7 +462,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (1, NULL, 'integrity', 1);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (1, 'Persistence in doing something despite difficulty or delay in achieving success.', 'Perseverance', 1);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (2, 'The quality of being honest and having strong moral principles; moral uprightness.', 'Integrity', 1);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (3, 'The ability to understand and share the feelings of another.', 'Empathy', 1);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (4, 'The fact or condition of being accountable; responsibility.', 'Accountability', 1);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (5, 'The action of working with someone to produce or create something.', 'Collaboration', 1);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (6, 'The quality of being easily swayed by emotional or involuntary urges or by momentary desires, without weighing them rationally.', 'Impulsivity', 2);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (7, 'Lack of interest, enthusiasm, or concern.', 'Apathy', 2);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (8, 'To lack special regard or respect for.', 'Disrespectfulness', 2);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (9, 'Hostile or violent behavior or attitudes toward another; readiness to attack or confront.', 'Aggression', 2);
+INSERT INTO `behavior` (`id`, `description`, `name`, `behavior_type_id`) VALUES (10, 'A tendency to see the worst aspect of things or believe that the worst will happen; a lack of hope or confidence in the future.', 'Pessimism', 2);
 
 COMMIT;
 
@@ -463,10 +481,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (1, 'Hello there.. message content', '2023-10-24', '2023-10-24', 1, 2, 1, NULL);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (2, 'reply to message one', '2023-10-25', '2023-10-25', 2, 1, 1, 1);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (3, 'second reply to message one', '2023-10-25', '2023-10-25', 2, 1, 1, 1);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (4, 'first reply to message two', '2023-10-25', '2023-10-25', 1, 2, 1, 2);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (1, 'Our little Morgan will not be attending class tommorow', '2023-10-25', '2023-10-25', 8, 4, 1, NULL);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (2, 'I hope all is well.', '2023-10-25', '2023-10-25', 4, 8, 1, 1);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (3, 'I will send her assignments home with one of the boys.', '2023-10-25', '2023-10-25', 4, 8, 1, 1);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (4, 'Thank you.', '2023-10-25', '2023-10-25', 8, 4, 1, 2);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (5, 'Could you give me the dates for Erics\'s final exam? Thank you.', '2023-10-26', '2023-10-26', 7, 4, 1, NULL);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (6, 'Most certainly. The final is on 11-02-2023.', '2023-10-26', '2023-10-26', 4, 7, 1, 5);
 
 COMMIT;
 
@@ -532,7 +552,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `reflection` (`id`, `content`, `scale`, `create_date`, `last_update`, `student_id`, `enabled`) VALUES (1, 'good day', 5, '2023-10-24', '2023-10-24', 1, 1);
+INSERT INTO `reflection` (`id`, `content`, `scale`, `create_date`, `last_update`, `student_id`, `enabled`) VALUES (1, 'I felt like I was able to stay hyper focused on the lessons.', 5, '2023-10-24', '2023-10-24', 1, 1);
+INSERT INTO `reflection` (`id`, `content`, `scale`, `create_date`, `last_update`, `student_id`, `enabled`) VALUES (2, 'I was a litle distcted at times today but overall I did ok.', 3, '2023-10-29', '2023-10-29', 1, 1);
+INSERT INTO `reflection` (`id`, `content`, `scale`, `create_date`, `last_update`, `student_id`, `enabled`) VALUES (3, 'I had trouble focusing on the lesson. The subject matter was super boring to me.', 2, '2023-10-12', '2023-10-12', 1, 1);
+INSERT INTO `reflection` (`id`, `content`, `scale`, `create_date`, `last_update`, `student_id`, `enabled`) VALUES (4, 'The teacher rolled out the tv and we watched Cold Mountain.', 5, '2023-10-22', '2023-10-22', 1, 1);
 
 COMMIT;
 
@@ -553,6 +576,26 @@ COMMIT;
 START TRANSACTION;
 USE `goodapplesdb`;
 INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (1, 1);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (2, 5);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (3, 1);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (3, 9);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (4, 2);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (4, 6);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (4, 8);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (5, 6);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (5, 8);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (5, 10);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (6, 7);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (7, 1);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (7, 2);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (7, 3);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (7, 5);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (8, 2);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (9, 1);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (9, 5);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (10, 1);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (10, 4);
+INSERT INTO `report_has_behavior` (`report_id`, `behavior_id`) VALUES (10, 5);
 
 COMMIT;
 
