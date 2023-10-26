@@ -6,4 +6,8 @@ import com.skilldistillery.goodapples.entities.Classroom;
 
 public interface ClassService {
 	List<Classroom> index(String username);
+	Classroom show(String username, int classId);
+	Classroom create(String username, Classroom newClass);
+	Classroom update (String username, int classId, Classroom updatedClass);
+	boolean destroy (String username, int classId);
 }
