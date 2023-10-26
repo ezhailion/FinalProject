@@ -19,7 +19,7 @@ class ResourceTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Resource resources;
+	private Resource resource;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -34,32 +34,32 @@ class ResourceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		resources = em.find(Resource.class, 1);
+		resource = em.find(Resource.class, 1);
 		
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		resources = null;
+		resource = null;
 		
 	}
 
 	@Test
 	void test_basic_mapping() {
-		assertNotNull(resources);
-		assertEquals("helpful info", resources.getTitle());
-		assertEquals("www.google.com", resources.getLink());
+		assertNotNull(resource);
+		assertEquals("helpful info", resource.getTitle());
+		assertEquals("www.google.com", resource.getLink());
 	}
 	
 	@Test
 	void test_mto_user_to_resources() {
-		assertEquals("teacher", resources.getUser().getFirstName());
+		assertEquals("teacher", resource.getUser().getFirstName());
 	}
 
 	@Test
 	void test_mto_resource_to_behavior() {
-		assertEquals("integrity", resources.getBehavior().getName());
+		assertEquals("integrity", resource.getBehavior().getName());
 	}
 
 }
