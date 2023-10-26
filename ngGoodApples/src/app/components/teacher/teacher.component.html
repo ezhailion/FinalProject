@@ -4,18 +4,77 @@
       <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
     </div>
     <div class="col mt-1">
-      <button class="btn btn-dark mx-5 mt-5">Edit Account Details</button>
-    </div>
-    <div class="row mx-5 mt-5">
-
-      <h3>My Classes</h3>
-      {{ classes | json }}
+      <button class="btn btn-dark mx-1 mt-5 float-end">Edit Account Details</button>
+      <button class="btn btn-outline-dark mx-1 mt-5 float-end" (click)="open(content)">Add New Class</button>
     </div>
 
-    <h3>Students from class 1</h3>
-    {{ selectedStudents | json }}
+    <div class="row mx-4 mt-5" *ngIf="!selectedStudents">
+      <h3 class="mb-3">Classes</h3>
+      <div class="grid">
+        <div class="grid-item text-center" *ngFor="let class of classes">
+          <div class="card mx-3 mb-5" (click)="loadAllStudentsFromClass(class.id)">
+            <div class="card-body">
+              <h5 class="">{{ class.name }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mx-4 mt-5" *ngIf="selectedStudents">
+      <h3 class="mb-3">Students in INSERT CLASS NAME EVENTUALLY</h3>
+      <div class="grid">
+        <div class="grid-item text-center" *ngFor="let student of selectedStudents">
+          <div class="card mx-3 mb-5">
+            <div class="card-body">
+              <h5 class="">{{ student.accommodations }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <h3>Student 1 from class 1</h3>
     {{ selectedStudent | json }}
   </div>
 </div>
+
+
+<!-- ADD CLASS FORM MODAL -->
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Add Class</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+
+    <input
+    class="form-control mb-3"
+    type="text"
+    name="name"
+    placeholder="Class Name"
+    [(ngModel)]="createdClass.name"
+  />
+  <input
+    class="form-control mb-3"
+    type="time"
+    name="startTime"
+    [(ngModel)]="createdClass.startTime"
+  />
+
+  <input
+  class="form-control mb-3"
+  type="time"
+  name="endTime"
+  [(ngModel)]="createdClass.endTime"
+/>
+
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close(createNewClass(createdClass))">Add Class</button>
+  </div>
+</ng-template>
+
+
