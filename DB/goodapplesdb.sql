@@ -390,7 +390,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `classroom` (`id`, `name`, `start_time`, `end_time`, `teacher_id`, `enabled`) VALUES (1, 'good class', NULL, NULL, 1, 1);
+INSERT INTO `classroom` (`id`, `name`, `start_time`, `end_time`, `teacher_id`, `enabled`) VALUES (1, 'period 1', '8:15', '9:10', 4, 1);
+INSERT INTO `classroom` (`id`, `name`, `start_time`, `end_time`, `teacher_id`, `enabled`) VALUES (2, 'period 2', '9:15', '10:10', 4, 1);
+INSERT INTO `classroom` (`id`, `name`, `start_time`, `end_time`, `teacher_id`, `enabled`) VALUES (3, 'period 3', '10:15', '11:10', 5, 1);
 
 COMMIT;
 
@@ -400,7 +402,27 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (1, 3, 'allergic to peanuts', NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (1, 10, 'allergic to peanuts', 'E-Rizzle');
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (2, 11, NULL, 'Weasle');
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (3, 12, NULL, 'Corinator');
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (4, 13, NULL, 'Deej');
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (5, 14, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (6, 15, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (7, 16, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (8, 17, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (9, 18, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (10, 19, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (11, 20, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (12, 21, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (13, 22, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (14, 23, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (15, 24, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (16, 25, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (17, 26, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (18, 27, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (19, 28, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (20, 29, NULL, NULL);
+INSERT INTO `student` (`id`, `user_id`, `accommodations`, `nickname`) VALUES (21, 30, NULL, NULL);
 
 COMMIT;
 
@@ -455,6 +477,35 @@ COMMIT;
 START TRANSACTION;
 USE `goodapplesdb`;
 INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (1, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (2, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (3, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (4, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (5, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (6, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (7, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (8, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (9, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (10, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (11, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (12, 1);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (13, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (14, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (15, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (16, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (17, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (18, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (19, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (20, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (21, 2);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (21, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (1, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (20, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (2, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (3, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (19, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (18, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (17, 3);
+INSERT INTO `student_has_class` (`student_id`, `classroom_id`) VALUES (6, 3);
 
 COMMIT;
 
@@ -464,7 +515,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (2, 1);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (7, 1);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (8, 1);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (7, 2);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (8, 2);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (7, 3);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (8, 3);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (9, 4);
+INSERT INTO `parent_has_student` (`parent_id`, `student_id`) VALUES (9, 5);
 
 COMMIT;
 
