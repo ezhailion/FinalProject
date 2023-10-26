@@ -18,7 +18,7 @@ export class TeacherComponent {
   classes: Classroom[] = [];
 
   selectedStudents: Student[] | null = null;
-  selectedStudent: Student = new Student();
+  selectedStudent: Student | null = null;
 
   createdClass: Classroom = new Classroom();
   selectedClass: Classroom = new Classroom();
@@ -88,7 +88,10 @@ constructor(
 
   loadStudentFromClass(classId: number, studentId: number) {
     this.studentService.showByClassId(classId, studentId).subscribe({
-      next: student => this.selectedStudent = student,
+      next: (student) => {
+        this.selectedStudent = student
+        this.selectedStudents = null;
+      },
       error: oopsiedoodles => console.error("Teach Component.loadStudent: retrieval err " + oopsiedoodles)
     })
   }
