@@ -21,6 +21,7 @@ export class TeacherComponent {
   selectedStudent: Student = new Student();
 
   createdClass: Classroom = new Classroom();
+  selectedClass: Classroom = new Classroom();
 
 constructor(
   private auth: AuthService,
@@ -64,7 +65,19 @@ constructor(
     })
   }
 
+  loadSingleClass(classId : number) {
+    this.classroomService.show(classId).subscribe({
+      next: (clz) => {
+        this.selectedClass = clz;
+      },
+      error: (oopsiedaisy) => {
+        console.error("TeachComponent.loadSingleClass(): err retriveing" + oopsiedaisy)
+      }
+    })
+  }
+
   loadAllStudentsFromClass(classId : number) {
+    this.loadSingleClass(classId);
     this.studentService.indexByClass(classId).subscribe({
       next: (students) => {
         this.selectedStudents = students;

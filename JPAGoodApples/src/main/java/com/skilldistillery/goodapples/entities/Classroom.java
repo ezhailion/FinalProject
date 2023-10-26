@@ -2,7 +2,7 @@
 
 package com.skilldistillery.goodapples.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,10 +36,10 @@ public class Classroom {
 	private String name;
 	
 	@Column(name = "start_time")
-	private LocalDateTime startTime;
+	private LocalTime startTime;
 
 	@Column(name = "end_time")
-	private LocalDateTime endTime;
+	private LocalTime endTime;
 	
 	private Boolean enabled;
 
@@ -80,19 +80,19 @@ public class Classroom {
 		this.name = name;
 	}
 
-	public LocalDateTime getStartTime() {
+	public LocalTime getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(LocalDateTime startTime) {
+	public void setStartTime(LocalTime startTime) {
 		this.startTime = startTime;
 	}
 
-	public LocalDateTime getEndTime() {
+	public LocalTime getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(LocalDateTime endTime) {
+	public void setEndTime(LocalTime endTime) {
 		this.endTime = endTime;
 	}
 
