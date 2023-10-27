@@ -30,6 +30,14 @@ constructor(private auth: AuthService,
     })
   }
 
+disable(user: User) {
+  this.teacherService.disable(user).subscribe({
+    next: (user) => {
+      console.log(user)
+    }
+  })
+}
+
   ngOnInit() {
     if(!this.auth.checkLogin()){
       this.router.navigateByUrl("mustBeLoggedIn");
