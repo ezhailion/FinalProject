@@ -4,23 +4,44 @@
       <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
     </div>
     <div class="col mt-1" *ngIf="!selectedStudents && !selectedStudent">
-      <button class="btn btn-dark mx-1 mt-5 float-end" [routerLink]="['/editAccount']">Edit Account Details</button>
-      <button class="btn btn-outline-dark mx-1 mt-5 float-end" (click)="open(content)">Add New Class</button>
+      <button
+        class="btn btn-dark mx-1 mt-5 float-end"
+        [routerLink]="['/editAccount']"
+      >
+        Edit Account Details
+      </button>
+      <button
+        class="btn btn-outline-dark mx-1 mt-5 float-end"
+        (click)="open(content)"
+      >
+        Add New Class
+      </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudents">
-      <button class="btn btn-dark mx-1 mt-5 float-end">Edit Class Details</button>
-      <button class="btn btn-outline-dark mx-1 mt-5 float-end" >Add New Student</button>
+      <button class="btn btn-dark mx-1 mt-5 float-end">
+        Edit Class Details
+      </button>
+      <button class="btn btn-outline-dark mx-1 mt-5 float-end">
+        Add New Student
+      </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudent">
-      <button class="btn btn-dark mx-1 mt-5 float-end">Edit {{selectedStudent.whoami.firstName}}'s Details</button>
-      <button class="btn btn-outline-dark mx-1 mt-5 float-end" >Add Report for {{selectedStudent.whoami.firstName}}</button>
+      <button class="btn btn-dark mx-1 mt-5 float-end">
+        Edit {{ selectedStudent.whoami.firstName }}'s Details
+      </button>
+      <button class="btn btn-outline-dark mx-1 mt-5 float-end">
+        Add Report for {{ selectedStudent.whoami.firstName }}
+      </button>
     </div>
 
     <div class="row mx-4 mt-5" *ngIf="!selectedStudents && !selectedStudent">
       <h3 class="mb-3">Classes</h3>
       <div class="grid">
         <div class="grid-item text-center" *ngFor="let class of classes">
-          <div class="card mx-3 mb-5" (click)="loadAllStudentsFromClass(class.id)">
+          <div
+            class="card mx-3 mb-5"
+            (click)="loadAllStudentsFromClass(class.id)"
+          >
             <div class="card-body">
               <h5 class="">{{ class.name | titlecase }}</h5>
             </div>
@@ -29,20 +50,38 @@
       </div>
     </div>
 
-
     <div class="row mx-4 mt-3" *ngIf="selectedStudents">
-      <span><button class="btn btn-secondary mb-3" (click) = "loadAllClasses()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-          <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-        </svg>
-        Back to Classes
-      </button></span>
-      <h3 class="mb-3">Students in {{selectedClass.name | titlecase}}</h3>
+      <span
+        ><button class="btn btn-secondary mb-3" (click)="loadAllClasses()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-caret-left-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+            />
+          </svg>
+          Back to Classes
+        </button></span
+      >
+      <h3 class="mb-3">Students in {{ selectedClass.name | titlecase }}</h3>
       <div class="grid">
-        <div class="grid-item text-center" *ngFor="let student of selectedStudents">
-          <div class="card mx-3 mb-5" (click)="loadStudentFromClass(selectedClass.id, student.id)">
+        <div
+          class="grid-item text-center"
+          *ngFor="let student of selectedStudents"
+        >
+          <div
+            class="card mx-3 mb-5"
+            (click)="loadStudentFromClass(selectedClass.id, student.id)"
+          >
             <div class="card-body">
-              <h5 class="">{{ student.whoami.firstName }} {{student.whoami.lastName}}</h5>
+              <h5 class="">
+                {{ student.whoami.firstName }} {{ student.whoami.lastName }}
+              </h5>
             </div>
           </div>
         </div>
@@ -50,55 +89,104 @@
     </div>
 
     <div class="row mx-4 mt-3" *ngIf="selectedStudent">
-      <span><button class="btn btn-secondary mb-3" (click) = "loadAllStudentsFromClass(selectedClass.id)">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-          <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-        </svg>
-        Back to Students
-      </button></span>
-      <h3 class="mb-3">{{selectedStudent.whoami.firstName}} {{selectedStudent.whoami.lastName}}</h3>
-      <div class="col">
-        <p>Some stuff about the student here</p>
+      <span
+        ><button
+          class="btn btn-secondary mb-3"
+          (click)="loadAllStudentsFromClass(selectedClass.id)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-caret-left-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+            />
+          </svg>
+          Back to Students
+        </button></span
+      >
+      <h3 class="mb-3">
+        {{ selectedStudent.whoami.firstName }}
+        {{ selectedStudent.whoami.lastName }}
+      </h3>
+
+      <!-- REPORT STARTS HERE -->
+      <div class="row">
+        <!-- dummy data -->
+        <div class="col-6">
+          <img
+            src="https://resilienteducator.com/wp-content/uploads/2015/09/Revising-With-Pictures-How-Word-Clouds-Help-Students-Become-Better-Writers.jpg"
+            style="max-height: 250px"
+          />
+        </div>
+        <!-- dummy data -->
+        <div class="col-6">
+          <img
+            src="https://files.readme.io/198da10-pie-donut-chart.png"
+            style="max-height: 250px"
+          />
+        </div>
       </div>
-      <div class="col">
-        <p>Other stuff about the student over here</p>
+      <div class="row" *ngFor="let report of studentReports">
+        <div class="col-6">
+          <p (click) = "loadSingleReport(report.id)">{{ report.createDate | date }} {{ report.notes }}</p>
+          <br />
+        </div>
+        <div class="col-6" *ngIf="selectedReport && selectedReport.id === report.id">
+          {{ selectedReport.createDate | date }} <br>
+          {{ selectedReport.lastUpdate | date }} <br>
+          {{ selectedReport.notes }}
+
+        </div>
       </div>
     </div>
-
-
-<!-- ADD CLASS FORM MODAL -->
-<ng-template #content let-modal>
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Add Class</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-
-    <input
-    class="form-control mb-3"
-    type="text"
-    name="name"
-    placeholder="Class Name"
-    [(ngModel)]="createdClass.name"
-  />
-  <input
-    class="form-control mb-3"
-    type="time"
-    name="startTime"
-    [(ngModel)]="createdClass.startTime"
-  />
-
-  <input
-  class="form-control mb-3"
-  type="time"
-  name="endTime"
-  [(ngModel)]="createdClass.endTime"
-/>
-
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.close(createNewClass(createdClass))">Add Class</button>
   </div>
-</ng-template>
 
+  <!-- ADD CLASS FORM MODAL -->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Class</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="name"
+        placeholder="Class Name"
+        [(ngModel)]="createdClass.name"
+      />
+      <input
+        class="form-control mb-3"
+        type="time"
+        name="startTime"
+        [(ngModel)]="createdClass.startTime"
+      />
 
+      <input
+        class="form-control mb-3"
+        type="time"
+        name="endTime"
+        [(ngModel)]="createdClass.endTime"
+      />
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close(createNewClass(createdClass))"
+      >
+        Add Class
+      </button>
+    </div>
+  </ng-template>
+</div>

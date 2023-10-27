@@ -36,7 +36,7 @@ private auth: AuthService
     );
   }
 
-  // untested
+  // tested
   show(classId : number): Observable<Classroom> {
     return this.http.get<Classroom>(`${this.url}/${classId}`, this.getHttpOptions()).pipe(
       catchError((err: any) => {

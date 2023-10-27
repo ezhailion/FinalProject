@@ -16,6 +16,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { EditAccountDetailsComponent } from './components/edit-account-details/edit-account-details.component';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ReportComponent } from './components/report/report.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     StudentComponent,
     NotFoundComponent,
     EditAccountDetailsComponent,
-    NavigationComponent
+    NavigationComponent,
+    ReportComponent
 
   ],
   imports: [

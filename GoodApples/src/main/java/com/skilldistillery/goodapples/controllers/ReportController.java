@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.goodapples.entities.Behavior;
 import com.skilldistillery.goodapples.entities.Report;
 import com.skilldistillery.goodapples.services.BehaviorService;
 import com.skilldistillery.goodapples.services.ReportService;
@@ -31,6 +32,12 @@ public class ReportController {
 	@Autowired
 	private BehaviorService behaviorService;
 
+	
+	@GetMapping("behaviors")
+	public List <Behavior> findAllBehaviors() {
+		return behaviorService.index();
+	}
+	
 	@GetMapping("reports/{reportId}")
 	public Report show(@PathVariable int reportId, HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
