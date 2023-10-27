@@ -11,4 +11,6 @@ public interface ReportService {
 	Report create(String username, Report report, int studentId);
 	
 	List<Report> findAllReportsForASpecificStudent(int studentId);
+	
+	Report update(Report report, int reportId);
 }

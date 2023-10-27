@@ -9,6 +9,7 @@ import com.skilldistillery.goodapples.entities.Report;
 
 public interface ReportRepository extends JpaRepository<Report, Integer> {
 
+	
 	Report searchById(int id);
 	List<Report> findByStudent_Id(int studentId);
 	
