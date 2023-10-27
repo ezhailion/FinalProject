@@ -72,6 +72,7 @@
     >
       Update Account
     </button>
+    <button class="btn btn-danger" (click)="loggedInUser.enabled = false" (click)="disable(loggedInUser)">Delete Account</button>
   </div>
   <p class="lead text-danger text-center" *ngIf="invalidUpdate">
     Update failed! Please try again.
