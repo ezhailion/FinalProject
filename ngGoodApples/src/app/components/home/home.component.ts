@@ -40,6 +40,10 @@ export class HomeComponent {
     })
   }
 
+  isLoggedIn() {
+    return this.auth.checkLogin();
+  }
+
   open(content: any) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
 	}

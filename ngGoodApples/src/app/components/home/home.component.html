@@ -9,16 +9,18 @@
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud.
       </p>
-      <!-- click event opens login modal -->
-      <button class="btn btn-lg btn-dark mx-5" (click)="open(content)">Login</button>
+      <!-- click event opens login modal, only shows when NOT logged in-->
+      <button class="btn btn-lg btn-dark mx-5" (click)="open(content)" *ngIf="!isLoggedIn()">Login</button>
 
-      <!-- FIX ME -->
-      <!-- click event route to register component -->
-      <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/register']">Register</button>
+      <!-- click event route to register component, only shows when NOT logged in -->
+      <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/register']" *ngIf="!isLoggedIn()">Register</button>
+
+
     </div>
   </div>
   <div id="imageMain" class="row text-center mt-5">
     <div class="col mt-5">
+      <!-- FIX ME -->
       <button class="btn btn-lg btn-dark mx-5">Find Resources</button>
     </div>
 
