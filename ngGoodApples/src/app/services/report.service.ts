@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Behavior } from '../models/behavior';
 
 @Injectable({
   providedIn: 'root',
@@ -47,4 +48,25 @@ export class ReportService {
     );
   }
 
+  create(report : Report) : Observable<Report> {
+    return this.http.post<Report>(this.url + 'students/' + report.student.whoami.id, report, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ReportService.create(): error creating reports: ' + err)
+        );
+      })
+    )
+  }
+
+  indexBehaviors() : Observable<Behavior[]> {
+    return this.http.get<Behavior[]>(this.behaviorUrl, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ReportService.indexBehaviors(): error getting behaviors: ' + err)
+        );
+      })
+    )
+  }
 }

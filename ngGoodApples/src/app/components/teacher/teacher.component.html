@@ -29,7 +29,8 @@
       <button class="btn btn-dark mx-1 mt-5 float-end">
         Edit {{ selectedStudent.whoami.firstName }}'s Details
       </button>
-      <button class="btn btn-outline-dark mx-1 mt-5 float-end">
+      <button class="btn btn-outline-dark mx-1 mt-5 float-end"
+              (click) = "open(formModal)">
         Add Report for {{ selectedStudent.whoami.firstName }}
       </button>
     </div>
@@ -146,6 +147,50 @@
     </div>
   </div>
 
+  <!-- FORM MODAL FOR REPORT  -->
+  <ng-template #formModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Class</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="name"
+        placeholder="Class Name"
+        [(ngModel)]="createdClass.name"
+      />
+      <input
+        class="form-control mb-3"
+        type="time"
+        name="startTime"
+        [(ngModel)]="createdClass.startTime"
+      />
+
+      <input
+        class="form-control mb-3"
+        type="time"
+        name="endTime"
+        [(ngModel)]="createdClass.endTime"
+      />
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close(createNewClass(createdClass))"
+      >
+        Add Class
+      </button>
+    </div>
+  </ng-template>
+
   <!-- ADD CLASS FORM MODAL -->
   <ng-template #content let-modal>
     <div class="modal-header">
@@ -189,4 +234,6 @@
       </button>
     </div>
   </ng-template>
+
+
 </div>
