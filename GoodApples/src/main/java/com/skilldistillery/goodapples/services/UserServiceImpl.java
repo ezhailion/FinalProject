@@ -14,6 +14,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User update(User user, String username) {
+		System.out.println(username);	
 		User updatingUser = userRepo.findByUsername(username);
 
 		// User updatingUser = userRepo.searchById(userId);
@@ -21,20 +22,12 @@ public class UserServiceImpl implements UserService {
 		if (updatingUser != null) {
 			updatingUser.setFirstName(user.getFirstName());
 			updatingUser.setLastName(user.getLastName());
-			updatingUser.setDateOfBirth(user.getDateOfBirth());
-			updatingUser.setUsername(user.getUsername());
-			updatingUser.setPassword(user.getPassword());
-			updatingUser.setEnabled(user.isEnabled());
-			updatingUser.setRole(user.getRole());
 			updatingUser.setEmail(user.getEmail());
 			updatingUser.setPhone(user.getPhone());
 			updatingUser.setImageUrl(user.getImageUrl());
 			updatingUser.setAboutMe(user.getAboutMe());
-			updatingUser.setGender(user.getGender());
 			userRepo.saveAndFlush(updatingUser);
 		}
-
-	
 		return updatingUser;
 	}
 

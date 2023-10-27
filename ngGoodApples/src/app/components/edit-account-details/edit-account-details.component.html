@@ -1,0 +1,79 @@
+<form class="form-control mx-5">
+  <div class="row">
+    <div class="col">
+      <label for="firstName">First Name</label>
+      <input
+
+        class="form-control mb-3"
+        type="text"
+        name="firstName"
+        [(ngModel)]="loggedInUser.firstName"
+      />
+    </div>
+    <div class="col">
+      <label for="lastName">Last Name</label>
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="lastName"
+        [(ngModel)]="loggedInUser.lastName"
+      />
+    </div>
+  </div>
+  <div class="row">
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <label for="imageUrl">Image URL</label>
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="imageUrl"
+        [(ngModel)]="loggedInUser.imageUrl"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <label for="email">Email</label>
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="email"
+        [(ngModel)]="loggedInUser.email"
+      />
+    </div>
+    <div class="col-6">
+      <label for="phone">Phone</label>
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="phone"
+        [(ngModel)]="loggedInUser.phone"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="imageUrl">About Me</label>
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="aboutMe"
+        [(ngModel)]="loggedInUser.aboutMe"
+      />
+    </div>
+  </div>
+  <div class="text-center">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="update(loggedInUser)"
+    >
+      Update Account
+    </button>
+  </div>
+  <p class="lead text-danger text-center" *ngIf="invalidUpdate">
+    Update failed! Please try again.
+  </p>
+</form>
