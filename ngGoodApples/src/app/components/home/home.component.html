@@ -60,9 +60,13 @@
     [(ngModel)]="loginUser.password"
   />
 
+
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.close(login(loginUser))">Login</button>
+		<button type="button" class="btn btn-outline-dark" (click)="login(loginUser)">Login</button>
+  </div>
+  <div *ngIf="invalidLogin == true " class="alert alert-warning" role="alert" >
+    Invalid Login Credentials!
   </div>
 </ng-template>
 

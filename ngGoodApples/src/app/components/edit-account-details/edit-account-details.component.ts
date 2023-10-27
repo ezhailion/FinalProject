@@ -30,13 +30,18 @@ constructor(private auth: AuthService,
     })
   }
 
-disable(user: User) {
-  this.teacherService.disable(user).subscribe({
-    next: (user) => {
-      console.log(user)
-    }
-  })
-}
+  disableSelf(user: User) {
+    this.teacherService.disableSelf(user).subscribe({
+      next: (uesr) => {
+        console.log(user);
+      }
+    })
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigateByUrl('/home');
+  }
 
   ngOnInit() {
     if(!this.auth.checkLogin()){

@@ -43,8 +43,8 @@ public class UserController {
 				return updatedUser;
 
 	}
-	
-	@PutMapping("users/disable/{userId}")
+//	 dissabling other user account?
+	@DeleteMapping("users/{userId}")
 	public void destroy (HttpServletRequest req, HttpServletResponse res, @PathVariable int userId,
 			Principal principal) {
 		try {
@@ -60,4 +60,21 @@ public class UserController {
 			res.setStatus(400);
 		}
 	}
+//	Dissabling own account
+	@DeleteMapping("users")
+	public void deleteOwnAccount(HttpServletRequest req, HttpServletResponse res,
+			Principal principal) {
+		try {
+			if (userService.disableSelf(principal.getName())) {
+				res.setStatus(200);
+			}
+			else {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			System.err.println("UserController.disable(): error disabling user");
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+	}	
 }
