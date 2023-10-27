@@ -59,6 +59,8 @@ export class ReportService {
     )
   }
 
+  //update(report : Report) :
+
   indexBehaviors() : Observable<Behavior[]> {
     return this.http.get<Behavior[]>(this.behaviorUrl, this.getHttpOptions()).pipe(
       catchError((err: any) => {

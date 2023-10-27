@@ -32,6 +32,7 @@ export class TeacherComponent {
   behaviors : Behavior[] = [];
 
   newReport : Report = new Report();
+  editReport : Report = new Report();
 
   constructor(
     private auth: AuthService,
@@ -157,6 +158,7 @@ export class TeacherComponent {
     this.reportService.getSingleReport(reportId).subscribe({
       next: (report) => {
         this.selectedReport = report;
+        this.editReport = this.selectedReport;
       },
       error: (oopsiedaisy) => {
         console.error(
@@ -175,6 +177,8 @@ export class TeacherComponent {
 
     })
   }
+
+//behavior methods start here
   loadAllBehaviors() {
     this.reportService.indexBehaviors().subscribe({
       next: bs => {
@@ -186,5 +190,13 @@ export class TeacherComponent {
     )
   }
 
-  log(x : any) { console.log(x)}
+  //this method helps check the behaviors we need for the edit form
+  haveBehavior(behaviorId: number, report: Report): boolean {
+    return report.behaviors.some((b) => b.id === behaviorId);
+  }
+
+  toggleReportBehavior(behaviorId: number, event: Event) {
+    console.log(behaviorId)
+    console.log(event)
+  }
 }
