@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-black">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/home']">🍎</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarTogglerDemo02"
+      aria-controls="navbarTogglerDemo02"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarTogglerDemo02"
+      [ngbCollapse]="isCollapsed"
+    >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+<!-- FIXME
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/teacher']">Teacher Home</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/parent']">Parent Home</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/student']">Student Home</a>
+        </li> -->
+
+
+
+        <li class="nav-item">
+          <a class="nav-link text-light" [routerLink]="['/FIXME']">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" [routerLink]="['/FIXME']">Resources</a>
+        </li>
+      </ul>
+      <span class="nav-item" *ngIf="isLoggedIn()">
+        <button class="btn btn-danger" (click)="logout()">Logout</button>
+      </span>
+    </div>
+  </div>
+</nav>
+

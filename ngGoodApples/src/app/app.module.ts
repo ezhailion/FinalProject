@@ -12,7 +12,11 @@ import { TeacherComponent } from './components/teacher/teacher.component';
 import { ParentComponent } from './components/parent/parent.component';
 import { StudentComponent } from './components/student/student.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+
 import { EditAccountDetailsComponent } from './components/edit-account-details/edit-account-details.component';
+
+import { NavigationComponent } from './components/navigation/navigation.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +27,9 @@ import { EditAccountDetailsComponent } from './components/edit-account-details/e
     ParentComponent,
     StudentComponent,
     NotFoundComponent,
-    EditAccountDetailsComponent
+    EditAccountDetailsComponent,
+    NavigationComponent
+
   ],
   imports: [
     BrowserModule,

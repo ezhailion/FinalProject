@@ -9,16 +9,28 @@
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud.
       </p>
-      <!-- click event opens login modal -->
-      <button class="btn btn-lg btn-dark mx-5" (click)="open(content)">Login</button>
+      <!-- click event opens login modal, only shows when NOT logged in-->
+      <button class="btn btn-lg btn-dark mx-5" (click)="open(content)" *ngIf="!isLoggedIn()">Login</button>
 
-      <!-- FIX ME -->
-      <!-- click event route to register component -->
-      <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/register']">Register</button>
+      <!-- click event route to register component, only shows when NOT logged in -->
+      <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/register']" *ngIf="!isLoggedIn()">Register</button>
+
+      <!-- click event route to respective homepage (teacher, parent, student), only shows when logged in -->
+      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'teacher'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/teacher']">{{auth.loginUser.role | titlecase}} Home</button>
+      </span>
+      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'parent'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/parent']">{{auth.loginUser.role | titlecase}} Home</button>
+      </span>
+      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'student'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/student']">{{auth.loginUser.role | titlecase}} Home</button>
+      </span>
+
     </div>
   </div>
   <div id="imageMain" class="row text-center mt-5">
     <div class="col mt-5">
+      <!-- FIX ME -->
       <button class="btn btn-lg btn-dark mx-5">Find Resources</button>
     </div>
 
