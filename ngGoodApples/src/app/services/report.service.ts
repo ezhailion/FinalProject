@@ -48,8 +48,8 @@ export class ReportService {
     );
   }
 
-  create(report : Report) : Observable<Report> {
-    return this.http.post<Report>(this.url + 'students/' + report.student.whoami.id, report, this.getHttpOptions()).pipe(
+  create(report : Report, studentUserId : number | undefined) : Observable<Report> {
+    return this.http.post<Report>(this.url + '/students/' + studentUserId, report, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

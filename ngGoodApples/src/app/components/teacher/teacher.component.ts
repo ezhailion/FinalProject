@@ -31,6 +31,7 @@ export class TeacherComponent {
 
   behaviors : Behavior[] = [];
 
+  newReport : Report = new Report();
 
   constructor(
     private auth: AuthService,
@@ -165,6 +166,15 @@ export class TeacherComponent {
     });
   }
 
+  createNewReport(report : Report, studentUserId : number | undefined) {
+    this.reportService.create(report, studentUserId).subscribe({
+      next: report => {
+        this.newReport = new Report();
+        this.loadAllReportsForStudent(report.student.id);
+      },
+
+    })
+  }
   loadAllBehaviors() {
     this.reportService.indexBehaviors().subscribe({
       next: bs => {

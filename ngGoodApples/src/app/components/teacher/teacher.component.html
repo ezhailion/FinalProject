@@ -150,7 +150,7 @@
   <!-- FORM MODAL FOR REPORT  -->
   <ng-template #formModal let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Add Class</h4>
+      <h4 class="modal-title" id="modal-basic-title">Add Behavior Report</h4>
       <button
         type="button"
         class="btn-close"
@@ -158,35 +158,36 @@
         (click)="modal.dismiss('Cross click')"
       ></button>
     </div>
+
+
     <div class="modal-body">
+
+      <div *ngFor="let behavior of behaviors">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{behavior.id}}" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            {{behavior.name}}
+          </label>
+       </div>
+      </div>
       <input
         class="form-control mb-3"
         type="text"
         name="name"
-        placeholder="Class Name"
-        [(ngModel)]="createdClass.name"
-      />
-      <input
-        class="form-control mb-3"
-        type="time"
-        name="startTime"
-        [(ngModel)]="createdClass.startTime"
+        placeholder="Notes"
+        [(ngModel)]="newReport.notes"
       />
 
-      <input
-        class="form-control mb-3"
-        type="time"
-        name="endTime"
-        [(ngModel)]="createdClass.endTime"
-      />
+
+
     </div>
     <div class="modal-footer">
       <button
         type="button"
         class="btn btn-outline-dark"
-        (click)="modal.close(createNewClass(createdClass))"
+        (click)="modal.close(createNewReport(newReport, selectedStudent?.whoami?.id))"
       >
-        Add Class
+        Add Report
       </button>
     </div>
   </ng-template>
