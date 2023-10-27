@@ -59,8 +59,22 @@
       <h3 class="mb-3">{{selectedStudent.whoami.firstName}} {{selectedStudent.whoami.lastName}}</h3>
 
       <!-- REPORT STARTS HERE -->
-      <div>
-        {{studentReports | json}}
+      <div class="row">
+
+        <!-- dummy data -->
+        <div class="col-6">
+          <img src="https://resilienteducator.com/wp-content/uploads/2015/09/Revising-With-Pictures-How-Word-Clouds-Help-Students-Become-Better-Writers.jpg"
+          style="max-height: 250px;">
+        </div>
+        <!-- dummy data -->
+        <div class="col-6">
+          <img src="https://files.readme.io/198da10-pie-donut-chart.png"
+          style="max-height: 250px;">
+        </div>
+
+      </div>
+      <div class="row" *ngFor="let report of studentReports">
+        <p>{{report.createDate}} {{report.notes}}</p><br>
       </div>
     </div>
 

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Classroom } from 'src/app/models/classroom';
 import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/user';
+import { Report } from 'src/app/models/report';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClassroomService } from 'src/app/services/classroom.service';
 import { ReportService } from 'src/app/services/report.service';
@@ -24,7 +25,7 @@ export class TeacherComponent {
   createdClass: Classroom = new Classroom();
   selectedClass: Classroom = new Classroom();
 
-  studentReports: Report [] = [];
+studentReports: Report [] = [];
 
 constructor(
   private auth: AuthService,
