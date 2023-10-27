@@ -43,6 +43,17 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public List<Report> findAllReportsForASpecificStudent(int studentId) {
 		return reportRepo.findByStudent_Id(studentId);
+	}
+
+	@Override
+	public Report update(Report report, int reportId) {
+		Report existing = reportRepo.searchById(reportId);
+		if (existing != null) {
+			existing.setNotes(report.getNotes());
+			existing.setBehaviors(report.getBehaviors());
+			reportRepo.saveAndFlush(existing);
+		}
+		return existing;
 	}	
 
 }
