@@ -51,6 +51,7 @@ public class Student {
 	@OneToMany(mappedBy="student")
 	private List<Reflection> reflections;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="student")
 	private List<Report> reports;
 

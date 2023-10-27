@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "behavior_type")
 public class BehaviorType {
@@ -18,6 +20,7 @@ public class BehaviorType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="behaviorType")
 	private List<Behavior> behaviors;
 	

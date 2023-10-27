@@ -33,7 +33,6 @@ public class Report {
 				joinColumns=@JoinColumn(name = "report_id"),
 				inverseJoinColumns=@JoinColumn(name = "behavior_id"))
 	
-	@JsonIgnore
 	private List<Behavior> behaviors;
 	
 	private String notes;
@@ -53,7 +52,6 @@ public class Report {
 	@JoinColumn(name="teacher_id")
 	private User teacher;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="student_id")
 	private Student student;

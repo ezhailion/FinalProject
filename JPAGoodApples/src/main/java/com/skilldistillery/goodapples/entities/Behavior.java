@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Behavior {
 
@@ -22,9 +24,11 @@ public class Behavior {
 	
 	//TODO json_ignore for report
 	//TODO add and remove methods
+	@JsonIgnore
 	@ManyToMany(mappedBy="behaviors")
 	private List<Report> reports;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="behavior")
 	private List<Resource> resources;
 	
@@ -32,6 +36,10 @@ public class Behavior {
 	
 	private String name;
 
+	@ManyToOne
+	@JoinColumn(name="behavior_type_id")
+	private BehaviorType behaviorType;
+	
 	public Behavior() {
 		super();
 	}
@@ -43,10 +51,6 @@ public class Behavior {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne
-	@JoinColumn(name="behavior_type_id")
-	private BehaviorType behaviorType;
-
 
 	public List<Resource> getResources() {
 		return resources;

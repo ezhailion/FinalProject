@@ -1,5 +1,7 @@
 package com.skilldistillery.goodapples.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,10 @@ public class ReportServiceImpl implements ReportService {
 		}
 		return null;
 	}
-	
-	
+
+	@Override
+	public List<Report> findAllReportsForASpecificStudent(int studentId) {
+		return reportRepo.findByStudent_Id(studentId);
+	}	
 
 }

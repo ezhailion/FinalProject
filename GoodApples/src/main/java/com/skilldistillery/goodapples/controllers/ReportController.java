@@ -1,6 +1,7 @@
 package com.skilldistillery.goodapples.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,13 +11,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.goodapples.entities.Classroom;
 import com.skilldistillery.goodapples.entities.Report;
+import com.skilldistillery.goodapples.services.BehaviorService;
 import com.skilldistillery.goodapples.services.ReportService;
 
 @RestController
@@ -27,6 +27,9 @@ public class ReportController {
 
 	@Autowired
 	private ReportService repoService;
+	
+	@Autowired
+	private BehaviorService behaviorService;
 
 	@GetMapping("reports/{reportId}")
 	public Report show(@PathVariable int reportId, HttpServletRequest req, HttpServletResponse res,
@@ -42,6 +45,22 @@ public class ReportController {
 			res.setStatus(404);
 		}
 		return report;
+	}
+	
+	@GetMapping("reports/students/{studentId}")
+	public List <Report> findAllReportsForStudent(@PathVariable int studentId, HttpServletRequest req, HttpServletResponse res) {
+		List <Report> reports = null;
+		try {
+			reports = repoService.findAllReportsForASpecificStudent(studentId);
+		} catch (Exception e) {
+			System.err.println("ReportController.findAllReportsForStudent(): error locating reports");
+			res.setStatus(400);
+			e.printStackTrace();
+		}
+		if (reports == null) {
+			res.setStatus(404);
+		}
+		return reports;
 	}
 
 	@PostMapping("reports/students/{studentUserId}")
