@@ -24,6 +24,18 @@ export class ReportService {
     return options;
   }
 
+  getSingleReport(reportId: number): Observable<Report> {
+    return this.http.get<Report>(`${this.url}/${reportId}`, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ReportService.getSingleReport(): error retrieving a class: ' + err)
+        );
+      })
+    );
+  }
+
+
   getAllStudentReports(studentId: number): Observable<Report[]> {
     return this.http.get<Report[]>(this.url + '/students/' + studentId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
