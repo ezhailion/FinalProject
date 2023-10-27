@@ -6,6 +6,7 @@ import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClassroomService } from 'src/app/services/classroom.service';
+import { ReportService } from 'src/app/services/report.service';
 import { StudentService } from 'src/app/services/student.service';
 
 @Component({
@@ -23,12 +24,15 @@ export class TeacherComponent {
   createdClass: Classroom = new Classroom();
   selectedClass: Classroom = new Classroom();
 
+  studentReports: Report [] = [];
+
 constructor(
   private auth: AuthService,
   private router: Router,
   private modalService: NgbModal,
   private classroomService: ClassroomService,
-  private studentService: StudentService
+  private studentService: StudentService,
+  private reportService: ReportService
 ){}
 
   ngOnInit() {
@@ -94,6 +98,7 @@ constructor(
       next: (student) => {
         this.selectedStudent = student
         this.selectedStudents = null;
+        this.loadAllReportsForStudent(studentId);
       },
       error: oopsiedoodles => console.error("Teach Component.loadStudent: retrieval err " + oopsiedoodles)
     })
@@ -107,5 +112,17 @@ constructor(
       },
       error: oops => console.error("Teach Component. createNewClass err " + oops)
     })
+  }
+
+  loadAllReportsForStudent(studentId: number) {
+    this.reportService.getAllStudentReports(studentId).subscribe({
+      next: (reports) => {
+        this.studentReports = reports;
+      },
+      error: (oopz) => {
+        console.error("Teach Component.loadAllReportsForStudent() error getting student reports " + oopz)
+      }
+    })
+
   }
 }

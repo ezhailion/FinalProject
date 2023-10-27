@@ -57,11 +57,10 @@
         Back to Students
       </button></span>
       <h3 class="mb-3">{{selectedStudent.whoami.firstName}} {{selectedStudent.whoami.lastName}}</h3>
-      <div class="col">
-        <p>Some stuff about the student here</p>
-      </div>
-      <div class="col">
-        <p>Other stuff about the student over here</p>
+
+      <!-- REPORT STARTS HERE -->
+      <div>
+        {{studentReports | json}}
       </div>
     </div>
 

@@ -6,7 +6,7 @@ export class Report {
   enabled: boolean;
 
   constructor(
-    id: number = 0,
+  id: number = 0,
   notes: string = '',
   createDate: string = '',
   lastUpdate:string = '',
