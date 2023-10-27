@@ -15,6 +15,16 @@
       <!-- click event route to register component, only shows when NOT logged in -->
       <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/register']" *ngIf="!isLoggedIn()">Register</button>
 
+      <!-- click event route to respective homepage (teacher, parent, student), only shows when logged in -->
+      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'teacher'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/teacher']">{{auth.loginUser.role | titlecase}} Home</button>
+      </span>
+      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'parent'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/parent']">{{auth.loginUser.role | titlecase}} Home</button>
+      </span>
+      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'student'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/student']">{{auth.loginUser.role | titlecase}} Home</button>
+      </span>
 
     </div>
   </div>

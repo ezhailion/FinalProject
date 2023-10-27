@@ -9,6 +9,7 @@ import { Buffer } from 'buffer';
   providedIn: 'root'
 })
 export class AuthService {
+  loginUser: User = new User();
   private url = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
