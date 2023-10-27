@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ClassroomService } from 'src/app/services/classroom.service';
 import { ReportService } from 'src/app/services/report.service';
 import { StudentService } from 'src/app/services/student.service';
+import { Behavior } from 'src/app/models/behavior';
 
 @Component({
   selector: 'app-teacher',
@@ -27,6 +28,10 @@ export class TeacherComponent {
 
   studentReports: Report[] = [];
   selectedReport: Report | null = null;
+
+  behaviors : Behavior[] = [];
+
+  newReport : Report = new Report();
 
   constructor(
     private auth: AuthService,
@@ -55,6 +60,9 @@ export class TeacherComponent {
         console.error(oops);
       },
     });
+
+    this.loadAllBehaviors();
+
   }
 
   // this method is for the add class modal
@@ -157,4 +165,26 @@ export class TeacherComponent {
       },
     });
   }
+
+  createNewReport(report : Report, studentUserId : number | undefined) {
+    this.reportService.create(report, studentUserId).subscribe({
+      next: report => {
+        this.newReport = new Report();
+        this.loadAllReportsForStudent(report.student.id);
+      },
+
+    })
+  }
+  loadAllBehaviors() {
+    this.reportService.indexBehaviors().subscribe({
+      next: bs => {
+        this.behaviors = bs;
+        console.log(bs);
+      },
+      error: whoops => console.error("Teacher component. load behaviors . " + whoops)
+    }
+    )
+  }
+
+  log(x : any) { console.log(x)}
 }

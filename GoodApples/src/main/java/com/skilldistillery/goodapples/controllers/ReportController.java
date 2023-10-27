@@ -34,7 +34,7 @@ public class ReportController {
 
 	
 	@GetMapping("behaviors")
-	public List <Behavior> findAllBehaviors() {
+	public List <Behavior> findAllBehaviors(Principal pricipal) {
 		return behaviorService.index();
 	}
 	
