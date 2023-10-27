@@ -36,9 +36,9 @@ export class TeacherService {
         })
       );
   }
-  disable(user: User) {
-    return this.http
-      .put<User>(this.url + 'api/users', user, this.getHttpOptions())
+  disableSelf(user: User) {
+    console.log("we are not getting here")
+    return this.http.delete<User>(this.url + 'api/users', this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -49,5 +49,4 @@ export class TeacherService {
         })
       );
   }
-
 }

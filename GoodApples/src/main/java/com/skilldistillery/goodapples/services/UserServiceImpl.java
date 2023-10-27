@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	public boolean disable(String username, int userId) {
 		User userToDisable = userRepo.searchById(userId);
 		User authUser = userRepo.findByUsername(username);
-		if (authUser != null && authUser.getId() == userToDisable.getId()) {
+		if (authUser != null && authUser.getId() != userToDisable.getId()) {
 			if (userToDisable != null) {
 				userToDisable.setEnabled(false);
 				userRepo.saveAndFlush(userToDisable);
@@ -44,5 +44,14 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
-
+	@Override
+	public boolean disableSelf(String username) {
+		User userToDisable = userRepo.findByUsername(username);
+			if (userToDisable != null) {
+				userToDisable.setEnabled(false);
+				userRepo.saveAndFlush(userToDisable);
+				return true;
+			}
+		return false;
+	}
 }
