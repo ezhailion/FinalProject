@@ -223,7 +223,7 @@
             type="checkbox"
             value="{{ behavior.id }}"
             id="flexCheckDefault" checked
-            (change)="toggleReportBehavior(behavior.id, $event)"
+            (change)="toggleReportBehavior(behavior.id, $event, editReport.id)"
           />
 
           <input *ngIf="!haveBehavior(behavior.id, editReport)"
@@ -231,7 +231,7 @@
             type="checkbox"
             value="{{ behavior.id }}"
             id="flexCheckDefault"
-            (change)="toggleReportBehavior(behavior.id, $event)"
+            (change)="toggleReportBehavior(behavior.id, $event, editReport.id)"
           />
 
           <label class="form-check-label" for="flexCheckDefault">
