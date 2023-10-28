@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.goodapples.entities.Behavior;
 import com.skilldistillery.goodapples.entities.Report;
 import com.skilldistillery.goodapples.entities.User;
+import com.skilldistillery.goodapples.repositories.BehaviorRepository;
 import com.skilldistillery.goodapples.repositories.ReportRepository;
 import com.skilldistillery.goodapples.repositories.UserRepository;
 
@@ -17,6 +19,8 @@ public class ReportServiceImpl implements ReportService {
 	private ReportRepository reportRepo;
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private BehaviorRepository bRepo;
 	
 	@Override
 	public Report show(String username, int reportId) {
@@ -51,6 +55,28 @@ public class ReportServiceImpl implements ReportService {
 		if (existing != null) {
 			existing.setNotes(report.getNotes());
 			existing.setBehaviors(report.getBehaviors());
+			reportRepo.saveAndFlush(existing);
+		}
+		return existing;
+	}
+
+	@Override
+	public Report addBehavior(int reportId, int behaviorId, String name) {
+		Report existing = reportRepo.searchById(reportId);
+		Behavior behavior = bRepo.searchById(behaviorId);
+		if (existing != null && behavior != null) {
+			existing.addBehavior(behavior);
+			reportRepo.saveAndFlush(existing);
+		}
+		return existing;
+	}
+
+	@Override
+	public Report removeBehavior(int reportId, int behaviorId, String name) {
+		Report existing = reportRepo.searchById(reportId);
+		Behavior behavior = bRepo.searchById(behaviorId);
+		if (existing != null && behavior != null) {
+			existing.removeBehavior(behavior);
 			reportRepo.saveAndFlush(existing);
 		}
 		return existing;

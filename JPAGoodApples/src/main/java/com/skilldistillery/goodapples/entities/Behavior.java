@@ -1,5 +1,6 @@
 package com.skilldistillery.goodapples.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,26 +21,26 @@ public class Behavior {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	// TODO json_ignore for report
+	// TODO add and remove methods
 	
-	
-	//TODO json_ignore for report
-	//TODO add and remove methods
 	@JsonIgnore
-	@ManyToMany(mappedBy="behaviors")
+	@ManyToMany(mappedBy = "behaviors")
 	private List<Report> reports;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy="behavior")
+	@OneToMany(mappedBy = "behavior")
 	private List<Resource> resources;
-	
+
 	private String description;
-	
+
 	private String name;
 
 	@ManyToOne
-	@JoinColumn(name="behavior_type_id")
+	@JoinColumn(name = "behavior_type_id")
 	private BehaviorType behaviorType;
-	
+
 	public Behavior() {
 		super();
 	}
@@ -72,7 +73,6 @@ public class Behavior {
 		return description;
 	}
 
-	
 	public BehaviorType getBehaviorType() {
 		return behaviorType;
 	}
@@ -98,6 +98,23 @@ public class Behavior {
 		return Objects.hash(id);
 	}
 
+	public void addReport(Report report) {
+		if (reports == null) {
+			reports = new ArrayList<>();
+		}
+		if (!reports.contains(report)) {
+			reports.add(report);
+			report.addBehavior(this);
+		}
+	}
+
+	public void removeReport(Report report) {
+		if (reports != null && reports.contains(report)) {
+			reports.remove(report);
+			report.removeBehavior(this);
+		}
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -114,6 +131,5 @@ public class Behavior {
 	public String toString() {
 		return "Behavior [id=" + id + ", description=" + description + ", name=" + name + "]";
 	}
-	
-	
+
 }

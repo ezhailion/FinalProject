@@ -13,4 +13,8 @@ public interface ReportService {
 	List<Report> findAllReportsForASpecificStudent(int studentId);
 	
 	Report update(Report report, int reportId);
+
+	Report addBehavior(int reportId, int behaviorId, String name);
+
+	Report removeBehavior(int reportId, int behaviorId, String name);
 }

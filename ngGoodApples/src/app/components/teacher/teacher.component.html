@@ -29,8 +29,10 @@
       <button class="btn btn-dark mx-1 mt-5 float-end">
         Edit {{ selectedStudent.whoami.firstName }}'s Details
       </button>
-      <button class="btn btn-outline-dark mx-1 mt-5 float-end"
-              (click) = "open(formModal)">
+      <button
+        class="btn btn-outline-dark mx-1 mt-5 float-end"
+        (click)="open(formModal)"
+      >
         Add Report for {{ selectedStudent.whoami.firstName }}
       </button>
     </div>
@@ -134,20 +136,26 @@
       </div>
       <div class="row" *ngFor="let report of studentReports">
         <div class="col-6">
-          <p (click) = "loadSingleReport(report.id)">{{ report.createDate | date }} {{ report.notes }}</p>
+          <p (click)="loadSingleReport(report.id)">
+            {{ report.createDate | date }} {{ report.notes }}
+          </p>
           <br />
         </div>
-        <div class="col-6" *ngIf="selectedReport && selectedReport.id === report.id">
-          {{ selectedReport.createDate | date }} <br>
-          {{ selectedReport.lastUpdate | date }} <br>
+        <div
+          class="col-6"
+          *ngIf="selectedReport && selectedReport.id === report.id"
+        >
+          {{ selectedReport.createDate | date }} <br />
+          {{ selectedReport.lastUpdate | date }} <br />
           {{ selectedReport.notes }}
-
+          <button class="btn btn-outline-dark mx-1" (click)="open(editFormModal)">Edit Report Details</button>
+          <button class="btn btn-danger mx-1">Delete Report</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- FORM MODAL FOR REPORT  -->
+  <!-- ADD FORM MODAL FOR REPORT  -->
   <ng-template #formModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Add Behavior Report</h4>
@@ -159,16 +167,19 @@
       ></button>
     </div>
 
-
     <div class="modal-body">
-
       <div *ngFor="let behavior of behaviors">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="{{behavior.id}}" id="flexCheckDefault">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value="{{ behavior.id }}"
+            id="flexCheckDefault"
+          />
           <label class="form-check-label" for="flexCheckDefault">
-            {{behavior.name}}
+            {{ behavior.name }}
           </label>
-       </div>
+        </div>
       </div>
       <input
         class="form-control mb-3"
@@ -177,15 +188,73 @@
         placeholder="Notes"
         [(ngModel)]="newReport.notes"
       />
-
-
-
     </div>
     <div class="modal-footer">
       <button
         type="button"
         class="btn btn-outline-dark"
-        (click)="modal.close(createNewReport(newReport, selectedStudent?.whoami?.id))"
+        (click)="
+          modal.close(createNewReport(newReport, selectedStudent?.whoami?.id))
+        "
+      >
+        Add Report
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- EDIT FORM MODAL FOR REPORT  -->
+  <ng-template #editFormModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Behavior Report</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <div *ngFor="let behavior of behaviors">
+
+        <div class="form-check">
+          <input *ngIf="haveBehavior(behavior.id, editReport)"
+            class="form-check-input"
+            type="checkbox"
+            value="{{ behavior.id }}"
+            id="flexCheckDefault" checked
+            (change)="toggleReportBehavior(behavior.id, $event)"
+          />
+
+          <input *ngIf="!haveBehavior(behavior.id, editReport)"
+            class="form-check-input"
+            type="checkbox"
+            value="{{ behavior.id }}"
+            id="flexCheckDefault"
+            (change)="toggleReportBehavior(behavior.id, $event)"
+          />
+
+          <label class="form-check-label" for="flexCheckDefault">
+            {{ behavior.name }}
+          </label>
+        </div>
+
+      </div>
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="name"
+        placeholder="Notes"
+        [(ngModel)]="editReport.notes"
+      />
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+          modal.close(createNewReport(newReport, selectedStudent?.whoami?.id))
+        "
       >
         Add Report
       </button>
@@ -235,6 +304,4 @@
       </button>
     </div>
   </ng-template>
-
-
 </div>

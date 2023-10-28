@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.goodapples.entities.Behavior;
@@ -30,16 +30,15 @@ public class ReportController {
 
 	@Autowired
 	private ReportService repoService;
-	
+
 	@Autowired
 	private BehaviorService behaviorService;
 
-	
 	@GetMapping("behaviors")
-	public List <Behavior> findAllBehaviors(Principal pricipal) {
+	public List<Behavior> findAllBehaviors(Principal pricipal) {
 		return behaviorService.index();
 	}
-	
+
 	@GetMapping("reports/{reportId}")
 	public Report show(@PathVariable int reportId, HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
@@ -55,10 +54,11 @@ public class ReportController {
 		}
 		return report;
 	}
-	
+
 	@GetMapping("reports/students/{studentId}")
-	public List <Report> findAllReportsForStudent(@PathVariable int studentId, HttpServletRequest req, HttpServletResponse res) {
-		List <Report> reports = null;
+	public List<Report> findAllReportsForStudent(@PathVariable int studentId, HttpServletRequest req,
+			HttpServletResponse res) {
+		List<Report> reports = null;
 		try {
 			reports = repoService.findAllReportsForASpecificStudent(studentId);
 		} catch (Exception e) {
@@ -73,27 +73,23 @@ public class ReportController {
 	}
 
 	@PutMapping("reports/{reportId}")
-	public Report update(
-			@PathVariable int reportId,
-			@RequestBody Report report,
-			Principal pricipal,
-			HttpServletResponse res
-	) {
+	public Report update(@PathVariable int reportId, @RequestBody Report report, Principal pricipal,
+			HttpServletResponse res) {
 		Report updated = null;
-		
+
 		try {
 			updated = repoService.update(report, reportId);
 			if (updated == null) {
 				res.setStatus(404);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			res.setStatus(400);
 			e.printStackTrace();
 		}
 		return updated;
 	}
-	
-	@PostMapping("reports/students/{studentUserId}")
+
+	@PutMapping("reports/students/{studentUserId}")
 	public Report create(HttpServletRequest req, HttpServletResponse res, @RequestBody Report newReport,
 			Principal principal, @PathVariable int studentUserId) {
 		Report createdReport = null;
@@ -105,9 +101,29 @@ public class ReportController {
 			res.setHeader("Location", url.toString());
 		} catch (Exception e) {
 			res.setStatus(400);
-			System.err.println("ReprtController.create(): error creating report");
+			System.err.println("ReportController.create(): error creating report");
 			e.printStackTrace();
 		}
 		return createdReport;
+	}
+
+	@PostMapping("reports/{reportId}/behaviors/{behaviorId}")
+	public Report addBehaviorToReport(@PathVariable int reportId, @PathVariable int behaviorId, Principal principal,
+			HttpServletResponse res) {
+		Report updatedReport = repoService.addBehavior(reportId, behaviorId, principal.getName());
+		if (updatedReport == null) {
+			res.setStatus(404);
+		}
+		return updatedReport;
+	}
+	
+	@DeleteMapping("reports/{reportId}/behaviors/{behaviorId}")
+	public Report removeBehaviorFromReport(@PathVariable int reportId, @PathVariable int behaviorId, Principal principal,
+			HttpServletResponse res) {
+		Report updatedReport = repoService.removeBehavior(reportId, behaviorId, principal.getName());
+		if (updatedReport == null) {
+			res.setStatus(404);
+		}
+		return updatedReport;
 	}
 }
