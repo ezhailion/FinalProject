@@ -3,6 +3,7 @@ package com.skilldistillery.goodapples.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.goodapples.entities.Student;
 import com.skilldistillery.goodapples.entities.User;
 import com.skilldistillery.goodapples.repositories.UserRepository;
 
@@ -53,5 +54,12 @@ public class UserServiceImpl implements UserService {
 				return true;
 			}
 		return false;
+	}
+
+	@Override
+	public Student getStudentByUsername(String username) {
+		User user = userRepo.findByUsername(username);
+		Student student = user.getStudent();
+		return student;
 	}
 }

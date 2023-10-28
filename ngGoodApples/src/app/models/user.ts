@@ -17,6 +17,7 @@ export class User {
   createDate: string;
   lastUpdate: string;
   gender: Gender;
+  student: Student | undefined;
 
 
   constructor(
@@ -34,7 +35,8 @@ export class User {
     aboutMe: string = '',
     createDate: string = '',
     lastUpdate: string = '',
-    gender: Gender = new Gender()
+    gender: Gender = new Gender(),
+    student: Student | undefined = undefined
 
   ){
     this.id = id;
@@ -52,6 +54,6 @@ export class User {
     this.createDate = createDate;
     this.lastUpdate = lastUpdate;
     this.gender = gender;
-
+    this.student = student;
   }
 }
