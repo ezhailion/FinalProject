@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.goodapples.entities.Reflection;
+import com.skilldistillery.goodapples.entities.Student;
 import com.skilldistillery.goodapples.entities.User;
 import com.skilldistillery.goodapples.repositories.ReflectionRepository;
+import com.skilldistillery.goodapples.repositories.StudentRepository;
 import com.skilldistillery.goodapples.repositories.UserRepository;
 
 @Service
@@ -18,15 +20,16 @@ public class ReflectionServiceImpl implements ReflectionService {
 	
 	@Autowired
 	private UserRepository userRepo;
-	
+	@Autowired
+	private StudentRepository studRepo;
 
 	@Override
 	public Reflection create(String username, Reflection reflection) {
 		// TODO Auto-generated method stub
 		
-		User studentUser = userRepo.findByUsername(username);
-		if(studentUser != null) {
-			reflection.setStudent(studentUser.getStudent());
+		Student student = studRepo.findByWhoami_Username(username);
+		if(student != null) {
+			reflection.setStudent(student);
 			reflection.setEnabled(true);	
 			return reflectRepo.saveAndFlush(reflection);
 		}

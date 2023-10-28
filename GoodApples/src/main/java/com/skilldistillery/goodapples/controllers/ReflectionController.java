@@ -32,9 +32,9 @@ public class ReflectionController {
 		return reflectServ.findAllReflectionsForASpecificStudent(studentId);
 	}
 
-	@PostMapping("reflections/students/{userId}")
+	@PostMapping("reflections")
 	public Reflection createReflection(HttpServletRequest req, HttpServletResponse resp,
-			@RequestBody Reflection newReflection, Principal principal, @PathVariable int userId) {
+			@RequestBody Reflection newReflection, Principal principal) {
 		Reflection createdRefl = null;
 
 		try {
