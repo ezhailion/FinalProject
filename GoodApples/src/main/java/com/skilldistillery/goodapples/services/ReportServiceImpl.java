@@ -69,6 +69,17 @@ public class ReportServiceImpl implements ReportService {
 			reportRepo.saveAndFlush(existing);
 		}
 		return existing;
+	}
+
+	@Override
+	public Report removeBehavior(int reportId, int behaviorId, String name) {
+		Report existing = reportRepo.searchById(reportId);
+		Behavior behavior = bRepo.searchById(behaviorId);
+		if (existing != null && behavior != null) {
+			existing.removeBehavior(behavior);
+			reportRepo.saveAndFlush(existing);
+		}
+		return existing;
 	}	
 
 }

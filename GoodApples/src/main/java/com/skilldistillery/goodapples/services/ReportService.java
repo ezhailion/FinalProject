@@ -15,4 +15,6 @@ public interface ReportService {
 	Report update(Report report, int reportId);
 
 	Report addBehavior(int reportId, int behaviorId, String name);
+
+	Report removeBehavior(int reportId, int behaviorId, String name);
 }

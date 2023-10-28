@@ -21,26 +21,26 @@ public class Behavior {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	// TODO json_ignore for report
+	// TODO add and remove methods
 	
-	
-	//TODO json_ignore for report
-	//TODO add and remove methods
 	@JsonIgnore
-	@ManyToMany(mappedBy="behaviors")
+	@ManyToMany(mappedBy = "behaviors")
 	private List<Report> reports;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy="behavior")
+	@OneToMany(mappedBy = "behavior")
 	private List<Resource> resources;
-	
+
 	private String description;
-	
+
 	private String name;
 
 	@ManyToOne
-	@JoinColumn(name="behavior_type_id")
+	@JoinColumn(name = "behavior_type_id")
 	private BehaviorType behaviorType;
-	
+
 	public Behavior() {
 		super();
 	}
@@ -73,7 +73,6 @@ public class Behavior {
 		return description;
 	}
 
-	
 	public BehaviorType getBehaviorType() {
 		return behaviorType;
 	}
@@ -98,14 +97,17 @@ public class Behavior {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
+
 	public void addReport(Report report) {
-		if (reports == null) {reports = new ArrayList<>();}
-		if(!reports.contains(report)) {
+		if (reports == null) {
+			reports = new ArrayList<>();
+		}
+		if (!reports.contains(report)) {
+			reports.add(report);
 			report.addBehavior(this);
 		}
 	}
-	
+
 	public void removeReport(Report report) {
 		if (reports != null && reports.contains(report)) {
 			reports.remove(report);
@@ -129,6 +131,5 @@ public class Behavior {
 	public String toString() {
 		return "Behavior [id=" + id + ", description=" + description + ", name=" + name + "]";
 	}
-	
-	
+
 }
