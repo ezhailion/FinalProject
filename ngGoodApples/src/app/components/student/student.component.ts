@@ -22,6 +22,7 @@ export class StudentComponent {
   reflections: Reflection[] = [];
   newReflection: Reflection = new Reflection();
   loggedInUser: User = new User();
+  student: Student = new Student();
 
   ngOnInit() {
     console.log("on that init")
@@ -32,18 +33,16 @@ export class StudentComponent {
       next: (user) => {
         this.loggedInUser = user;
         console.log(this.loggedInUser)
-        console.log(this.loggedInUser.student)
-        if(this.loggedInUser.student != undefined){
-          this.loadAllReflectionsForStudent(this.loggedInUser.student.id);
-        }
       },
       error: (oops) => {
         console.error(
           'StudentComponent.getLoggedInUser() failed getting logged in user'
-        );
-        console.error(oops);
-      },
-    });
+          );
+          console.error(oops);
+        },
+      });
+      this.loadStudentForUser();
+      console.log(this.student)
 
   }
   createReflection(reflection: Reflection) {
@@ -66,5 +65,14 @@ export class StudentComponent {
     })
   }
 
-
+  loadStudentForUser() {
+    this.studentService.getStudentForUser().subscribe({
+      next: (student) => {
+        this.student = student;
+        console.log(this.student)
+        this.loadAllReflectionsForStudent(this.student.id);
+      },
+      error: oops => console.error("Student Component. loadStudent err " + oops)
+    })
+  }
 }
