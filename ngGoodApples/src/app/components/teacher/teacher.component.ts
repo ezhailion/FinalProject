@@ -12,8 +12,23 @@ import { StudentService } from 'src/app/services/student.service';
 import { Behavior } from 'src/app/models/behavior';
 import { TeacherService } from 'src/app/services/teacher.service';
 
+
+
 @Component({
   selector: 'app-teacher',
+  template: `<highcharts-chart
+  [Highcharts]="Highcharts"
+
+  [constructorType]="chartConstructor"
+  [options]="chartOptions"
+  [callbackFunction]="chartCallback"
+
+  [(update)]="updateFlag"
+  [oneToOne]="oneToOneFlag"
+  [runOutsideAngular]="runOutsideAngular"
+
+  style="width: 100%; height: 400px; display: block;"
+></highcharts-chart>`,
   templateUrl: './teacher.component.html',
   styleUrls: ['./teacher.component.css'],
 })
@@ -34,6 +49,7 @@ export class TeacherComponent {
 
   newReport : Report = new Report();
   editReport : Report = new Report();
+
 
   constructor(
     private auth: AuthService,
@@ -65,6 +81,7 @@ export class TeacherComponent {
     });
 
     this.loadAllBehaviors();
+
 
   }
 
@@ -133,6 +150,10 @@ export class TeacherComponent {
         this.selectedStudent = student;
         this.selectedStudents = null;
         this.loadAllReportsForStudent(studentId);
+
+
+
+
       },
       error: (oopsiedoodles) =>
         console.error(
