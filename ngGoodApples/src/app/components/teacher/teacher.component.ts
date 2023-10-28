@@ -10,6 +10,7 @@ import { ClassroomService } from 'src/app/services/classroom.service';
 import { ReportService } from 'src/app/services/report.service';
 import { StudentService } from 'src/app/services/student.service';
 import { Behavior } from 'src/app/models/behavior';
+import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
   selector: 'app-teacher',
@@ -40,7 +41,8 @@ export class TeacherComponent {
     private modalService: NgbModal,
     private classroomService: ClassroomService,
     private studentService: StudentService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private teacherService: TeacherService
   ) {}
 
   //what the component does right away
@@ -195,10 +197,28 @@ export class TeacherComponent {
     return report.behaviors.some((b) => b.id === behaviorId);
   }
 
-  toggleReportBehavior(behaviorId: number, event: Event) {
-
-    //TODO
+  toggleReportBehavior(behaviorId: number, event: Event, reportId: number) {
     console.log(behaviorId)
     console.log(event)
+    console.log(typeof event.target)
+    let isChecked = (<HTMLInputElement>event.target).checked
+    console.log(isChecked);
+
+    if(isChecked) {
+      this.teacherService.addBehaviorToReport(reportId, behaviorId).subscribe({
+        next: (report) => {
+          console.log(report);
+        },
+        error: (oopsie) => console.error("Teacher component. toggle behavior: on . " + oopsie)
+      })
+    }
+    if(!isChecked) {
+      this.teacherService.removeBehaviorFromReport(reportId, behaviorId).subscribe({
+        next: () => {
+          //maybe something here?
+        },
+        error: (oopsie) => console.error("Teacher component. toggle behavior: off . " + oopsie)
+      })
+    }
   }
 }
