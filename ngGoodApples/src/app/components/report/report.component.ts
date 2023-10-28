@@ -32,6 +32,18 @@ export class ReportComponent implements OnChanges {
 
   @Input() item : Report[] = [];
 
+  knownNames : string[] = [
+    'Perseverance',
+    'Integrity',
+    'Empathy',
+    'Accountability',
+    'Collaboration',
+    'Impulsivity',
+    'Apathy',
+    'Disrespectfulness',
+    'Aggression',
+    'Pessimism'
+  ]
 
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {
@@ -66,20 +78,13 @@ export class ReportComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes['item'])
 
-    let data = changes['item'].currentValue[0]?.notes;
-    console.log(data)
+
+    let currentReport : Report[] = changes['item'].currentValue;
+    let theNames = this.getNamesFromReports(currentReport);
+    console.log(this.getNamesFromReports(currentReport));
     this.chartOptions = {
       series: [{
-        data: [{
-          name: data,
-          weight: 3
-      }, {
-          name: 'some word',
-          weight: 2
-      }, {
-          name: 'nice thing',
-          weight: 1
-      }],
+        data: this.countNames(theNames, this.knownNames),
         type: 'wordcloud',
         name: 'Occurrences'
       }]
@@ -87,8 +92,31 @@ export class ReportComponent implements OnChanges {
     // changes.prop contains the old and the new value...
 
     Highcharts.chart("testingTest", this.chartOptions);
+
+    let count = (names : string[], s : string) : number => names.filter(n => n === s).length
+
+    let one = count(this.knownNames, 'Perseverance'); // hopefully one
+    console.log('ONE ' + one)
   }
 
+  getNamesFromReports(reports : Report[]) : string[] {
+    let acc : string[] = [];
+    reports.forEach(r => r.behaviors.forEach(b => acc.push(b.name)))
+    return acc;
+  }
+
+  countNames(names : string[], knownNames: string[]) {
+    // [{  name: "apple",  weight: 3}]
+    let freqMap = [];
+
+    let count = (names : string[], s : string) : number => names.filter(n => n === s).length
+    for (let n of knownNames) {
+      freqMap.push( {name: n, weight: count(names, n)})
+    }
+
+    return freqMap;
+
+  }
 
 
 constructor() {}
