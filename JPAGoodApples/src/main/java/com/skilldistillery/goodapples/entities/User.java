@@ -79,6 +79,7 @@ public class User {
 	@OneToMany(mappedBy="recipient")
 	private List<Message> recievedMessages;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="gender_id")
 	private Gender gender;

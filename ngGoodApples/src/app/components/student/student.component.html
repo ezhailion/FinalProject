@@ -1,13 +1,21 @@
-<div>
+<div class="container-fluid">
 <p>Submit a New Reflection!</p>
 <form>
   <label for="reflection">Your Reflection:</label>
   <input name="reflection"
+  [(ngModel)]="newReflection.content"
          type="text" > <br>
-         <button type="button"
-         class="btn btn-outline-dark"
+         <label for="customRange3" class="form-label">Performance Rating</label>
+         <input type="range" name="scale" class="form-range" min="1" max="10"
+         step="1" id="customRange3" [(ngModel)]="newReflection.scale">
+         <button (click)="createReflection(newReflection)"
+         type="button"
+         class="btn btn-primary"
          >Submit Reflection</button>
 </form>
-
+<div *ngFor="let reflection of reflections">
+  <p>{{reflection.content}}</p>
+</div>
 
 </div>
+

@@ -1,3 +1,5 @@
+import { Student } from "./student";
+
 export class Reflection {
 
   id: number;
@@ -6,6 +8,7 @@ export class Reflection {
   createDate: string;
   lastUpdate: string;
   enabled: false;
+  student: Student;
 
   constructor(
     id: number = 0,
@@ -14,6 +17,7 @@ export class Reflection {
   createDate: string = '',
   lastUpdate: string = '',
   enabled: false = false,
+  student: Student = new Student(),
   ) {
     this.id = id;
     this.scale = scale;
@@ -21,5 +25,6 @@ export class Reflection {
     this.createDate = createDate;
     this.lastUpdate = lastUpdate;
     this.enabled = enabled;
+    this.student = student;
   }
 }
