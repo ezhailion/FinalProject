@@ -196,6 +196,8 @@ export class TeacherComponent {
   }
 
   toggleReportBehavior(behaviorId: number, event: Event) {
+
+    //TODO
     console.log(behaviorId)
     console.log(event)
   }

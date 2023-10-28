@@ -1,5 +1,6 @@
 package com.skilldistillery.goodapples.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -96,6 +97,20 @@ public class Behavior {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+	
+	public void addReport(Report report) {
+		if (reports == null) {reports = new ArrayList<>();}
+		if(!reports.contains(report)) {
+			report.addBehavior(this);
+		}
+	}
+	
+	public void removeReport(Report report) {
+		if (reports != null && reports.contains(report)) {
+			reports.remove(report);
+			report.removeBehavior(this);
+		}
 	}
 
 	@Override

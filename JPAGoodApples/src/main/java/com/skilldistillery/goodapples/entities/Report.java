@@ -1,6 +1,7 @@
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,8 +17,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Report {
@@ -165,7 +164,21 @@ public class Report {
 		return "Report [id=" + id + ", notes=" + notes + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate
 				+ ", enabled=" + enabled + "]";
 	}
+
+
+	public void addBehavior(Behavior behavior) {
+		if (behaviors == null) {behaviors = new ArrayList<>();}
+		if(!behaviors.contains(behavior)) {
+			behavior.addReport(this);
+		}
+	}
 	
+	public void removeBehavior (Behavior behavior) {
+		if (behaviors != null && behaviors.contains(behavior)) {
+			behaviors.remove(behavior);
+			behavior.removeReport(this);
+		}
+	}
 	
 	
 }
