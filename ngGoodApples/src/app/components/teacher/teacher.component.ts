@@ -242,4 +242,18 @@ export class TeacherComponent {
       })
     }
   }
+
+  deleteReport(reportId: number) {
+    this.teacherService.deleteReport(reportId).subscribe({
+      next: (report) => {
+       console.log("report" + report);
+       if(this.selectedStudent != null) {
+        this.loadAllReportsForStudent(this.selectedStudent.id);
+        this.selectedReport = null;
+       }
+      },
+      error: (oopsie) => console.error("Teacher component. remove report. " + oopsie)
+    })
+  }
+
 }

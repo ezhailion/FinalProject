@@ -94,4 +94,23 @@ export class TeacherService {
         })
       );
   }
+  deleteReport(reportId: number) {
+    return this.http
+      .delete<Report>(
+        this.url + 'api/reports/' + reportId,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () =>
+              new Error(
+                'TeacherService.deleteReport(): error removing report: ' +
+                  err
+              )
+          );
+        })
+      );
+  }
 }

@@ -140,8 +140,8 @@
         </div>
       </div>
       <div class="row" *ngFor="let report of studentReports">
-        <div class="col-6">
-          <p (click)="loadSingleReport(report.id)">
+        <div class="col-6" *ngIf="report.enabled">
+          <p (click)="loadSingleReport(report.id)" >
             {{ report.createDate | date }} {{ report.notes }}
           </p>
           <br />
@@ -154,7 +154,8 @@
           {{ selectedReport.lastUpdate | date }} <br />
           {{ selectedReport.notes }}
           <button class="btn btn-outline-dark mx-1" (click)="open(editFormModal)">Edit Report Details</button>
-          <button class="btn btn-danger mx-1">Delete Report</button>
+          <!-- !!!!click event for delete report here!!!!    !!!!click event for delete report here!!!!      !!!!click event for delete report here!!!! -->
+          <button class="btn btn-danger mx-1" (click)="deleteReport(selectedReport.id)">Delete Report</button>
         </div>
       </div>
     </div>
