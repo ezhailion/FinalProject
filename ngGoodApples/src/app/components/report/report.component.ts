@@ -42,7 +42,7 @@ export class ReportComponent implements OnChanges {
   @Input() studentName : string = '';
 
 
-
+  /* PIE CHART COLORS OPTIONS */
   celebrationsColor = '#28a745' // Same as bootstrap btn-success
   challengesColor   = '#dc3545' // Same as bootstrap btn-danger
 
@@ -65,6 +65,7 @@ export class ReportComponent implements OnChanges {
 
   donutOptions: Highcharts.Options = {
     series: [{
+      name: 'Total',
       data: [{ name: 'Celebrations', y: 3}, {name : 'Challenges', y: 1}],
       type: 'pie'
     }],
@@ -103,6 +104,7 @@ export class ReportComponent implements OnChanges {
 
     let bratio = this.getBehaviorRatio(currentReport);
     this.donutOptions.series = [{
+      name: 'Total',
       data: [{ name: 'Celebrations', y: bratio.good}, {name : 'Challenges', y: bratio.bad}],
       type: 'pie'
     }];
