@@ -255,4 +255,14 @@ export class TeacherComponent {
     })
   }
 
+  updateReport(report : Report, reportId : number) {
+    this.reportService.update(report, reportId).subscribe({
+      next : (updated) => {
+        if (this.selectedStudent != null) {
+          this.loadAllReportsForStudent(this.selectedStudent.id);
+        }
+      },
+      error : ohNO => console.error("error in teacher component, updating report " + ohNO)
+    })
+  }
 }

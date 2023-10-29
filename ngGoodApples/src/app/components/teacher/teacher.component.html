@@ -259,10 +259,10 @@
         type="button"
         class="btn btn-outline-dark"
         (click)="
-          modal.close(createNewReport(newReport, selectedStudent?.whoami?.id))
+          modal.close(updateReport(editReport, editReport.id))
         "
       >
-        Add Report
+        Confirm Edit
       </button>
     </div>
   </ng-template>

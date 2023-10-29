@@ -59,7 +59,18 @@ export class ReportService {
     )
   }
 
-  //update(report : Report) :
+
+
+  update(report : Report, reportId : number) : Observable<Report> {
+    return this.http.put<Report>(this.url + "/" + reportId, report, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ReportService.indexBehaviors(): error getting behaviors: ' + err)
+        );
+      })
+    )
+  }
 
   indexBehaviors() : Observable<Behavior[]> {
     return this.http.get<Behavior[]>(this.behaviorUrl, this.getHttpOptions()).pipe(
@@ -71,4 +82,6 @@ export class ReportService {
       })
     )
   }
+
+
 }
