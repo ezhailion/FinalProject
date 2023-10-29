@@ -43,8 +43,8 @@ export class ReportComponent implements OnChanges {
 
 
   /* PIE CHART COLORS OPTIONS */
-  celebrationsColor = '#28a745' // Same as bootstrap btn-success
-  challengesColor   = '#dc3545' // Same as bootstrap btn-danger
+  celebrationsColor = 'rgb(8, 139, 218)' // a lighter blue
+  challengesColor   = 'rgb(0, 66, 145)'  // a darker blue
 
 
 
@@ -72,7 +72,7 @@ export class ReportComponent implements OnChanges {
     plotOptions : {
       pie: { dataLabels: { enabled : false }, showInLegend : true }
     },
-    title : {text : 'Celebrations : Challenges'},
+    title : {text : 'Celebrations vs. Challenges'},
     colors : [this.celebrationsColor, this.challengesColor]
   }
 
