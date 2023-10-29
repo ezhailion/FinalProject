@@ -1,12 +1,20 @@
+import { BehaviorType } from './../../models/behavior-type';
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { Input } from '@angular/core';
 import { Report } from 'src/app/models/report';
 
 import * as Highcharts from 'highcharts';
 import wordcloud from 'highcharts/modules/wordcloud';
-import { Student } from 'src/app/models/student';
-import { Behavior } from 'src/app/models/behavior';
+
+
 wordcloud(Highcharts);
+
+/*
+ * Note: if we want to conditionally display this only when reports.length > 0,
+ * that logic will need to go in the teacher component.
+ * Any "ngIf" in this component will cause the Highlights library
+ * to be unable to find the element in the DOM.
+*/
 
 @Component({
   selector: 'app-report',
@@ -31,72 +39,76 @@ wordcloud(Highcharts);
 export class ReportComponent implements OnChanges {
 
   @Input() item : Report[] = [];
+  @Input() studentName : string = '';
 
-  knownNames : string[] = [
-    'Perseverance',
-    'Integrity',
-    'Empathy',
-    'Accountability',
-    'Collaboration',
-    'Impulsivity',
-    'Apathy',
-    'Disrespectfulness',
-    'Aggression',
-    'Pessimism'
-  ]
+
+
+  celebrationsColor = '#28a745' // Same as bootstrap btn-success
+  challengesColor   = '#dc3545' // Same as bootstrap btn-danger
+
+
+
 
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {
     series: [{
-
       data: [{
-        name: 'Good 🍎',
-        weight: 3
-    }, {
-        name: 'some word',
-        weight: 2
-    }, {
-        name: 'nice thing',
+        name: 'No entries yet',
         weight: 1
     }],
       type: 'wordcloud',
-      name: 'Occurrences'
-    }]
+      name: 'Occurrences',
+
+    }],
+    title: {text : ""}
   }
 
-  ngOnInit() {
-    Highcharts.chart("testingTest", this.chartOptions);
-
-    console.log(this.item)
-    // let names : String[] = [];
-    // this.item.forEach(r => r.behaviors.forEach(b => names.push(b.name)));
-
-    // console.log(names)
-
-
+  donutOptions: Highcharts.Options = {
+    series: [{
+      data: [{ name: 'Celebrations', y: 3}, {name : 'Challenges', y: 1}],
+      type: 'pie'
+    }],
+    plotOptions : {
+      pie: { dataLabels: { enabled : false }, showInLegend : true }
+    },
+    title : {text : 'Celebrations : Challenges'},
+    colors : [this.celebrationsColor, this.challengesColor]
   }
+
+  ngOnInit() {}
+
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes['item'])
-
 
     let currentReport : Report[] = changes['item'].currentValue;
+
+    /*
+     * Building the wordcloud
+    */
     let theNames = this.getNamesFromReports(currentReport);
-    console.log(this.getNamesFromReports(currentReport));
+
     this.chartOptions = {
       series: [{
-        data: this.countNames(theNames, this.knownNames),
+        data: this.countNames(theNames),
         type: 'wordcloud',
         name: 'Occurrences'
-      }]
+      }],
+        title: {text: `${this.studentName}'s Behaviors`}
     }
-    // changes.prop contains the old and the new value...
 
-    Highcharts.chart("testingTest", this.chartOptions);
+    Highcharts.chart("wordCloudWindow", this.chartOptions);
 
-    let count = (names : string[], s : string) : number => names.filter(n => n === s).length
+    /*
+     * Building the pie chart
+    */
 
-    let one = count(this.knownNames, 'Perseverance'); // hopefully one
-    console.log('ONE ' + one)
+    let bratio = this.getBehaviorRatio(currentReport);
+    this.donutOptions.series = [{
+      data: [{ name: 'Celebrations', y: bratio.good}, {name : 'Challenges', y: bratio.bad}],
+      type: 'pie'
+    }];
+
+    Highcharts.chart("behaviorRatioWindow", this.donutOptions);
+
   }
 
   getNamesFromReports(reports : Report[]) : string[] {
@@ -105,19 +117,40 @@ export class ReportComponent implements OnChanges {
     return acc;
   }
 
-  countNames(names : string[], knownNames: string[]) {
-    // [{  name: "apple",  weight: 3}]
-    let freqMap = [];
+  countNames(names : string[]) {
 
-    let count = (names : string[], s : string) : number => names.filter(n => n === s).length
-    for (let n of knownNames) {
-      freqMap.push( {name: n, weight: count(names, n)})
+    let freqMap : any = {};
+    let freqArr = [];
+
+    for (let n of names) {
+      if (Object.hasOwn(freqMap, n)) {
+        freqMap[n] = freqMap[n] + 1;
+      }  else {
+        freqMap[n] = 1;
+      }
     }
 
-    return freqMap;
+    for (let n in freqMap) {
+      freqArr.push ( { name : n, weight: freqMap[n] })
+    }
+
+    return freqArr;
 
   }
 
+
+  getBehaviorRatio(reports: Report[]) : {good: number, bad: number} {
+
+    let freqMap = {good: 0, bad: 0};
+    reports.forEach(r => r.behaviors.forEach(b => {
+      if (b.behaviorType.name == 'good') {
+        freqMap.good = freqMap.good + 1;
+      } else {
+        freqMap.bad = freqMap.bad + 1;
+      }
+    }))
+    return freqMap;
+  }
 
 constructor() {}
 
