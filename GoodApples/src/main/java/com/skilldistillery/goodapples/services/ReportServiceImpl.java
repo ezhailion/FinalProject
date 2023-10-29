@@ -80,6 +80,17 @@ public class ReportServiceImpl implements ReportService {
 			reportRepo.saveAndFlush(existing);
 		}
 		return existing;
+	}
+
+	@Override
+	public boolean deleteReport(int reportId) {
+		Report reportToDelete = reportRepo.searchById(reportId);
+		if(reportToDelete != null) {
+			reportToDelete.setEnabled(false);
+			reportRepo.saveAndFlush(reportToDelete);
+			return true;
+		}
+			return false;
 	}	
 
 }

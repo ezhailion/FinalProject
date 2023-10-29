@@ -126,4 +126,24 @@ public class ReportController {
 		}
 		return updatedReport;
 	}
+	
+//	dissable report
+	@DeleteMapping("reports/{reportId}") 
+	public boolean deleteReport(@PathVariable int reportId, Principal principal,
+			HttpServletResponse res) {
+		boolean deleted = false;
+		try {
+			if (repoService.deleteReport(reportId)) {
+				res.setStatus(200);
+				deleted = true;
+			} else {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			System.err.println("ReportController.disable(): error disabling user");
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+		return deleted;
+	}
 }

@@ -17,4 +17,7 @@ public interface ReportService {
 	Report addBehavior(int reportId, int behaviorId, String name);
 
 	Report removeBehavior(int reportId, int behaviorId, String name);
+	
+	boolean deleteReport(int reportId); 
+		
 }
