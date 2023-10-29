@@ -31,6 +31,7 @@ wordcloud(Highcharts);
 export class ReportComponent implements OnChanges {
 
   @Input() item : Report[] = [];
+  @Input() studentName : string = '';
 
   knownNames : string[] = [
     'Perseverance',
@@ -48,20 +49,15 @@ export class ReportComponent implements OnChanges {
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {
     series: [{
-
       data: [{
-        name: 'Good 🍎',
-        weight: 3
-    }, {
-        name: 'some word',
-        weight: 2
-    }, {
-        name: 'nice thing',
+        name: 'No entries yet',
         weight: 1
     }],
       type: 'wordcloud',
-      name: 'Occurrences'
-    }]
+      name: 'Occurrences',
+
+    }],
+    title: {text : "foo"}
   }
 
   ngOnInit() {
@@ -87,7 +83,8 @@ export class ReportComponent implements OnChanges {
         data: this.countNames(theNames, this.knownNames),
         type: 'wordcloud',
         name: 'Occurrences'
-      }]
+      }],
+        title: {text: this.studentName}
     }
     // changes.prop contains the old and the new value...
 
@@ -107,14 +104,29 @@ export class ReportComponent implements OnChanges {
 
   countNames(names : string[], knownNames: string[]) {
     // [{  name: "apple",  weight: 3}]
-    let freqMap = [];
+    // let freqMap = [];
 
-    let count = (names : string[], s : string) : number => names.filter(n => n === s).length
-    for (let n of knownNames) {
-      freqMap.push( {name: n, weight: count(names, n)})
+    // let count = (names : string[], s : string) : number => names.filter(n => n === s).length
+    // for (let n of knownNames) {
+    //   freqMap.push( {name: n, weight: count(names, n)})
+    // }
+
+
+    let freqMap : any = {};
+    let freqArr = [];
+    for (let n of names) {
+      if (Object.hasOwn(freqMap, n)) {
+        freqMap[n] = freqMap[n] + 1;
+      }  else {
+        freqMap[n] = 1;
+      }
     }
 
-    return freqMap;
+    for (let n in freqMap) {
+      freqArr.push ( { name : n, weight: freqMap[n] })
+    }
+
+    return freqArr;
 
   }
 
