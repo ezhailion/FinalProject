@@ -82,6 +82,8 @@ export class ReportComponent implements OnChanges {
 
     let currentReport : Report[] = changes['item'].currentValue;
 
+    // remove the deleted
+    currentReport = currentReport.filter(r => r.enabled)
     /*
      * Building the wordcloud
     */

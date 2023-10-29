@@ -206,7 +206,6 @@ export class TeacherComponent {
     this.reportService.indexBehaviors().subscribe({
       next: bs => {
         this.behaviors = bs;
-        console.log(bs);
       },
       error: whoops => console.error("Teacher component. load behaviors . " + whoops)
     }

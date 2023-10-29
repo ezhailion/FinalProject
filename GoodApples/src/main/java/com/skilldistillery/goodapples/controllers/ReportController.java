@@ -89,7 +89,7 @@ public class ReportController {
 		return updated;
 	}
 
-	@PutMapping("reports/students/{studentUserId}")
+	@PostMapping("reports/students/{studentUserId}")
 	public Report create(HttpServletRequest req, HttpServletResponse res, @RequestBody Report newReport,
 			Principal principal, @PathVariable int studentUserId) {
 		Report createdReport = null;
@@ -127,7 +127,7 @@ public class ReportController {
 		return updatedReport;
 	}
 	
-//	dissable report
+//	disable report
 	@DeleteMapping("reports/{reportId}") 
 	public boolean deleteReport(@PathVariable int reportId, Principal principal,
 			HttpServletResponse res) {
