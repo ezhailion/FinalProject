@@ -59,15 +59,15 @@ public class StudentController {
 		return student;
 	}
 	
-	@PostMapping("register/students")
+	@PostMapping("register/students/{classroomId}")
 	public Student create (HttpServletRequest req, HttpServletResponse res, @RequestBody User newStudentUser,
-			Principal principal) {
+			Principal principal, @PathVariable int classroomId) {
 		
 		Student createdStudent = null;
 		User createdUser = null;
 		try {
 			createdUser = authService.register(newStudentUser);
-			createdStudent = studentService.createStudent(createdUser);
+			createdStudent = studentService.createStudent(createdUser, classroomId);
 			res.setStatus(201);
 		} catch (Exception e) {
 			res.setStatus(400);

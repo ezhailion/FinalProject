@@ -8,6 +8,6 @@ import com.skilldistillery.goodapples.entities.User;
 
 public interface StudentService {
 	
-	Student createStudent(User user);
+	Student createStudent(User user, int classroomId);
 
 }

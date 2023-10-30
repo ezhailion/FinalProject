@@ -3,6 +3,7 @@
 package com.skilldistillery.goodapples.entities;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -127,6 +128,22 @@ public class Classroom {
 				+ ", enabled=" + enabled + "]";
 	}
 	
+	public void addStudent(Student student) {
+		if (students == null) {
+			students = new ArrayList<>();
+		}
+		if (!students.contains(student)) {
+			students.add(student);
+			student.addClassroom(this);
+		}
+	}
+
+	public void removeStudent(Student student) {
+		if (students != null && students.contains(student)) {
+			students.remove(student);
+			student.removeClassroom(this);
+		}
+	}
 	
 	
 	

@@ -55,14 +55,7 @@ export class StudentComponent {
     })
   }
 
-  createStudent(student: Student) {
-    this.studentService.createStudent(student).subscribe({
-      next: (student) => {
-        this.newStudent = new Student();
-      },
-      error: oops => console.error("Student Component. createReflection err " + oops)
-    })
-  }
+
 
   loadAllReflectionsForStudent(studentId: number) {
     this.studentService.indexReflections(studentId).subscribe({
@@ -84,4 +77,6 @@ export class StudentComponent {
       error: oops => console.error("Student Component. loadStudent err " + oops)
     })
   }
+
+
 }

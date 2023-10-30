@@ -1,5 +1,6 @@
 package com.skilldistillery.goodapples.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -149,6 +150,23 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", accomodations=" + accommodations + ", nickname=" + nickname + "]";
+	}
+	
+	public void addClassroom(Classroom classroom) {
+		if (classrooms == null) {
+			classrooms = new ArrayList<>();
+		}
+		if (!classrooms.contains(classroom)) {
+			classrooms.add(classroom);
+			classroom.addStudent(this);
+		}
+	}
+
+	public void removeClassroom(Classroom classroom) {
+		if (classrooms != null && classrooms.contains(classroom)) {
+			classrooms.remove(classroom);
+			classroom.removeStudent(this);
+		}
 	}
 	
 	

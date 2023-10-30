@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Student } from '../models/student';
+import { User } from '../models/user';
 
 
 @Injectable({
@@ -94,8 +95,8 @@ export class StudentService {
     )
   }
 
-    createStudent(student: Student) : Observable<Student> {
-      return this.http.post<Student>(environment.baseUrl + "api/students", this.getHttpOptions()).pipe(
+    createStudent(user: User, classId: number) : Observable<Student> {
+      return this.http.post<Student>(environment.baseUrl + "api/register/students/" + classId , user, this.getHttpOptions()).pipe(
         catchError((err: any) => {
           console.log(err);
           return throwError(
