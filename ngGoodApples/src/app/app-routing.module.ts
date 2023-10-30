@@ -7,6 +7,7 @@ import { ParentComponent } from './components/parent/parent.component';
 import { StudentComponent } from './components/student/student.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { EditAccountDetailsComponent } from './components/edit-account-details/edit-account-details.component';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'parent', component: ParentComponent },
   { path: 'student', component: StudentComponent },
   { path: 'editAccount', component: EditAccountDetailsComponent },
+  { path: 'about', component: AboutComponent },
   { path: '**', component: NotFoundComponent }
 
 ];
