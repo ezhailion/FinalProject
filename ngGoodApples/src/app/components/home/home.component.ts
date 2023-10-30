@@ -21,6 +21,11 @@ export class HomeComponent {
 
   ) {}
 
+  ngOnInit() {
+    if (this.auth.checkLogin()) {
+      this.getLoggedInUser();
+    }
+  }
 
   login(user: User) {
     console.log('Logging in user:');
