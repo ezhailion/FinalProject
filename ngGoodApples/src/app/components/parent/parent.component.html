@@ -29,7 +29,9 @@
   {{selectedStudent.whoami.lastName}}</h2><br>
   <!-- <img width="200" src="{{selectedStudent.whoami.imageUrl}}"> -->
 <div *ngFor="let report of studentReports " >
+  <div *ngIf="report.enabled">
     <p>{{report.createDate | date}}<br>
     {{report.notes}}</p>
+  </div>
 </div>
 </div>
