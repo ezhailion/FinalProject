@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `resource` (
   `link` VARCHAR(2000) NOT NULL,
   `image_url` VARCHAR(2000) NULL,
   `enabled` TINYINT NULL,
-  `behavior_id` INT NOT NULL,
+  `behavior_id` INT NULL,
   `user_id` INT NOT NULL,
   `create_date` DATETIME NULL,
   PRIMARY KEY (`id`),
@@ -565,7 +565,30 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (1, 'helpful info', 'www.google.com', NULL, 1, 1, 1, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (1, 'Supporting Student Creativity, Perseverance, and Risk-Taking (the good kind)', 'https://www.mcrel.org/supporting-student-creativity-perseverance-and-risk-taking/?gad=1&gclid=Cj0KCQjwqP2pBhDMARIsAJQ0CzoMheIiRNT3ISn7glDmXsts30CDXnCMvQsiZL9wM5lk5HrQsRgoFA0aArvcEALw_wcB ', NULL, 1, 1, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (2, 'Tips for Empowering Students to Persevere', 'https://www.connectionsacademy.com/support/resources/article/4-tips-for-empowering-students-to-persevere/', NULL, 1, 1, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (3, 'Ways to Help Students Cultivate Integrity', 'https://greatergood.berkeley.edu/article/item/four_ways_to_help_students_cultivate_integrity', NULL, 1, 2, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (4, 'Integrity Activities and Tools for Students', 'https://www.commonsense.org/education/articles/we-all-teach-sel-integrity-activities-and-tools-for-students', NULL, 1, 2, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (5, 'Practices for Cultivating the Social, Emotional, and Ethical Well-Being of Students', 'https://ggie.berkeley.edu/student-well-being/ ', NULL, 1, 3, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (6, 'Steps To Cultivate Greater Empathy in Teaching', 'https://www.gcu.edu/blog/teaching-school-administration/6-steps-cultivate-greater-empathy-teaching', NULL, 1, 3, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (7, 'Holding Students Accountable', 'https://citl.indiana.edu/teaching-resources/teaching-strategies/holding-students-accountable/index.html', NULL, 1, 4, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (8, 'Student Responsibility: Holding Oneself Accountable', 'https://www.crslearn.org/publication/building-sel-skills/student-responsibility-holding-oneself-accountable/', NULL, 1, 4, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (9, 'Collaborative Learning', 'https://teaching.cornell.edu/teaching-resources/active-collaborative-learning/collaborative-learning#:~:text=The%20benefits%20of%20collaborative%20learning,self%2Desteem%2C%20and%20responsibility.', NULL, 1, 5, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (10, 'Strategies to Build on Student Collaboration in the Classroom', 'https://gsehd.gwu.edu/articles/10-strategies-build-student-collaboration-classroom', NULL, 1, 5, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (11, 'Impulsivity: Recommendations for Teachers', 'https://www.education.udel.edu/wp-content/uploads/2013/01/Impulsivity.pdf', NULL, 1, 6, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (12, 'Classroom Strategies for Active, Impulsive and Distracted Children', 'https://mcconaghiecounseling.com/classroom-strategies-for-active-impulsive-and-distracted-children/', NULL, 1, 6, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (13, 'Dealing With Impulsive Behavior Inside the Classroom', 'https://busyteacher.org/14858-how-to-deal-with-impulsive-behavior-classroom.html', NULL, 1, 6, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (14, 'Disengagement and Apathy: Recommendations for Teachers', 'https://www.education.udel.edu/wp-content/uploads/2013/01/Disengagement_Apathy.pdf(apathy)', NULL, 1, 7, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (15, '8 Tips to Overcome Student Apathy', 'https://www.teachforamerica.org/stories/8-tips-to-overcome-student-apathy', NULL, 1, 7, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (16, 'Ways to Manage Disrespect from Students', 'https://www.psychologytoday.com/us/blog/artificial-maturity/201907/five-ways-manage-disrespect-students-today', NULL, 1, 8, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (17, 'Preventing Student-­Student Disrespect In Your Classroom', 'https://crlt.umich.edu/sites/default/files/PreventionStrategies.pdf', NULL, 1, 8, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (18, 'Practical Strategies for Working with Students who Display Aggression and Violence', 'https://cyc-net.org/cyc-online/cycol-0306-guetzloe.html', NULL, 1, 9, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (19, 'Classroom Management and Aggressive Behavior', 'https://www.structural-learning.com/post/classroom-management', NULL, 1, 9, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (20, 'Aggression in the Classroom: Healthy Ways to Intervene', 'https://effectiveschoolsolutions.medium.com/aggression-in-the-classroom-healthy-ways-to-intervene-9eb2f295900d', NULL, 1, 9, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (21, 'Strategies to Help Students who are Pessimistic', 'https://www.theedadvocate.org/18-strategies-to-help-students-who-are-pessimistic/', NULL, 1, 10, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (22, 'Combating Learned Helplessness and Cultivating Optimistic Students', 'https://www.weareteachers.com/the-abcs-of-cultivating-optimistic-students/ ', NULL, 1, 10, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (23, 'Overcoming Obstacles Curriculum Guide', 'https://www.overcomingobstacles.org/portal/en', NULL, 1, NULL, 4, '2023-10-24');
+INSERT INTO `resource` (`id`, `title`, `link`, `image_url`, `enabled`, `behavior_id`, `user_id`, `create_date`) VALUES (24, 'Character Counts! Digital Classroom', 'https://charactercounts.org/digital_classroom/activities-and-lessons/#', NULL, 1, NULL, 4, '2023-10-24');
 
 COMMIT;
 
