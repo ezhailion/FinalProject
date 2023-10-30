@@ -30,6 +30,7 @@ public class SecurityConfig {
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // For CORS, the preflight request
         .antMatchers(HttpMethod.GET, "/api/resources/*").permitAll()     // will hit the OPTIONS on the route
+        .antMatchers(HttpMethod.GET, "/api/resources").permitAll()
         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()     // will hit the OPTIONS on the route
         .antMatchers("/api/users/*/classes").hasAuthority("teacher")
         .antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.

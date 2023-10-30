@@ -18,6 +18,7 @@ import { EditAccountDetailsComponent } from './components/edit-account-details/e
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ReportComponent } from './components/report/report.component';
 import { AboutComponent } from './components/about/about.component';
+import { ResourcesComponent } from './components/resources/resources.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AboutComponent } from './components/about/about.component';
     EditAccountDetailsComponent,
     NavigationComponent,
     ReportComponent,
-    AboutComponent
+    AboutComponent,
+    ResourcesComponent
 
   ],
   imports: [
