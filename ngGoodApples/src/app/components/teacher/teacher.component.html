@@ -123,26 +123,15 @@
 
       <!-- REPORT STARTS HERE -->
       <div class="row">
-        <!-- dummy data -->
+        <!-- WORD CLOUD AND PIE CHART-->
         <div class="col-12">
-          <!-- <img
-            src="https://resilienteducator.com/wp-content/uploads/2015/09/Revising-With-Pictures-How-Word-Clouds-Help-Students-Become-Better-Writers.jpg"
-            style="max-height: 250px"
-          /> -->
           <app-report [item]="studentReports" [studentName]="selectedStudent.whoami.firstName"></app-report>
         </div>
-        <!-- dummy data -->
-        <!-- <div class="col-6">
-          <img
-            src="https://files.readme.io/198da10-pie-donut-chart.png"
-            style="max-height: 250px"
-          />
-        </div> -->
       </div>
       <div class="row" *ngFor="let report of studentReports">
         <div class="col-6" *ngIf="report.enabled">
           <p (click)="loadSingleReport(report.id)" >
-            {{ report.createDate | date }} {{ report.notes }}
+            {{ report.createDate | date }} <span *ngFor="let behavior of report.behaviors">{{ behavior.name }} </span>
           </p>
           <br />
         </div>
