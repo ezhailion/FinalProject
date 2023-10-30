@@ -9,4 +9,5 @@ public interface MessageService {
 	List<Message> index(String username);
 	Message create(String username, Message message, int recipientId);
 	
+	
 }

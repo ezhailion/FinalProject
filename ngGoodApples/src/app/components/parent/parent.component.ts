@@ -1,9 +1,11 @@
+import { StudentService } from 'src/app/services/student.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
+import { Student } from 'src/app/models/student';
 
 @Component({
   selector: 'app-parent',
@@ -15,10 +17,13 @@ export class ParentComponent {
   loggedInUser: User = new User();
   messages : Message [] = [];
 
+  myKiddos : Student[] = [];
+
   constructor(
     private auth: AuthService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private studentService: StudentService
   ) {}
 
   ngOnInit() {
@@ -28,6 +33,9 @@ export class ParentComponent {
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
         this.loggedInUser = user;
+
+        console.log("USER")
+        console.log(user)
       },
       error: (oops) => {
         console.error(
@@ -37,12 +45,16 @@ export class ParentComponent {
       },
     });
     this.loadAllMessages();
+    this.loadAllKiddos();
   }
 
   loadAllMessages() {
     this.messageService.index().subscribe({
       next: (messages) => {
         this.messages = messages;
+
+        console.log("MESSAGES")
+        console.log(messages)
       },
       error: (oops) => {
         'ParentComponent.loadAllMessages() failed getting messages' + oops
@@ -58,6 +70,13 @@ export class ParentComponent {
       error: (oops) => {
         'ParentComponent.createNewMessage() failed creating message' + oops
       }
+    })
+  }
+
+  loadAllKiddos() {
+    this.studentService.getStudentsByParent().subscribe({
+      next: (students) => { this.myKiddos = students },
+      error: (wat) => console.error("parent component cant load kids " + wat)
     })
   }
 }

@@ -12,3 +12,8 @@
 <div *ngFor="let message of messages">
 <p>{{message.content}}</p>
 </div>
+
+<h3>My kids: </h3>
+<div *ngFor = "let kid of myKiddos">
+  <p>{{kid.whoami.firstName}} {{kid.whoami.lastName}}</p>
+</div>
