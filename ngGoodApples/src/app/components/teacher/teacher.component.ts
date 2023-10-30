@@ -216,11 +216,16 @@ export class TeacherComponent {
   createNewReport(report : Report, studentUserId : number | undefined) {
     this.reportService.create(report, studentUserId).subscribe({
       next: report => {
-        this.newReport = new Report();
+        this.newReport = report;
         this.loadAllReportsForStudent(report.student.id);
       },
 
     })
+  }
+
+  resetNewReport(id : number) {
+    this.newReport = new Report();
+    this.loadAllReportsForStudent(id);
   }
 
 //behavior methods start here

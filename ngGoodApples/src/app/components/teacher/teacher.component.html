@@ -207,8 +207,43 @@
     </div>
   </div>
 
-  <!-- ADD FORM MODAL FOR REPORT  -->
+  <!-- ADD FORM NOTES FOR REPORT  -->
   <ng-template #formModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Behavior Report</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="name"
+        placeholder="Notes"
+        [(ngModel)]="newReport.notes"
+      />
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+          modal.close(createNewReport(newReport, selectedStudent?.whoami?.id))
+        "
+        (click)="open(addBehaviors)"
+      >
+        Next: Add Behaviors
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- ADD BEHAVIOR MODAL FOR REPORT  -->
+  <ng-template #addBehaviors let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Add Behavior Report</h4>
       <button
@@ -227,26 +262,21 @@
             type="checkbox"
             value="{{ behavior.id }}"
             id="flexCheckDefault"
+            (change)="toggleReportBehavior(behavior.id, $event, newReport.id)"
           />
           <label class="form-check-label" for="flexCheckDefault">
             {{ behavior.name }}
           </label>
         </div>
       </div>
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="name"
-        placeholder="Notes"
-        [(ngModel)]="newReport.notes"
-      />
+
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" *ngIf="selectedStudent">
       <button
         type="button"
         class="btn btn-outline-dark"
         (click)="
-          modal.close(createNewReport(newReport, selectedStudent?.whoami?.id))
+        modal.close(resetNewReport(selectedStudent.id))
         "
       >
         Add Report
