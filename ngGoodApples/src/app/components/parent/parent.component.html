@@ -21,13 +21,15 @@
     {{kid.whoami.firstName}} {{kid.whoami.lastName}}</p>
 </div>
 </div>
-<div *ngIf="selectedStudent"><h2>{{selectedStudent.whoami.firstName}}
+<div *ngIf="selectedStudent">
+  <button class="btn btn-secondary"
+  (click)="selectedStudent = null"
+  >Back to My Kids</button>
+  <h2>{{selectedStudent.whoami.firstName}}
   {{selectedStudent.whoami.lastName}}</h2><br>
   <!-- <img width="200" src="{{selectedStudent.whoami.imageUrl}}"> -->
-</div>
 <div *ngFor="let report of studentReports " >
-
-
     <p>{{report.createDate | date}}<br>
     {{report.notes}}</p>
+</div>
 </div>
