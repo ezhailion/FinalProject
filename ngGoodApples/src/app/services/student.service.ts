@@ -93,4 +93,15 @@ export class StudentService {
       })
     )
   }
+
+    createStudent(student: Student) : Observable<Student> {
+      return this.http.post<Student>(environment.baseUrl + "api/students", this.getHttpOptions()).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () => new Error('StudentService.createStudent(): error creating student: ' + err)
+          );
+        })
+      )
+    }
 }
