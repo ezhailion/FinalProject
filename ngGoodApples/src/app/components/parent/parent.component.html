@@ -6,7 +6,7 @@
   placeholder="Enter message"
   [(ngModel)]="newMessage.content"
 />
-<button class="btn btn-dark">Send</button>
+<button class="btn btn-dark" (click)="createNewMessage(newMessage, 4)">Send</button>
 </form>
 
 <div *ngFor="let message of messages">

@@ -49,4 +49,15 @@ export class ParentComponent {
       }
     })
   }
+
+  createNewMessage(message: Message, recipientId: number) {
+    this.messageService.create(message, recipientId).subscribe({
+      next: (createdMessage) => {
+        this.loadAllMessages();
+      },
+      error: (oops) => {
+        'ParentComponent.createNewMessage() failed creating message' + oops
+      }
+    })
+  }
 }

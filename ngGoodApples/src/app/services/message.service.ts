@@ -37,5 +37,14 @@ export class MessageService {
     );
   }
 
-
+  create(message: Message, recipientId: number): Observable<Message> {
+    return this.http.post<Message>(this.url + "/" + recipientId , message, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MessageService.create(): error creating message: ' + err)
+        );
+      })
+    )
+  }
 }
