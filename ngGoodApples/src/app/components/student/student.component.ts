@@ -23,6 +23,7 @@ export class StudentComponent {
   newReflection: Reflection = new Reflection();
   loggedInUser: User = new User();
   student: Student = new Student();
+  newStudent: Student = new Student();
 
   ngOnInit() {
     console.log("on that init")
@@ -49,11 +50,12 @@ export class StudentComponent {
     this.studentService.create(reflection).subscribe({
       next: (reflection) => {
         this.newReflection = new Reflection();
-
       },
       error: oops => console.error("Student Component. createReflection err " + oops)
     })
   }
+
+
 
   loadAllReflectionsForStudent(studentId: number) {
     this.studentService.indexReflections(studentId).subscribe({
@@ -75,4 +77,6 @@ export class StudentComponent {
       error: oops => console.error("Student Component. loadStudent err " + oops)
     })
   }
+
+
 }

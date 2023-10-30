@@ -36,6 +36,7 @@ export class TeacherComponent {
   loggedInUser: User = new User();
   classes: Classroom[] = [];
 
+  newStudent: User = new User();
   selectedStudents: Student[] | null = null;
   selectedStudent: Student | null = null;
 
@@ -49,6 +50,8 @@ export class TeacherComponent {
 
   newReport : Report = new Report();
   editReport : Report = new Report();
+
+
 
 
   constructor(
@@ -264,6 +267,16 @@ export class TeacherComponent {
         }
       },
       error : ohNO => console.error("error in teacher component, updating report " + ohNO)
+    })
+  }
+
+  createStudent(user: User, classId: number) {
+    this.studentService.createStudent(user, classId).subscribe({
+      next: (student) => {
+        this.loadAllStudentsFromClass(classId)
+        this.newStudent = new User();
+      },
+      error: oops => console.error("Teacher Component. createStudent err " + oops)
     })
   }
 }

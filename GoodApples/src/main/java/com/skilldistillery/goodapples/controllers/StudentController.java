@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.goodapples.entities.Report;
 import com.skilldistillery.goodapples.entities.Student;
+import com.skilldistillery.goodapples.entities.User;
+import com.skilldistillery.goodapples.services.AuthService;
 import com.skilldistillery.goodapples.services.ClassService;
 import com.skilldistillery.goodapples.services.ReportService;
 import com.skilldistillery.goodapples.services.StudentService;
@@ -26,7 +28,11 @@ import com.skilldistillery.goodapples.services.StudentService;
 @CrossOrigin({ "*", "http://localhost/" })
 public class StudentController {
 
-	@Autowired ClassService classService;
+	@Autowired 
+	private ClassService classService;
+	
+	@Autowired 
+	private AuthService authService;
 	
 	@Autowired
 	private StudentService studentService;
@@ -53,12 +59,15 @@ public class StudentController {
 		return student;
 	}
 	
-	@PostMapping("students")
-	public Student create (HttpServletRequest req, HttpServletResponse res, @RequestBody Student newStudent,
-			Principal principal) {
+	@PostMapping("register/students/{classroomId}")
+	public Student create (HttpServletRequest req, HttpServletResponse res, @RequestBody User newStudentUser,
+			Principal principal, @PathVariable int classroomId) {
+		
 		Student createdStudent = null;
+		User createdUser = null;
 		try {
-			createdStudent = studentService.createStudentUser(newStudent);
+			createdUser = authService.register(newStudentUser);
+			createdStudent = studentService.createStudent(createdUser, classroomId);
 			res.setStatus(201);
 		} catch (Exception e) {
 			res.setStatus(400);
