@@ -13,6 +13,7 @@ import { Behavior } from 'src/app/models/behavior';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { Resource } from 'src/app/models/resource';
 import { ResourceService } from 'src/app/services/resource.service';
+import { Reflection } from 'src/app/models/reflection';
 
 
 
@@ -49,12 +50,14 @@ export class TeacherComponent {
   selectedReport: Report | null = null;
 
   behaviors : Behavior[] = [];
-  selectedReportResources : Resource [] = [];
 
   newReport : Report = new Report();
   editReport : Report = new Report();
 
+  selectedReportResources : Resource [] = [];
   resources : Resource [] = [];
+
+  studentReflectionList: Reflection[] = [];
 
 
 
@@ -92,11 +95,6 @@ export class TeacherComponent {
     this.loadAllResources();
 
 
-  }
-
-  //delete me later
-  helpMe(stuff: any) {
-    console.log(stuff)
   }
 
   // this method is for the add class modal
@@ -174,6 +172,20 @@ export class TeacherComponent {
           'Teach Component.loadStudent: retrieval err ' + oopsiedoodles
         ),
     });
+  }
+
+  loadAllReflectionsForStudent(studentId: number) {
+    this.studentService.indexReflections(studentId).subscribe({
+      next: (reflections) => {
+        this.studentReflectionList = reflections;
+      },
+      error: (rickroll) => {
+        console.error(
+          'Teach Component.loadAllReflectionsForStudent() error getting student reflections ' +
+            rickroll
+        );
+      }
+    })
   }
 
   //reportService methods
