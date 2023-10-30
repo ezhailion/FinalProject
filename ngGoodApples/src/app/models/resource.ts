@@ -1,3 +1,4 @@
+import { Behavior } from './behavior';
 export class Resource {
   id: number;
   title: string;
@@ -6,6 +7,8 @@ export class Resource {
   createDate: string;
   enabled: boolean;
 
+  behavior : Behavior;
+
   constructor(
     id: number = 0,
   title: string = '',
@@ -13,6 +16,7 @@ export class Resource {
   imageUrl: string = '',
   createDate: string = '',
   enabled: boolean = false,
+  behavior : Behavior = new Behavior,
   )
  {
   this.id = id;
@@ -21,5 +25,6 @@ export class Resource {
   this.imageUrl = imageUrl;
   this.createDate = createDate;
   this. enabled = enabled;
+  this.behavior = behavior;
  }
 }

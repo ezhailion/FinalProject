@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -8,6 +9,7 @@ import { StudentComponent } from './components/student/student.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { EditAccountDetailsComponent } from './components/edit-account-details/edit-account-details.component';
 import { AboutComponent } from './components/about/about.component';
+import { ResourcesComponent } from './components/resources/resources.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -18,6 +20,7 @@ const routes: Routes = [
   { path: 'student', component: StudentComponent },
   { path: 'editAccount', component: EditAccountDetailsComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'resources', component : ResourcesComponent},
   { path: '**', component: NotFoundComponent }
 
 ];
