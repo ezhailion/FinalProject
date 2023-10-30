@@ -21,7 +21,10 @@
       <button class="btn btn-dark mx-1 mt-5 float-end">
         Edit Class Details
       </button>
-      <button (click)="open(createStudentModal)" class="btn btn-outline-dark mx-1 mt-5 float-end">
+      <button
+        (click)="open(createStudentModal)"
+        class="btn btn-outline-dark mx-1 mt-5 float-end"
+      >
         Add New Student
       </button>
     </div>
@@ -134,10 +137,12 @@
       </h3>
       <div class="row" *ngFor="let report of studentReports">
         <div class="col-6" *ngIf="report.enabled">
-          <div class="btn btn-dark mx-1 mb-1 mt-1 w-100" (click)="loadSingleReport(report.id)">
+          <div
+            class="btn btn-dark mx-1 mb-1 mt-1 w-100 text-start"
+            (click)="loadSingleReport(report.id)"
+          >
             {{ report.createDate | date }}:
-            <span
-              *ngFor="let behavior of report.behaviors"
+            <span *ngFor="let behavior of report.behaviors"
               >{{ behavior.name }}
             </span>
           </div>
@@ -175,10 +180,13 @@
           <strong>Notes: </strong>{{ selectedReport.notes }}
           <hr />
           <strong>Resources:</strong>
-            <div>
-              <button class="btn btn-dark">Resource Buttons here</button>
+              <div *ngFor="let resource of selectedReportResources">
+                <a target="_blank" href="{{resource.link}}">
+                  {{resource.title}}
+                </a>
             </div>
-            <hr>
+
+          <hr />
           <div class="mt-1">
             <button
               class="btn btn-outline-dark mx-1"
@@ -347,7 +355,7 @@
       </button>
     </div>
   </ng-template>
-<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!add student modal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+  <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!add student modal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
   <ng-template #createStudentModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Create Student</h4>
@@ -400,9 +408,7 @@
       <button
         type="button"
         class="btn btn-outline-dark"
-        (click)="
-          modal.close(createStudent(newStudent, selectedClass.id))
-        "
+        (click)="modal.close(createStudent(newStudent, selectedClass.id))"
       >
         Add Student
       </button>
