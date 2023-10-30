@@ -54,7 +54,6 @@ public class ReportServiceImpl implements ReportService {
 		Report existing = reportRepo.searchById(reportId);
 		if (existing != null) {
 			existing.setNotes(report.getNotes());
-			existing.setBehaviors(report.getBehaviors());
 			reportRepo.saveAndFlush(existing);
 		}
 		return existing;
