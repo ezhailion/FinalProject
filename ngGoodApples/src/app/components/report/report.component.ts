@@ -98,7 +98,16 @@ export class ReportComponent implements OnChanges {
         title: {text: `${this.studentName}'s Behaviors`}
     }
 
-    Highcharts.chart("wordCloudWindow", this.chartOptions);
+
+   let wordChart = Highcharts.chart("wordCloudWindow", this.chartOptions);
+
+   for (let s of wordChart.series[0].data) {
+
+    Highcharts.addEvent(s, 'click', (e) => {
+      let text = e?.srcElement.innerHTML;
+      console.log(text)
+    })
+   }
 
     /*
      * Building the pie chart

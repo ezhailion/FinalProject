@@ -16,14 +16,14 @@
       <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/register']" *ngIf="!isLoggedIn()">Register</button>
 
       <!-- click event route to respective homepage (teacher, parent, student), only shows when logged in -->
-      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'teacher'">
-        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/teacher']">{{auth.loginUser.role | titlecase}} Home</button>
+      <span *ngIf="isLoggedIn() && loggedInUser.role === 'teacher'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/teacher']">{{loggedInUser.role | titlecase}} Home</button>
       </span>
-      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'parent'">
-        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/parent']">{{auth.loginUser.role | titlecase}} Home</button>
+      <span *ngIf="isLoggedIn() && loggedInUser.role === 'parent'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/parent']">{{loggedInUser.role | titlecase}} Home</button>
       </span>
-      <span *ngIf="isLoggedIn() && auth.loginUser.role === 'student'">
-        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/student']">{{auth.loginUser.role | titlecase}} Home</button>
+      <span *ngIf="isLoggedIn() && loggedInUser.role === 'student'">
+        <button class="btn btn-lg btn-dark mx-5" [routerLink]="['/student']">{{loggedInUser.role | titlecase}} Home</button>
       </span>
 
     </div>
