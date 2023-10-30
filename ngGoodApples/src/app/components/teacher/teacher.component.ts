@@ -260,6 +260,7 @@ export class TeacherComponent {
       next : (updated) => {
         if (this.selectedStudent != null) {
           this.loadAllReportsForStudent(this.selectedStudent.id);
+          this.selectedReport = null;
         }
       },
       error : ohNO => console.error("error in teacher component, updating report " + ohNO)
