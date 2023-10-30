@@ -1,1 +1,14 @@
-<p>parent works!</p>
+<form class="form-control">
+  <input
+  class="form-control mb-3"
+  type="text"
+  name="content"
+  placeholder="Enter message"
+  [(ngModel)]="newMessage.content"
+/>
+<button class="btn btn-dark" (click)="createNewMessage(newMessage, 4)">Send</button>
+</form>
+
+<div *ngFor="let message of messages">
+<p>{{message.content}}</p>
+</div>
