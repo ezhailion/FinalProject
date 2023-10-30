@@ -1,6 +1,7 @@
 package com.skilldistillery.goodapples.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.goodapples.entities.Classroom;
 import com.skilldistillery.goodapples.entities.Student;
 import com.skilldistillery.goodapples.entities.User;
 import com.skilldistillery.goodapples.services.UserService;
@@ -89,5 +89,10 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return student;
+	}
+	
+	@GetMapping("users/kids")
+	public List<Student> getStudentsFromParentname(Principal principal) {
+		return userService.getAParentsKids(principal.getName());
 	}
 }

@@ -1,5 +1,7 @@
 package com.skilldistillery.goodapples.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +63,11 @@ public class UserServiceImpl implements UserService {
 		User user = userRepo.findByUsername(username);
 		Student student = user.getStudent();
 		return student;
+	}
+
+	@Override
+	public List<Student> getAParentsKids(String parentUsername) {
+		
+		return userRepo.findByUsername(parentUsername).getParentsKids();
 	}
 }

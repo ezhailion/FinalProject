@@ -82,4 +82,15 @@ export class StudentService {
       })
     )
   }
+
+  getStudentsByParent(): Observable<Student[]> {
+    return this.http.get<Student[]>(environment.baseUrl + 'api/users/kids', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error("StudentService.getStudentsByParent: error retrieving students: " + err)
+        )
+      })
+    )
+  }
 }
