@@ -29,8 +29,12 @@
       </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudent">
+
       <button class="btn btn-dark mx-1 mt-5 float-end">
         Edit {{ selectedStudent.whoami.firstName }}'s Details
+      </button>
+      <button class="btn btn-secondary mx-1 mt-5 float-end" (click)="open(studentReflections)" (click)="loadAllReflectionsForStudent(selectedStudent.id)">
+        View {{ selectedStudent.whoami.firstName }}'s Reflections
       </button>
       <button
         class="btn btn-outline-dark mx-1 mt-5 float-end"
@@ -444,4 +448,25 @@
       </button>
     </div>
   </ng-template>
+
+<!-- VIEW STUDENT REFLECTIONS MODAL -->
+<ng-template #studentReflections let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{selectedStudent?.whoami?.firstName}}'s Reflections</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+   <div *ngFor="let reflection of studentReflectionList">
+    {{reflection.createDate | date}} {{reflection.content}}
+   </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+</ng-template>
 </div>
