@@ -6,6 +6,8 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
 import { Student } from 'src/app/models/student';
+import { ReportService } from 'src/app/services/report.service';
+import { Report } from 'src/app/models/report';
 
 @Component({
   selector: 'app-parent',
@@ -17,13 +19,17 @@ export class ParentComponent {
   loggedInUser: User = new User();
   messages : Message [] = [];
 
+  selectedStudent: Student | null = null;
+  studentReports: Report[] = [];
   myKiddos : Student[] = [];
+
 
   constructor(
     private auth: AuthService,
     private router: Router,
     private messageService: MessageService,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private reportService: ReportService,
   ) {}
 
   ngOnInit() {
@@ -78,5 +84,19 @@ export class ParentComponent {
       next: (students) => { this.myKiddos = students },
       error: (wat) => console.error("parent component cant load kids " + wat)
     })
+  }
+
+  loadAllReportsForStudent(studentId: number) {
+    this.reportService.getAllStudentReports(studentId).subscribe({
+      next: (reports) => {
+        this.studentReports = reports;
+      },
+      error: (oopz) => {
+        console.error(
+          'Teach Component.loadAllReportsForStudent() error getting student reports ' +
+            oopz
+        );
+      },
+    });
   }
 }

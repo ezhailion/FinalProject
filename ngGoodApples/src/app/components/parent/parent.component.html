@@ -13,7 +13,21 @@
 <p>{{message.content}}</p>
 </div>
 
+<div *ngIf="!selectedStudent">
 <h3>My kids: </h3>
 <div *ngFor = "let kid of myKiddos">
-  <p>{{kid.whoami.firstName}} {{kid.whoami.lastName}}</p>
+  <p (click)="loadAllReportsForStudent(kid.id)"
+     (click)="selectedStudent = kid">
+    {{kid.whoami.firstName}} {{kid.whoami.lastName}}</p>
+</div>
+</div>
+<div *ngIf="selectedStudent"><h2>{{selectedStudent.whoami.firstName}}
+  {{selectedStudent.whoami.lastName}}</h2><br>
+  <!-- <img width="200" src="{{selectedStudent.whoami.imageUrl}}"> -->
+</div>
+<div *ngFor="let report of studentReports " >
+
+
+    <p>{{report.createDate | date}}<br>
+    {{report.notes}}</p>
 </div>
