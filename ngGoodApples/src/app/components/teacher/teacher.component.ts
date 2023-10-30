@@ -11,6 +11,8 @@ import { ReportService } from 'src/app/services/report.service';
 import { StudentService } from 'src/app/services/student.service';
 import { Behavior } from 'src/app/models/behavior';
 import { TeacherService } from 'src/app/services/teacher.service';
+import { Resource } from 'src/app/models/resource';
+import { ResourceService } from 'src/app/services/resource.service';
 
 
 
@@ -47,10 +49,12 @@ export class TeacherComponent {
   selectedReport: Report | null = null;
 
   behaviors : Behavior[] = [];
+  selectedReportResources : Resource [] = [];
 
   newReport : Report = new Report();
   editReport : Report = new Report();
 
+  resources : Resource [] = [];
 
 
 
@@ -61,7 +65,8 @@ export class TeacherComponent {
     private classroomService: ClassroomService,
     private studentService: StudentService,
     private reportService: ReportService,
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
+    private resourceService: ResourceService
   ) {}
 
   //what the component does right away
@@ -84,8 +89,14 @@ export class TeacherComponent {
     });
 
     this.loadAllBehaviors();
+    this.loadAllResources();
 
 
+  }
+
+  //delete me later
+  helpMe(stuff: any) {
+    console.log(stuff)
   }
 
   // this method is for the add class modal
@@ -183,7 +194,15 @@ export class TeacherComponent {
   loadSingleReport(reportId: number) {
     this.reportService.getSingleReport(reportId).subscribe({
       next: (report) => {
+        this.selectedReportResources = [];
         this.selectedReport = report;
+        for (let behavior of this.selectedReport.behaviors) {
+          for (let resource of this.resources) {
+            if (behavior?.id === resource.behavior?.id)
+            this.selectedReportResources.push(resource);
+          }
+
+        }
         this.editReport = this.selectedReport;
       },
       error: (oopsiedaisy) => {
@@ -277,6 +296,18 @@ export class TeacherComponent {
         this.newStudent = new User();
       },
       error: oops => console.error("Teacher Component. createStudent err " + oops)
+    })
+  }
+
+  //RESOURCE METHODS
+  loadAllResources() {
+    this.resourceService.index().subscribe({
+      next: (resources) => {
+        this.resources = resources;
+      },
+       error: (oops) => {
+        console.error("TeacherComponent.loadAllResources() err " + oops);
+       }
     })
   }
 }

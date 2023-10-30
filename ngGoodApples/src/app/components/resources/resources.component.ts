@@ -12,7 +12,18 @@ export class ResourcesComponent {
 
   allResources : Resource[] = [];
 
-  sections : {title : string, links : {name : string, url : string}[]}[] = [];
+  allGeneral : Resource[] = [];
+  allPessimism : Resource[] = [];
+  allAggression : Resource[] = [];
+  allDisrespectfulness : Resource[] = [];
+  allApathy : Resource[] = [];
+  allImpulsivity : Resource[] = [];
+  allCollaboration : Resource[] = [];
+  allAccountability : Resource[] = [];
+  allEmpathy : Resource[] = [];
+  allIntegrity : Resource[] = [];
+  allPerseverance : Resource[] = [];
+
 
   constructor(
     private resourceService : ResourceService
@@ -26,7 +37,49 @@ export class ResourcesComponent {
 
   loadAllResources() {
     this.resourceService.index().subscribe({
-      next: rs => {this.allResources = rs.reverse(); console.log(this.allResources)},
+      next: rs => {
+        this.allResources = rs.reverse();
+
+        for (let r of this.allResources) {
+          if (r.behavior?.name == 'Pessimism') {
+            this.allPessimism.push(r);
+          }
+          else if (r.behavior?.name == 'Aggression') {
+            this.allAggression.push(r);
+          }
+          else if (r.behavior?.name == 'Disrespectfulness') {
+            this.allDisrespectfulness.push(r);
+          }
+          else if (r.behavior?.name == 'Pessimism') {
+            this.allPessimism.push(r);
+          }
+          else if (r.behavior?.name == 'Apathy') {
+            this.allApathy.push(r);
+          }
+          else if (r.behavior?.name == 'Impulsivity') {
+            this.allImpulsivity.push(r);
+          }
+          else if (r.behavior?.name == 'Collaboration') {
+            this.allCollaboration.push(r);
+          }
+          else if (r.behavior?.name == 'Accountability') {
+            this.allAccountability.push(r);
+          }
+          else if (r.behavior?.name == 'Empathy') {
+            this.allEmpathy.push(r);
+          }
+          else if (r.behavior?.name == 'Integrity') {
+            this.allIntegrity.push(r);
+          }
+          else if (r.behavior?.name == 'Perseverance') {
+            this.allPerseverance.push(r);
+          } else {
+            this.allGeneral.push(r);
+          }
+
+        }
+
+      },
       error: erroneous => console.error("resources component, bad load " + erroneous)
 
     })
