@@ -1,11 +1,72 @@
-
-
-<div class="container" *ngFor="let resource of allResources">
-
-  <h4
-
-  >{{toTitle(resource.behavior)}}
-</h4>
-  <p><a href = "{{resource.link}}">{{resource.title}}</a></p>
+<div class="container-fluid">
+<h4 class="mt-4">General</h4>
+<div  *ngFor="let resource of allGeneral">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
   <br>
+</div>
+
+<h4 class="">Perseverance</h4>
+<div  *ngFor="let resource of allPerseverance">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">Integrity</h4>
+<div  *ngFor="let resource of allIntegrity">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">Empathy</h4>
+<div  *ngFor="let resource of allEmpathy">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">Accountability</h4>
+<div  *ngFor="let resource of allAccountability">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">Collaboration</h4>
+<div  *ngFor="let resource of allCollaboration">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+
+<h4 class="">Impulsivity</h4>
+<div  *ngFor="let resource of allImpulsivity">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">allApathy</h4>
+<div  *ngFor="let resource of allApathy">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">Disrespectfulness</h4>
+<div  *ngFor="let resource of allDisrespectfulness">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">Aggression</h4>
+<div  *ngFor="let resource of allAggression">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+<h4 class="">Pessimism</h4>
+<div  *ngFor="let resource of allPessimism">
+  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
+  <br>
+</div>
+
+
+
+
 </div>
