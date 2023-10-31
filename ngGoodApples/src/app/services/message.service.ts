@@ -60,5 +60,14 @@ export class MessageService {
     )
   }
 
-  //todo indexParents();
+  indexParents() : Observable<User[]> {
+    return this.http.get<User[]>(environment.baseUrl + 'api/users/parents', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MessageService.indexparents(): error gettin parents: ' + err)
+        );
+      })
+    )
+  }
 }

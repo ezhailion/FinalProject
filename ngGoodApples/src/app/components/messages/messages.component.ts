@@ -18,9 +18,12 @@ export class MessagesComponent {
   loggedInUser : User = new User();
 
   teacherContacts : User[] = [];
+  parentContacts : User[] = [];
+
+  role : string = '';
 
   constructor(
-    private auth : AuthService,
+    public auth : AuthService,
     private router : Router,
     private messageService : MessageService,
   ){}
@@ -46,6 +49,9 @@ export class MessagesComponent {
 
     this.loadAllMessages();
     this.loadAllTeacherContacts();
+    this.loadAllParentContacts();
+    this.role = this.auth.loginUser.role;
+
   }
 
   loadAllMessages() {
@@ -53,8 +59,7 @@ export class MessagesComponent {
       next: (messages) => {
         this.messages = messages;
 
-        console.log("MESSAGES")
-        console.log(messages)
+
       },
       error: (oops) => {
         'ParentComponent.loadAllMessages() failed getting messages' + oops
@@ -63,8 +68,7 @@ export class MessagesComponent {
   }
 
   createNewMessage(message: Message) {
-    console.log("MESSAGE OBJECT ******")
-    console.log(message)
+
 
     let recipientId = message.recipient.id;
     this.messageService.create(message, recipientId).subscribe({
@@ -79,9 +83,23 @@ export class MessagesComponent {
 
   loadAllTeacherContacts() {
     this.messageService.indexTeachers().subscribe({
-      next: (teachers) => {this.teacherContacts = teachers; console.log(teachers)},
+      next: (teachers) => {this.teacherContacts = teachers},
       error: err => console.error("error loading teachers" + err)
     })
   }
 
+  loadAllParentContacts() {
+    this.messageService.indexParents().subscribe({
+      next: (parents) => { this.parentContacts = parents },
+      error: (err) => console.error("error loading parents " + err)
+    })
+  }
+
+  testRoleParent() : boolean {
+    return this.auth.loginUser.role === 'parent'
+  }
+
+  testRoleTeacher() : boolean {
+    return this.auth.loginUser.role === 'teacher'
+  }
 }
