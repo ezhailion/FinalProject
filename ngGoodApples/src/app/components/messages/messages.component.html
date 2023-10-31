@@ -14,7 +14,20 @@
     placeholder="Enter message"
     [(ngModel)]="newMessage.content"
   />
-  <button class="btn btn-dark" (click)="createNewMessage(newMessage, 4)">Send</button>
+
+  <label for="dropDownTeachers">To:</label>
+  <select name="recipientUser" id="dropDownTeachers"
+          [(ngModel)] = "newMessage.recipient.id">
+    <!-- for -->
+
+    <option *ngFor="let contact of teacherContacts"
+            [value]="contact.id">
+            {{contact.firstName}} {{contact.lastName}}
+    </option>
+
+  </select>
+
+  <button class="btn btn-dark" (click)="createNewMessage(newMessage)">Send</button>
   </form>
 </div>
 

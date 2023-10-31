@@ -17,6 +17,7 @@ export class MessagesComponent {
   messages : Message [] = [];
   loggedInUser : User = new User();
 
+  teacherContacts : User[] = [];
 
   constructor(
     private auth : AuthService,
@@ -44,6 +45,7 @@ export class MessagesComponent {
     });
 
     this.loadAllMessages();
+    this.loadAllTeacherContacts();
   }
 
   loadAllMessages() {
@@ -60,7 +62,11 @@ export class MessagesComponent {
     })
   }
 
-  createNewMessage(message: Message, recipientId: number) {
+  createNewMessage(message: Message) {
+    console.log("MESSAGE OBJECT ******")
+    console.log(message)
+
+    let recipientId = message.recipient.id;
     this.messageService.create(message, recipientId).subscribe({
       next: (createdMessage) => {
         this.loadAllMessages();
@@ -70,4 +76,12 @@ export class MessagesComponent {
       }
     })
   }
+
+  loadAllTeacherContacts() {
+    this.messageService.indexTeachers().subscribe({
+      next: (teachers) => {this.teacherContacts = teachers; console.log(teachers)},
+      error: err => console.error("error loading teachers" + err)
+    })
+  }
+
 }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Message } from '../models/message';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +48,17 @@ export class MessageService {
       })
     )
   }
+
+  indexTeachers() : Observable<User[]> {
+    return this.http.get<User[]>(environment.baseUrl + 'api/users/teachers', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MessageService.indexTeachers(): error gettin teachers: ' + err)
+        );
+      })
+    )
+  }
+
+  //todo indexParents();
 }
