@@ -535,7 +535,8 @@
   <div class="modal-body">
     <div *ngFor="let student of filteredStudents">
       {{student.whoami.firstName}} {{student.whoami.lastName}}
-      <button  class="btn btn-secondary">Add to Class</button>
+      <button  class="btn btn-secondary"
+      (click)="addStudentToClass(selectedClass.id, student.id)">Add to Class</button>
     </div>
   </div>
   <div class="modal-footer">

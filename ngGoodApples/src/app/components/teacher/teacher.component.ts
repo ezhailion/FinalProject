@@ -1,7 +1,7 @@
+import { Classroom } from './../../models/classroom';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Classroom } from 'src/app/models/classroom';
 import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/user';
 import { Report } from 'src/app/models/report';
@@ -121,6 +121,20 @@ export class TeacherComponent {
   }
 
   //classroomService methods
+
+  addStudentToClass(classId: number, studentId: number) {
+    this.classroomService.addStudentToClass(classId, studentId).subscribe({
+      next: (classroom) => {
+        console.log(classroom)
+      },
+      error: (oops) => {
+        console.error(
+          'TeacherComponent.addStudentToClass(): error adding student to class' + oops
+        );
+      }
+    })
+  }
+
   loadAllClasses() {
     this.classroomService.index().subscribe({
       next: (classes) => {
@@ -167,6 +181,7 @@ export class TeacherComponent {
   loadAllStudentsFilter() {
     this.studentService.getStudents().subscribe({
       next: (students) => {
+        this.filteredStudents = [];
         for(let student of students) {
           let addStudent: boolean = true;
           for(let classroom of student.classrooms) {

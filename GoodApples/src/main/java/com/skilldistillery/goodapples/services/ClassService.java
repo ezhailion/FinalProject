@@ -18,8 +18,8 @@ public interface ClassService {
 	List<Student> indexStudents(int classId);
 	Student showStudent(int classId, int studentId);
 	
-	Classroom addExistingStudentsToClass(int classId, int studentId, String username);
+	Classroom addExistingStudentToClass(int classId, int studentId, String username);
 	
-
+	Classroom removeExistingStudentToClass(int classId, int studentId, String username);
 	
 }

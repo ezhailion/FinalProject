@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Student } from '../models/student';
 
 @Injectable({
   providedIn: 'root'
@@ -88,5 +89,27 @@ private auth: AuthService
       })
     )
 
+  }
+
+  addStudentToClass(classId: number, studentId: number ) {
+    return this.http.post<Classroom>(this.url + '/' + classId + '/students/' + studentId, new Student(), this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ClassroomService.addStudentToClass: error adding student to class: ' + err)
+        );
+      })
+    )
+  }
+
+  removeStudentFromClass(classId: number, studentId: number) {
+    return this.http.delete<Classroom>(this.url + '/' + classId + '/students/' + studentId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ClassroomService.deleteStudentToClass: error deleting student from class: ' + err)
+        );
+      })
+    )
   }
 }
