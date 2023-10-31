@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { Report } from '../models/report';
+import { Student } from '../models/student';
 
 @Injectable({
   providedIn: 'root',
@@ -125,6 +126,23 @@ export class TeacherService {
           );
         })
       );
+  }
+
+  editOtherUserDetails(studentId: number, userId: number, user: User) {
+    return this.http.put<User>(this.url + 'api/users/' + userId + '/students/' + studentId,
+    user, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () =>
+            new Error(
+              'TeacherService.editOtherUserDetails: error editing other user: ' +
+                  err
+            )
+        )
+      })
+    )
+
   }
 
 }

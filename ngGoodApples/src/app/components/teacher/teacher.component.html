@@ -39,7 +39,9 @@
       </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudent">
-      <button class="btn btn-dark mx-1 mt-5 float-end">
+      <button class="btn btn-dark mx-1 mt-5 float-end"
+      (click)="open(editStudentDetails)"
+      (click)="setEditUser()">
         Edit {{ selectedStudent.whoami.firstName }}'s Details
       </button>
       <button
@@ -578,33 +580,55 @@
     </div>
 
     <div class="modal-body">
-      <div class="row">
-      <div class="col">
-        <h4>Add Student</h4>
-        <div *ngFor="let student of filteredStudents">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="lastName"
+      [(ngModel)]="editUser.lastName"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="email"
+      [(ngModel)]="editUser.email"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="phone"
+      [(ngModel)]="editUser.phone"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="aboutMe"
+      [(ngModel)]="editUser.aboutMe"
+    />
+    <div *ngIf="editUser.student">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="accommodations"
+      [(ngModel)]="editUser.student.accommodations"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="nickname"
+      [(ngModel)]="editUser.student.nickname"
+    />
+  </div>
+</div>
 
-          <button
-            class="btn btn-secondary mb-3"
-            (click)="addStudentToClass(selectedClass.id, student.id)"
-          >
-          {{ student.whoami.firstName }} {{ student.whoami.lastName }}
-          </button>
-        </div>
-      </div>
-      <div class="col">
-        <h4>Remove Student</h4>
-        <div *ngFor="let student of selectedStudents">
-          <button
-            class="btn btn-danger mb-3"
-            (click)="removeStudentFromClass(selectedClass.id, student.id)"
-          >
-          {{ student.whoami.firstName }} {{ student.whoami.lastName }}
-          </button>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div class="modal-footer">
-    </div>
+    <div class="modal-footer"
+    *ngIf="editUser.student">
+      <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close(editOtherUser(editUser.id, editUser.student.id, editUser))"
+    >
+      Submit Edit
+    </button>
+  </div>
   </ng-template>
 </div>
