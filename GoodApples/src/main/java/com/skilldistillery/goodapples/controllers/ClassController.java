@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.goodapples.entities.Classroom;
+import com.skilldistillery.goodapples.entities.Student;
 import com.skilldistillery.goodapples.services.ClassService;
 
 @RestController
@@ -33,7 +34,7 @@ public class ClassController {
 	public List<Classroom> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		return classService.index(principal.getName());
 	}
-
+	
 	@GetMapping("classes/{classId}")
 	public Classroom show(@PathVariable int classId, HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {

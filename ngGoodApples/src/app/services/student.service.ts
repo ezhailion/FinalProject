@@ -105,4 +105,15 @@ export class StudentService {
         })
       )
     }
+
+    getStudents() : Observable<Student[]> {
+      return this.http.get<Student[]>(environment.baseUrl + "api/students",this.getHttpOptions()).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () => new Error('StudentService.getStudents: error getting students: ' + err)
+          )
+        })
+      )
+    }
 }
