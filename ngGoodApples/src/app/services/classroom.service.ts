@@ -84,11 +84,10 @@ private auth: AuthService
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('ClassroomService.create(): error creating classs: ' + err)
+          () => new Error('ClassroomService.disable(): error disabling classs: ' + err)
         );
       })
     )
-
   }
 
   addStudentToClass(classId: number, studentId: number ) {

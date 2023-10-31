@@ -1,5 +1,6 @@
 package com.skilldistillery.goodapples.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,14 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public List<Classroom> index(String username) {
-		return classRepo.findByTeacher_Username(username);
+		List<Classroom> allClassesForTeacher = classRepo.findByTeacher_Username(username);
+		List<Classroom> enabledClasses = new ArrayList<>();
+		for (Classroom classroom : allClassesForTeacher) {
+			if (classroom.getEnabled()) {
+				enabledClasses.add(classroom);
+			}
+		}	
+		return enabledClasses;
 	}
 
 	@Override

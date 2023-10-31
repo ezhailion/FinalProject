@@ -140,6 +140,19 @@ export class TeacherComponent {
 
   //classroomService methods
 
+  disableClass(classId: number) {
+    this.classroomService.disable(classId).subscribe({
+      next: () => {
+        // pretty sure reload the classroom list *******************
+      },
+      error: (oops) => {
+        console.error(
+          'TeacherComponent.disableClass(): error disabling class' + oops
+        )
+      }
+    })
+  }
+
   removeStudentFromClass(classId: number, studentId: number) {
     this.classroomService.removeStudentFromClass(classId, studentId).subscribe({
       next: (classroom) => {
