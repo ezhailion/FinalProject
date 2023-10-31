@@ -29,7 +29,7 @@
         (click)="loadAllStudentsFilter()"
         (click)="open(filteredStudentsList)"
       >
-        Add Existing Student
+        Add or Remove Students
       </button>
       <button
         (click)="open(createStudentModal)"
@@ -39,7 +39,9 @@
       </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudent">
-      <button class="btn btn-dark mx-1 mt-5 float-end">
+      <button class="btn btn-dark mx-1 mt-5 float-end"
+      (click)="open(editStudentDetails)"
+      (click)="setEditUser()">
         Edit {{ selectedStudent.whoami.firstName }}'s Details
       </button>
       <button
@@ -143,7 +145,7 @@
         <div class="col-12">
           <app-report
             [item]="studentReports"
-            [studentName]="selectedStudent.whoami.firstName"
+
           ></app-report>
         </div>
       </div>
@@ -563,13 +565,76 @@
     </div>
     </div>
     <div class="modal-footer">
+    </div>
+  </ng-template>
+
+  <ng-template #editStudentDetails let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit {{selectedStudent?.whoami?.firstName}}'s Details</h4>
       <button
         type="button"
-        class="btn btn-outline-dark"
-        (click)="modal.close(updateClassroom(editClass, editClass.id))"
-      >
-        Submit Edit
-      </button>
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
     </div>
+
+    <div class="modal-body">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="firstName"
+      [(ngModel)]="editUser.firstName"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="lastName"
+      [(ngModel)]="editUser.lastName"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="email"
+      [(ngModel)]="editUser.email"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="phone"
+      [(ngModel)]="editUser.phone"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="aboutMe"
+      [(ngModel)]="editUser.aboutMe"
+    />
+    <div *ngIf="editUser.student">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="accommodations"
+      [(ngModel)]="editUser.student.accommodations"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="nickname"
+      [(ngModel)]="editUser.student.nickname"
+    />
+  </div>
+</div>
+
+    <div class="modal-footer"
+    *ngIf="editUser.student">
+      <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close(editOtherUser(editUser.id, editUser.student.id, editUser))"
+    >
+      Submit Edit
+    </button>
+  </div>
   </ng-template>
 </div>

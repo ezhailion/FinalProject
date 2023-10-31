@@ -15,4 +15,6 @@ public interface UserService  {
 	Student getStudentByUsername(String username);
 	
 	List<Student> getAParentsKids(String username);
+	
+	User updateOtherUser(String username, int userId, User updatedUser, int studentId);
 }

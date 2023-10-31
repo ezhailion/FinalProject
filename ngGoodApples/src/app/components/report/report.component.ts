@@ -39,7 +39,6 @@ wordcloud(Highcharts);
 export class ReportComponent implements OnChanges {
 
   @Input() item : Report[] = [];
-  @Input() studentName : string = '';
 
 
   /* PIE CHART COLORS OPTIONS */
@@ -95,7 +94,7 @@ export class ReportComponent implements OnChanges {
         type: 'wordcloud',
         name: 'Occurrences'
       }],
-        title: {text: `${this.studentName}'s Behaviors`}
+        title: {text: `Behaviors`}
     }
 
 

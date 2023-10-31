@@ -39,10 +39,12 @@ export class TeacherComponent {
   loggedInUser: User = new User();
   classes: Classroom[] = [];
 
+  editStudent: Student = new Student();
   filteredStudents: Student[] = [];
   newStudent: User = new User();
   selectedStudents: Student[] | null = null;
   selectedStudent: Student | null = null;
+  editUser: User = new User();
 
   editClass: Classroom = new Classroom();
   createdClass: Classroom = new Classroom();
@@ -110,7 +112,23 @@ export class TeacherComponent {
     this.teacherService.updateClassroom(classroom, classroomId ).subscribe({
       next: (classroom) => {
         console.log(classroom);
-        this.editClass = new Classroom();
+        this.editClass = this.selectedClass;
+      }
+    })
+  }
+  setEditUser() {
+    this.editUser = Object.assign({}, this.selectedStudent?.whoami);
+  }
+
+
+  editOtherUser(userId: number, studentId: number, user: User){
+    this.teacherService.editOtherUserDetails(studentId, userId, user).subscribe({
+      next: (user) => {
+        this.loadStudentFromClass(this.selectedClass.id, studentId)
+      },
+      error: (oops) => {
+        console.error('TeacherComponent.editOtherUser(): error editing other user' + oops
+        );
       }
     })
   }
@@ -126,6 +144,8 @@ export class TeacherComponent {
     this.classroomService.removeStudentFromClass(classId, studentId).subscribe({
       next: (classroom) => {
         console.log(classroom)
+        this.loadAllStudentsFromClass(classId);
+        this.loadAllStudentsFilter();
       },
       error: (oops) => {
         console.error(
@@ -139,6 +159,8 @@ export class TeacherComponent {
     this.classroomService.addStudentToClass(classId, studentId).subscribe({
       next: (classroom) => {
         console.log(classroom)
+        this.loadAllStudentsFromClass(classId);
+        this.loadAllStudentsFilter();
       },
       error: (oops) => {
         console.error(
@@ -190,6 +212,7 @@ export class TeacherComponent {
   }
 
   //studentService methods
+
 
   loadAllStudentsFilter() {
     this.studentService.getStudents().subscribe({
