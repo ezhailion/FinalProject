@@ -59,23 +59,7 @@
   </div>
   </div>
 
-  <!-- TEMPORARY NEW REPLY FORM  -->
-  <div  class="m-3">
-    <form class="form-control">
-      <input
-      class="form-control mb-3"
-      type="text"
-      name="content"
-      placeholder="Enter message"
-      [(ngModel)]="messageInReply.content"
-    />
 
-
-    <div>to : {{selectedRecipient?.firstName}}</div>
-    <button class="btn btn-dark" (click)="replyToMessage(messageInReply)">Send</button>
-    </form>
-
-  </div>
 
 
 <!-- MESSAGES  -->
@@ -97,8 +81,11 @@
   <hr>
 </div>
 
+<!-- THREADS  -->
 <h1>Threads prototype</h1>
 <hr>
+
+<!-- TOP LEVEL THREAD  -->
 <div *ngIf="!selectedThread">
 <div  *ngFor="let thread of threads">
 
@@ -108,6 +95,11 @@
     {{thread[0].content}}
   </div>
 
+  <button class="btn btn-dark"
+          (click)="selectedRecipient = thread[0].sender;"
+          (click)="loadReplyMessage(thread[0])"
+          (click)="open(newReplyFormModal)"
+    >reply</button>
   <button class="btn btn-secondary"
   (click) = "selectedThread = thread"
   >see all</button>
@@ -117,7 +109,7 @@
 
 </div>
 
-<!-- ALL THREADS  -->
+<!-- ALL SELECTED THREADS  -->
 <div *ngIf="selectedThread">
   <button class="btn btn-secondary"
           (click)="selectedThread = null"> ⇦ back</button>
@@ -133,13 +125,61 @@
 
 </div>
 
-<!-- <div *ngFor="let thread of threads">
-  THREAD START
-  <div *ngFor="let msg of thread">
-      {{ msg.content }}
+  <!-- TEMPORARY NEW REPLY FORM  -->
+  <div  class="m-3">
+    <form class="form-control">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="content"
+      placeholder="Enter message"
+      [(ngModel)]="messageInReply.content"
+    />
+
+
+    <div>to : {{selectedRecipient?.firstName}}</div>
+
+
+    <button class="btn btn-dark"
+    (click)="replyToMessage(messageInReply)">Send</button>
+
+
+    </form>
 
   </div>
-  THREAD END
-</div> -->
+
+  <!-- MAH MODAL  -->
+  <ng-template #newReplyFormModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">To: {{selectedRecipient?.firstName}}</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="content"
+      placeholder="Enter message"
+      [(ngModel)]="messageInReply.content"
+    />
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+          modal.close(replyToMessage(messageInReply))
+        "
+      >
+        Submit Edit
+      </button>
+    </div>
+  </ng-template>
 
 </div>

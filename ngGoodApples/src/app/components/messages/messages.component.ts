@@ -5,6 +5,7 @@ import { Message } from 'src/app/models/message';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
 import { User } from 'src/app/models/user';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-messages',
@@ -44,6 +45,7 @@ export class MessagesComponent {
     public auth : AuthService,
     private router : Router,
     private messageService : MessageService,
+    private modalService: NgbModal,
   ){}
 
   ngOnInit() {
@@ -206,5 +208,9 @@ export class MessagesComponent {
       })
       this.threads.push(acc);
     })
+  }
+
+  open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 }
