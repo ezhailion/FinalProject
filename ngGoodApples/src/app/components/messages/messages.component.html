@@ -59,15 +59,51 @@
   </div>
   </div>
 
+  <!-- TEMPORARY NEW REPLY FORM  -->
+  <div  class="m-3">
+    <form class="form-control">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="content"
+      placeholder="Enter message"
+      [(ngModel)]="messageInReply.content"
+    />
+      <input type="hidden" name="messageToReplyTo"
+        [value]="replyMessage"
+        [(ngModel)]="messageInReply.messageToReplyTo">
+
+        <input type="hidden" name="recipient"
+              [value]="selectedRecipient"
+              [(ngModel)]="messageInReply.recipient">
+
+    <div>to : {{selectedRecipient?.firstName}}</div>
+    <button class="btn btn-dark" (click)="createNewMessage(messageInReply)">Send</button>
+    </form>
+
+  </div>
+
+
+<!-- MESSAGES  -->
 <div *ngFor="let message of messages">
   To : {{message.recipient.firstName}} <br>
+  From : {{message.sender.firstName }} <br>
   {{message.content}}
   <br>
-  <button class="btn btn-dark">reply</button>
+  <button class="btn btn-dark"
+          (click)="selectedRecipient = message.sender; log('RECIPIENT'); log(message.sender);"
+          (click)="loadReplyMessage(message)"
+    >reply</button>
 
   <button class="btn btn-secondary"
           (click)="showAllReplies(message.id)"
   >see all</button>
+
+
   <hr>
 </div>
+
+
+
+
 </div>

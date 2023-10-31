@@ -22,6 +22,11 @@ export class MessagesComponent {
 
   selectedReplies : Message[] | null = null;
 
+
+  selectedRecipient : User | null = null;
+  replyMessage : Message = new Message();
+  messageInReply : Message = new Message();
+
   constructor(
     public auth : AuthService,
     private router : Router,
@@ -58,7 +63,7 @@ export class MessagesComponent {
     this.messageService.index().subscribe({
       next: (messages) => {
         this.messages = messages.reverse();
-
+        console.log(messages)
 
       },
       error: (oops) => {
@@ -69,16 +74,21 @@ export class MessagesComponent {
 
   createNewMessage(message: Message) {
 
+    console.log(message)
+    //let recipientId = message.recipient.id;
+    let recipientId = this.selectedRecipient?.id;
+    message.messageToReplyTo = this.replyMessage;
+    if (recipientId) {
+      this.messageService.create(message, recipientId).subscribe({
+        next: (createdMessage) => {
+          this.loadAllMessages();
+        },
+        error: (oops) => {
+          'Messagecomponent.createNewMessage() failed creating message' + oops
+        }
+      })
+    }
 
-    let recipientId = message.recipient.id;
-    this.messageService.create(message, recipientId).subscribe({
-      next: (createdMessage) => {
-        this.loadAllMessages();
-      },
-      error: (oops) => {
-        'Messagecomponent.createNewMessage() failed creating message' + oops
-      }
-    })
   }
 
   loadAllTeacherContacts() {
@@ -109,4 +119,13 @@ export class MessagesComponent {
       error : err => console.error("can't show all replies... " + err)
     })
   }
+
+  loadReplyMessage(message : Message) {
+    this.replyMessage = message;
+    console.log("REPLY MESSAGE")
+    console.log(message)
+  }
+
+
+  log(x : any) { console.log(x)}
 }
