@@ -95,4 +95,16 @@ public class UserController {
 	public List<Student> getStudentsFromParentname(Principal principal) {
 		return userService.getAParentsKids(principal.getName());
 	}
+	
+	// TODO ADD AUTHORIZATION LOGIC and ERROR HANDLING
+	@GetMapping("/users/teachers")
+	public List<User> getAllTeachers() {
+		return userService.getAllTeachers();
+	}
+	
+	@GetMapping("/users/parents")
+	public List<User> getAllParents() {
+		return userService.getAllParents();
+	}
+	
 }

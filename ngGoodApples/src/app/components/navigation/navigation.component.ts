@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,11 +8,15 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
 })
-export class NavigationComponent {
+export class NavigationComponent{
   isCollapsed: boolean = false;
   display : boolean = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+
+
+
+  constructor(public auth: AuthService, private router: Router) {}
+
 
   checkUserRole(): string {
     this.auth.getLoggedInUser().subscribe({
@@ -29,12 +33,20 @@ export class NavigationComponent {
     return '';
   }
 
+
   isLoggedIn() {
     return this.auth.checkLogin();
   }
+
 
   logout() {
     this.auth.logout();
     this.router.navigateByUrl('/home');
   }
+
+  canSeeMail() : boolean {
+    let leRole = this.auth.loginUser.role;
+    return leRole === 'teacher' || leRole === 'parent'
+  }
+
 }

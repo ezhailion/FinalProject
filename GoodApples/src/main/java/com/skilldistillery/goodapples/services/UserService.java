@@ -15,4 +15,7 @@ public interface UserService  {
 	Student getStudentByUsername(String username);
 	
 	List<Student> getAParentsKids(String username);
+	
+	List<User> getAllTeachers();
+	List<User> getAllParents();
 }

@@ -70,4 +70,14 @@ public class UserServiceImpl implements UserService {
 		
 		return userRepo.findByUsername(parentUsername).getParentsKids();
 	}
+
+	@Override
+	public List<User> getAllTeachers() {
+		return userRepo.findByRole("teacher");
+	}
+
+	@Override
+	public List<User> getAllParents() {
+		return userRepo.findByRole("parent");
+	}
 }
