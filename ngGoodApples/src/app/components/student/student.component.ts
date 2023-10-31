@@ -50,6 +50,7 @@ export class StudentComponent {
     this.studentService.create(reflection).subscribe({
       next: (reflection) => {
         this.newReflection = new Reflection();
+        this.loadAllReflectionsForStudent(this.student.id);
       },
       error: oops => console.error("Student Component. createReflection err " + oops)
     })
