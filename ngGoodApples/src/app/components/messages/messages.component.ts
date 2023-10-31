@@ -1,3 +1,4 @@
+import { Reflection } from './../../models/reflection';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { Message } from 'src/app/models/message';
@@ -10,6 +11,9 @@ import { User } from 'src/app/models/user';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
+
+
+
 export class MessagesComponent {
 
   newMessage : Message = new Message();
@@ -27,6 +31,15 @@ export class MessagesComponent {
   replyMessage : Message = new Message();
   messageInReply : Message = new Message();
 
+
+  conversations : Map<number, Message[]> = new Map();
+
+
+
+  threads : Message[][] = [];
+
+  selectedThread : Message[] | null = null;
+
   constructor(
     public auth : AuthService,
     private router : Router,
@@ -42,7 +55,19 @@ export class MessagesComponent {
         this.loggedInUser = user;
 
         console.log("USER")
-        console.log(user)
+        console.log(this.loggedInUser.firstName)
+
+        this.loadAllMessages();
+
+        this.loadAllTeacherContacts();
+        this.loadAllParentContacts();
+
+
+
+        console.log("conversations")
+        console.log(this.conversations)
+        console.log("threads!!!")
+        console.log(this.threads)
       },
       error: (oops) => {
         console.error(
@@ -52,19 +77,21 @@ export class MessagesComponent {
       },
     });
 
-    this.loadAllMessages();
-    this.loadAllTeacherContacts();
-    this.loadAllParentContacts();
 
+
+    console.log("DO WE HAVE NAME")
+    console.log(this.loggedInUser.firstName)
 
   }
+
 
   loadAllMessages() {
     this.messageService.index().subscribe({
       next: (messages) => {
         this.messages = messages.reverse();
         console.log(messages)
-
+        this.makeThreadsFromMessages();
+        this.loadThreads();
       },
       error: (oops) => {
         'ParentComponent.loadAllMessages() failed getting messages' + oops
@@ -72,9 +99,21 @@ export class MessagesComponent {
     })
   }
 
-  createNewMessage(message: Message) {
+  createNewMessage(message : Message) {
+    let recipientId = message.recipient?.id;
+    if (recipientId) {
+      this.messageService.create(message, recipientId).subscribe({
+        next: (createdMessage) => {
+          this.loadAllMessages();
+        },
+        error: (oops) => {
+          'Messagecomponent.createNewMessage() failed creating message' + oops
+        }
+      })
+    }
+  }
 
-    console.log(message)
+  replyToMessage(message: Message) {
     //let recipientId = message.recipient.id;
     let recipientId = this.selectedRecipient?.id;
     message.messageToReplyTo = this.replyMessage;
@@ -128,4 +167,44 @@ export class MessagesComponent {
 
 
   log(x : any) { console.log(x)}
+
+  inTheSameThread(msg1 : Message, msg2 : Message) : boolean {
+    let r1 = msg1.recipient.id;
+    let r2 = msg2.recipient.id;
+    let s1 = msg1.sender.id;
+    let s2 = msg2.sender.id;
+    return r1 === s2 && r2 === s1
+  }
+
+  makeThreadsFromMessages() {
+    let msgs = this.messages;
+
+    console.log("MESSEGES LOCAL TO MAKE THREADS")
+    console.log(msgs)
+
+    let me = this.loggedInUser.id;
+    for (let msg of msgs) {
+      let id = msg.recipient.id === me ? msg.sender.id : msg.recipient.id;
+
+      console.log("ID")
+      console.log(id)
+      if (this.conversations.has(id)) {
+        this.conversations.get(id)?.push(msg);
+      } else {
+        this.conversations.set(id, [msg])
+      }
+    }
+
+  }
+
+
+  loadThreads() {
+    this.conversations.forEach((v, k) => {
+      let acc : Message[] = [];
+      v.forEach(m => {
+        acc.push(m)
+      })
+      this.threads.push(acc);
+    })
+  }
 }

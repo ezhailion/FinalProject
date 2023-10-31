@@ -69,16 +69,10 @@
       placeholder="Enter message"
       [(ngModel)]="messageInReply.content"
     />
-      <input type="hidden" name="messageToReplyTo"
-        [value]="replyMessage"
-        [(ngModel)]="messageInReply.messageToReplyTo">
 
-        <input type="hidden" name="recipient"
-              [value]="selectedRecipient"
-              [(ngModel)]="messageInReply.recipient">
 
     <div>to : {{selectedRecipient?.firstName}}</div>
-    <button class="btn btn-dark" (click)="createNewMessage(messageInReply)">Send</button>
+    <button class="btn btn-dark" (click)="replyToMessage(messageInReply)">Send</button>
     </form>
 
   </div>
@@ -103,7 +97,49 @@
   <hr>
 </div>
 
+<h1>Threads prototype</h1>
+<hr>
+<div *ngIf="!selectedThread">
+<div  *ngFor="let thread of threads">
 
+  <div>
+    To : {{thread[0].recipient.firstName}} <br>
+    From : {{thread[0].sender.firstName }} <br>
+    {{thread[0].content}}
+  </div>
 
+  <button class="btn btn-secondary"
+  (click) = "selectedThread = thread"
+  >see all</button>
+
+  <hr>
+</div>
+
+</div>
+
+<!-- ALL THREADS  -->
+<div *ngIf="selectedThread">
+  <button class="btn btn-secondary"
+          (click)="selectedThread = null"> ⇦ back</button>
+  <div *ngFor="let message of selectedThread">
+    <div>
+      To : {{message.recipient.firstName}} <br>
+      From : {{message.sender.firstName }} <br>
+      {{message.content}}
+      <hr>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- <div *ngFor="let thread of threads">
+  THREAD START
+  <div *ngFor="let msg of thread">
+      {{ msg.content }}
+
+  </div>
+  THREAD END
+</div> -->
 
 </div>
