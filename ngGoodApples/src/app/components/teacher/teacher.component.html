@@ -29,7 +29,7 @@
         (click)="loadAllStudentsFilter()"
         (click)="open(filteredStudentsList)"
       >
-        Add Existing Student
+        Add or Remove Students
       </button>
       <button
         (click)="open(createStudentModal)"
@@ -563,13 +563,48 @@
     </div>
     </div>
     <div class="modal-footer">
+    </div>
+  </ng-template>
+
+  <ng-template #editStudentDetails let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit {{selectedStudent?.whoami?.firstName}}'s Details</h4>
       <button
         type="button"
-        class="btn btn-outline-dark"
-        (click)="modal.close(updateClassroom(editClass, editClass.id))"
-      >
-        Submit Edit
-      </button>
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <div class="row">
+      <div class="col">
+        <h4>Add Student</h4>
+        <div *ngFor="let student of filteredStudents">
+
+          <button
+            class="btn btn-secondary mb-3"
+            (click)="addStudentToClass(selectedClass.id, student.id)"
+          >
+          {{ student.whoami.firstName }} {{ student.whoami.lastName }}
+          </button>
+        </div>
+      </div>
+      <div class="col">
+        <h4>Remove Student</h4>
+        <div *ngFor="let student of selectedStudents">
+          <button
+            class="btn btn-danger mb-3"
+            (click)="removeStudentFromClass(selectedClass.id, student.id)"
+          >
+          {{ student.whoami.firstName }} {{ student.whoami.lastName }}
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="modal-footer">
     </div>
   </ng-template>
 </div>

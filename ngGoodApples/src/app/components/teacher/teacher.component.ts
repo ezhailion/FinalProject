@@ -110,7 +110,7 @@ export class TeacherComponent {
     this.teacherService.updateClassroom(classroom, classroomId ).subscribe({
       next: (classroom) => {
         console.log(classroom);
-        this.editClass = new Classroom();
+        this.editClass = this.selectedClass;
       }
     })
   }
@@ -126,6 +126,8 @@ export class TeacherComponent {
     this.classroomService.removeStudentFromClass(classId, studentId).subscribe({
       next: (classroom) => {
         console.log(classroom)
+        this.loadAllStudentsFromClass(classId);
+        this.loadAllStudentsFilter();
       },
       error: (oops) => {
         console.error(
@@ -139,6 +141,8 @@ export class TeacherComponent {
     this.classroomService.addStudentToClass(classId, studentId).subscribe({
       next: (classroom) => {
         console.log(classroom)
+        this.loadAllStudentsFromClass(classId);
+        this.loadAllStudentsFilter();
       },
       error: (oops) => {
         console.error(
