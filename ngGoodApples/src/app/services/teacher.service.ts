@@ -24,6 +24,10 @@ export class TeacherService {
     };
     return options;
   }
+
+
+
+
   update(user: User) {
     return this.http
       .put<User>(this.url + 'api/users', user, this.getHttpOptions())

@@ -78,11 +78,12 @@ export class TeacherComponent {
       this.router.navigateByUrl('mustBeLoggedIn');
     }
 
-    // if (this.auth.checkLogin()) {
-    //   if (this.loggedInUser.role != "teacher") {
-    //     this.router.navigateByUrl('mustBeATeacher');
-    //   }
-    // }
+
+    if (this.auth.checkLogin()) {
+      if (this.auth.loginUser.role != "teacher") {
+        this.router.navigateByUrl('mustBeATeacher');
+      }
+    }
 
     this.loadAllClasses();
 
