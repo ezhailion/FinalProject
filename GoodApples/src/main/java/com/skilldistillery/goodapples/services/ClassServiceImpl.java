@@ -9,6 +9,7 @@ import com.skilldistillery.goodapples.entities.Classroom;
 import com.skilldistillery.goodapples.entities.Student;
 import com.skilldistillery.goodapples.entities.User;
 import com.skilldistillery.goodapples.repositories.ClassRepository;
+import com.skilldistillery.goodapples.repositories.StudentRepository;
 import com.skilldistillery.goodapples.repositories.UserRepository;
 
 @Service
@@ -19,6 +20,10 @@ public class ClassServiceImpl implements ClassService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private StudentRepository studentRepo;
+
 
 	@Override
 	public List<Classroom> index(String username) {
@@ -118,9 +123,24 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Classroom addExistingStudentsToClass(int classId, int studentId, String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Classroom addExistingStudentToClass(int classId, int studentId, String username) {
+		Classroom classroom = classRepo.searchById(classId);
+		Student student = studentRepo.searchById(studentId);
+		if( classroom != null && student != null) {
+			classroom.addStudent(student);
+			classRepo.saveAndFlush(classroom);
+		}
+		return classroom;
+	}
+	@Override
+	public Classroom removeExistingStudentToClass(int classId, int studentId, String username) {
+		Classroom classroom = classRepo.searchById(classId);
+		Student student = studentRepo.searchById(studentId);
+		if( classroom != null && student != null) {
+			classroom.removeStudent(student);
+			classRepo.saveAndFlush(classroom);
+		}
+		return classroom;
 	}
 	
 	
