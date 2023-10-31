@@ -1,72 +1,188 @@
 <div class="container-fluid">
-<h4 class="mt-4">General</h4>
-<div  *ngFor="let resource of allGeneral">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
+  <div class="row px-5 mt-5">
+    <h1>Good Apple Resources</h1>
+    <p class="lead">
+      Connect with the resources you need to help your students grow into Good
+      Apples!
+    </p>
+    <hr />
+  </div>
+  <div class="row px-5 mb-3 align-items-center">
+    <h4 class="mt-1">General</h4>
+    <div>
+      <a target="_blank"
+        *ngFor="let resource of allGeneral"
+        class="btn btn-info mx-1 mb-3 shadow"
+        href="{{ resource.link }}"
+        >{{ resource.title }}</a
+      >
+    </div>
+  </div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <h4>Perseverance</h4>
+      <div *ngFor="let resource of allPerseverance">
+        <a target="_blank" class="btn btn-info mb-3 shadow" href="{{ resource.link }}">
+          {{ resource.title }}</a
+        >
+      </div>
+    </div>
+    <div class="col">
+      <img
+        class="shadow mb-3 image-fluid"
+        src="https://covenantclassicalschool.org/wp-content/uploads/perseverance-1-web.jpg"
+      />
+    </div>
+  </div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://images.pexels.com/photos/3992949/pexels-photo-3992949.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      />
+    </div>
+    <div class="col">
+      <h4 class="">Integrity</h4>
+      <div *ngFor="let resource of allIntegrity">
+        <a target="_blank" class="btn btn-info mb-3 shadow" href="{{ resource.link }}">{{
+          resource.title
+        }}</a>
+      </div>
+    </div>
+  </div>
 
-<h4 class="">Perseverance</h4>
-<div  *ngFor="let resource of allPerseverance">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <h4>Empathy</h4>
+      <div *ngFor="let resource of allEmpathy">
+        <a target="_blank" class="btn btn-info mb-3 shadow" href="{{ resource.link }}">
+          {{ resource.title }}</a
+        >
+      </div>
+    </div>
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://ace.edu/wp-content/uploads/2022/01/042018-build-student-empathy_1034x634.tmb-5x3-xl.jpg"
+      />
+    </div>
+  </div>
 
-<h4 class="">Integrity</h4>
-<div  *ngFor="let resource of allIntegrity">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
+ <div class="row px-5 align-items-center">
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://wpvip.edutopia.org/wp-content/uploads/2022/10/iStock-1045325476.jpg"
+      />
+    </div>
+    <div class="col">
+      <h4 class="">Accountability</h4>
+      <div *ngFor="let resource of allAccountability">
+        <a target="_blank" class="btn btn-info mb-3" href="{{ resource.link }}">{{
+          resource.title
+        }}</a>
+      </div>
+    </div>
+  </div>
 
-<h4 class="">Empathy</h4>
-<div  *ngFor="let resource of allEmpathy">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <h4>Collaboration</h4>
+      <div *ngFor="let resource of allCollaboration">
+        <a target="_blank" class="btn btn-info mb-3 shadow" href="{{ resource.link }}">
+          {{ resource.title }}</a
+        >
+      </div>
+    </div>
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://www.learningandthebrain.com/blog/wp-content/uploads/2018/09/AdobeStock_182043612_Credit.jpg"
+      />
+    </div>
+  </div>
 
-<h4 class="">Accountability</h4>
-<div  *ngFor="let resource of allAccountability">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://getgoally.com/wp-content/uploads/2023/04/how-to-deal-with-child-misbehaving-in-school-goally-3-1024x683.jpg.webp"
+      />
+    </div>
+    <div class="col">
+      <h4 class="">Impulsivity</h4>
+      <div *ngFor="let resource of allImpulsivity">
+        <a target="_blank" class="btn btn-info mb-3" href="{{ resource.link }}">{{
+          resource.title
+        }}</a>
+      </div>
+    </div>
+  </div>
 
-<h4 class="">Collaboration</h4>
-<div  *ngFor="let resource of allCollaboration">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <h4>Apathy</h4>
+      <div *ngFor="let resource of allApathy">
+        <a target="_blank" class="btn btn-info mb-3 shadow" href="{{ resource.link }}">
+          {{ resource.title }}</a
+        >
+      </div>
+    </div>
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://www.newsobserver.com/opinion/op-ed/gxjl6z/picture81668302/alternates/FREE_1140/studentsleep"
+      />
+    </div>
+  </div>
 
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://goodmenproject.com/wp-content/uploads/2019/01/shutterstock_467761148.jpg"
+      />
+    </div>
+    <div class="col">
+      <h4 class="">Disrespectfulness</h4>
+      <div *ngFor="let resource of allDisrespectfulness">
+        <a target="_blank" class="btn btn-info mb-3" href="{{ resource.link }}">{{
+          resource.title
+        }}</a>
+      </div>
+    </div>
+  </div>
 
-<h4 class="">Impulsivity</h4>
-<div  *ngFor="let resource of allImpulsivity">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <h4>Aggression</h4>
+      <div *ngFor="let resource of allAggression">
+        <a target="_blank" class="btn btn-info mb-3 shadow" href="{{ resource.link }}">
+          {{ resource.title }}</a
+        >
+      </div>
+    </div>
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://t4.ftcdn.net/jpg/04/68/06/99/360_F_468069996_oxH4Iw8AhYWemWNfRkmWvRM2AmqcQkL5.jpg"
+      />
+    </div>
+  </div>
 
-<h4 class="">allApathy</h4>
-<div  *ngFor="let resource of allApathy">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
-
-<h4 class="">Disrespectfulness</h4>
-<div  *ngFor="let resource of allDisrespectfulness">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
-
-<h4 class="">Aggression</h4>
-<div  *ngFor="let resource of allAggression">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
-
-<h4 class="">Pessimism</h4>
-<div  *ngFor="let resource of allPessimism">
-  <p> <a class="btn btn-info" href = "{{resource.link}}">{{resource.title}}</a></p>
-  <br>
-</div>
-
-
-
-
-</div>
+  <div class="row px-5 align-items-center">
+    <div class="col">
+      <img
+        class="shadow mb-3"
+        src="https://studyfinds.org/wp-content/uploads/2020/02/AdobeStock_57600848-1024x683.jpeg"
+      />
+    </div>
+    <div class="col">
+      <h4 class="">Pessimism</h4>
+      <div *ngFor="let resource of allPessimism">
+        <a target="_blank" class="btn btn-info mb-3" href="{{ resource.link }}">{{
+          resource.title
+        }}</a>
+      </div>
+    </div>
+  </div>

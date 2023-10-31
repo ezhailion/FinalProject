@@ -77,6 +77,13 @@ export class TeacherComponent {
     if (!this.auth.checkLogin()) {
       this.router.navigateByUrl('mustBeLoggedIn');
     }
+
+    if (this.auth.checkLogin()) {
+      if (this.loggedInUser.role != "teacher") {
+        this.router.navigateByUrl('mustBeATeacher');
+      }
+    }
+
     this.loadAllClasses();
 
     this.auth.getLoggedInUser().subscribe({
