@@ -3,3 +3,8 @@
   background-size: cover;
   height: 75vh;
 }
+
+.quote {
+  color: #EFEFEF;
+  text-shadow: 2px 2px 5px black;
+}
