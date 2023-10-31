@@ -24,6 +24,19 @@ export class TeacherService {
     };
     return options;
   }
+
+  updateClassroom(classroom: Classroom, classroomId: number) : Observable<Classroom> {
+    return this.http.put<Classroom>(this.url + "api/classes/" + classroomId, classroom,
+     this.getHttpOptions()).pipe(
+      catchError((err: any) =>{
+        console.log(err);
+        return throwError(
+          () => new Error('TeacherService.updateClassroom(): error updating classroom: ' + err)
+        )
+      })
+     )
+  }
+
   update(user: User) {
     return this.http
       .put<User>(this.url + 'api/users', user, this.getHttpOptions())
@@ -113,4 +126,5 @@ export class TeacherService {
         })
       );
   }
+
 }

@@ -1,21 +1,48 @@
 <div class="container-fluid">
-<p>Submit a New Reflection!</p>
-<form>
-  <label for="reflection">Your Reflection:</label>
-  <input name="reflection"
-  [(ngModel)]="newReflection.content"
-         type="text" > <br>
-         <label for="customRange3" class="form-label">Performance Rating</label>
-         <input type="range" name="scale" class="form-range" min="1" max="10"
-         step="1" id="customRange3" [(ngModel)]="newReflection.scale">
-         <button (click)="createReflection(newReflection)"
-         type="button"
-         class="btn btn-primary"
-         >Submit Reflection</button>
-</form>
-<div *ngFor="let reflection of reflections">
-  <p>{{reflection.content}}</p>
-</div>
+  <div class="row px-5">
+    <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
+    <div class="col mx-4">
+      <form class="form-control mx-2 mt-1">
 
-</div>
+        <div class="mb-3 mt-3">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Describe how you feel about your school day</label
+          >
+          <textarea
+            class="form-control"
+            name="reflection"
+            [(ngModel)]="newReflection.content"
+            id="exampleFormControlTextarea1"
+            rows="3"
+          ></textarea>
+        </div>
 
+        <label for="customRange3" class="form-label"
+          >Rate your day on a scale of 1-10</label
+        >
+        <input
+          type="range"
+          name="scale"
+          class="form-range mb-3"
+          min="1"
+          max="10"
+          step="1"
+          id="customRange3"
+          [(ngModel)]="newReflection.scale"
+        />
+        <button
+          (click)="createReflection(newReflection)"
+          type="button"
+          class="btn btn-dark mb-3"
+        >
+          Submit Reflection
+        </button>
+      </form>
+    </div>
+    <div class="col mx-4">
+      <div *ngFor="let reflection of reflections">
+        <p>{{ reflection.createDate | date }} {{ reflection.content }}</p>
+      </div>
+    </div>
+  </div>
+</div>

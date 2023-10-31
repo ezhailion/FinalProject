@@ -39,10 +39,12 @@ export class TeacherComponent {
   loggedInUser: User = new User();
   classes: Classroom[] = [];
 
+  filteredStudents: Student[] = [];
   newStudent: User = new User();
   selectedStudents: Student[] | null = null;
   selectedStudent: Student | null = null;
 
+  editClass: Classroom = new Classroom();
   createdClass: Classroom = new Classroom();
   selectedClass: Classroom = new Classroom();
 
@@ -74,14 +76,23 @@ export class TeacherComponent {
 
   //what the component does right away
   ngOnInit() {
-    if (!this.auth.checkLogin()) {
-      this.router.navigateByUrl('mustBeLoggedIn');
-    }
+    console.log(this.auth.loginUser)
+
+
     this.loadAllClasses();
 
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
         this.loggedInUser = user;
+        if (!this.auth.checkLogin()) {
+          this.router.navigateByUrl('mustBeLoggedIn');
+        }
+
+        if (this.auth.checkLogin()) {
+          if (user.role != "teacher") {
+            this.router.navigateByUrl('mustBeATeacher');
+          }
+        }
       },
       error: (oops) => {
         console.error(
@@ -93,8 +104,15 @@ export class TeacherComponent {
 
     this.loadAllBehaviors();
     this.loadAllResources();
+  }
 
-
+  updateClassroom(classroom: Classroom, classroomId: number) {
+    this.teacherService.updateClassroom(classroom, classroomId ).subscribe({
+      next: (classroom) => {
+        console.log(classroom);
+        this.editClass = new Classroom();
+      }
+    })
   }
 
   // this method is for the add class modal
@@ -123,6 +141,7 @@ export class TeacherComponent {
     this.classroomService.show(classId).subscribe({
       next: (clz) => {
         this.selectedClass = clz;
+        this.editClass = clz;
       },
       error: (oopsiedaisy) => {
         console.error(
@@ -144,6 +163,27 @@ export class TeacherComponent {
   }
 
   //studentService methods
+
+  loadAllStudentsFilter() {
+    this.studentService.getStudents().subscribe({
+      next: (students) => {
+        for(let student of students) {
+          let addStudent: boolean = true;
+          for(let classroom of student.classrooms) {
+            if(classroom.id == this.selectedClass.id) {
+              addStudent = false;
+            }
+          }
+          if(addStudent){
+            this.filteredStudents.push(student);
+          }
+        }
+      },
+      error: (oops) =>
+      console.error('TeacherComponent.loadAllStudents err ' + oops),
+    });
+  }
+
   loadAllStudentsFromClass(classId: number) {
     this.loadSingleClass(classId);
     this.studentService.indexByClass(classId).subscribe({

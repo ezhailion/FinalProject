@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Student {
@@ -30,7 +31,7 @@ public class Student {
 				joinColumns=@JoinColumn(name = "student_id"),
 				inverseJoinColumns=@JoinColumn(name = "classroom_id"))
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"students"})
 	private List<Classroom> classrooms;
 	
 	//TODO json_ignore for behavior

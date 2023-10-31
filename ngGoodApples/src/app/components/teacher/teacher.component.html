@@ -18,8 +18,14 @@
       </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudents">
-      <button class="btn btn-dark mx-1 mt-5 float-end">
+      <button class="btn btn-dark mx-1 mt-5 float-end"
+      (click)="open(editClassroomDetails)">
         Edit Class Details
+      </button>
+      <button class="btn btn-secondary mx-1 mt-5 float-end"
+      (click)="loadAllStudentsFilter()"
+      (click)="open(filteredStudentsList)" >
+        Add Existing Student
       </button>
       <button
         (click)="open(createStudentModal)"
@@ -467,6 +473,81 @@
    </div>
   </div>
   <div class="modal-footer">
+  </div>
+</ng-template>
+
+<!-- edit classroom details modal -->
+<ng-template #editClassroomDetails let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Classroom Details</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+    <input
+    class="form-control mb-3"
+    type="text"
+    name="name"
+    [(ngModel)]="editClass.name"
+  />
+  <input
+    class="form-control mb-3"
+    type="time"
+    name="startTime"
+    [(ngModel)]="editClass.startTime"
+  />
+
+  <input
+    class="form-control mb-3"
+    type="time"
+    name="endTime"
+    [(ngModel)]="editClass.endTime"
+  />
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="
+        modal.close(updateClassroom(editClass, editClass.id))
+      "
+    >
+      Submit Edit
+    </button>
+  </div>
+</ng-template>
+<ng-template #filteredStudentsList let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Existing Students</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+    <div *ngFor="let student of filteredStudents">
+      {{student.whoami.firstName}} {{student.whoami.lastName}}
+      <button  class="btn btn-secondary">Add to Class</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="
+        modal.close(updateClassroom(editClass, editClass.id))
+      "
+    >
+      Submit Edit
+    </button>
   </div>
 </ng-template>
 </div>

@@ -177,6 +177,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   `recipient_id` INT NOT NULL,
   `enabled` TINYINT NULL,
   `message_id` INT NULL,
+  `read` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `fk_message_user1_idx` (`sender_id` ASC),
   INDEX `fk_message_user2_idx` (`recipient_id` ASC),
@@ -351,9 +352,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (1, 'teacher', 'teacher', NULL, 'teacher', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'teacher', NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (2, 'parent', 'parent', NULL, 'parent', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'parent', NULL, NULL, NULL, NULL, NULL, NULL, 2);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (3, 'student', 'student', NULL, 'student', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'student', NULL, NULL, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (1, 'teacher', 'teacher', NULL, 'teacher', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 0, 'teacher', NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (2, 'parent', 'parent', NULL, 'parent', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 0, 'parent', NULL, NULL, NULL, NULL, NULL, NULL, 2);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (3, 'student', 'student', NULL, 'student', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 0, 'student', NULL, NULL, NULL, NULL, NULL, NULL, 3);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (4, 'George', 'Feeny', '1927-03-31', 'Gfeeny', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'teacher', 'theMr.Feeny@email.com', '2010-10-10', '2019-05-05', '555-867-5309', 'https://img.buzzfeed.com/buzzfeed-static/static/2023-01/18/15/asset/1dddd1f13899/sub-buzz-2418-1674057214-11.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto', 'I am a passionate educator and molder of young minds.', 2);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (5, 'Valerie', 'Frizzle', '1955-12-09', 'Vfrizzle', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'teacher', 'theFrizz@email.com', '1997-12-26', '2020-01-17', '555-123-4565', 'https://hellogiggles.com/wp-content/uploads/sites/7/2017/02/08/800x400-ms-frizzle-magic-school-bus.jpg?quality=82&strip=1&resize=640%2C360', 'When teaching I always ecourage my kids to take chances, make mistakes, and get messy!', 3);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_of_birth`, `username`, `password`, `enabled`, `role`, `email`, `create_date`, `last_update`, `phone`, `image_url`, `about_me`, `gender_id`) VALUES (6, 'Dewey', 'Finn', '1969-08-28', 'Dfinn', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'teacher', 'dfinn@email.com', '2003-04-22', '2003-04-22', '555-555-1555', 'https://m.media-amazon.com/images/M/MV5BNjAxMjg0ODg0NF5BMl5BanBnXkFtZTgwMjQ0MDIyMDI@._V1_.jpg', 'I teach little monsters how to rock.', 2);
@@ -481,12 +482,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (1, 'Our little Morgan will not be attending class tommorow', '2023-10-25', '2023-10-25', 8, 4, 1, NULL);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (2, 'I hope all is well.', '2023-10-25', '2023-10-25', 4, 8, 1, 1);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (3, 'I will send her assignments home with one of the boys.', '2023-10-25', '2023-10-25', 4, 8, 1, 1);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (4, 'Thank you.', '2023-10-25', '2023-10-25', 8, 4, 1, 2);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (5, 'Could you give me the dates for Erics\'s final exam? Thank you.', '2023-10-26', '2023-10-26', 7, 4, 1, NULL);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`) VALUES (6, 'Most certainly. The final is on 11-02-2023.', '2023-10-26', '2023-10-26', 4, 7, 1, 5);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (1, 'Our little Morgan will not be attending class tommorow', '2023-10-25', '2023-10-25', 8, 4, 1, NULL, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (2, 'I hope all is well.', '2023-10-25', '2023-10-25', 4, 8, 1, 1, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (3, 'I will send her assignments home with one of the boys.', '2023-10-25', '2023-10-25', 4, 8, 1, 1, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (4, 'Thank you.', '2023-10-25', '2023-10-25', 8, 4, 1, 2, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (5, 'Could you give me the dates for Erics\'s final exam? Thank you.', '2023-10-26', '2023-10-26', 7, 4, 1, NULL, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (6, 'Most certainly. The final is on 11-02-2023.', '2023-10-26', '2023-10-26', 4, 7, 1, 5, 0);
 
 COMMIT;
 
