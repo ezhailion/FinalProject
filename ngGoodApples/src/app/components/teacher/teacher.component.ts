@@ -79,7 +79,7 @@ export class TeacherComponent {
     }
 
     if (this.auth.checkLogin()) {
-      if (this.loggedInUser.role != "teacher") {
+      if (this.auth.loginUser.role != "teacher") {
         this.router.navigateByUrl('mustBeATeacher');
       }
     }
