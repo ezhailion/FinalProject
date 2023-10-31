@@ -20,7 +20,7 @@ export class MessagesComponent {
   teacherContacts : User[] = [];
   parentContacts : User[] = [];
 
-  role : string = '';
+  selectedReplies : Message[] | null = null;
 
   constructor(
     public auth : AuthService,
@@ -50,14 +50,14 @@ export class MessagesComponent {
     this.loadAllMessages();
     this.loadAllTeacherContacts();
     this.loadAllParentContacts();
-    this.role = this.auth.loginUser.role;
+
 
   }
 
   loadAllMessages() {
     this.messageService.index().subscribe({
       next: (messages) => {
-        this.messages = messages;
+        this.messages = messages.reverse();
 
 
       },
@@ -101,5 +101,12 @@ export class MessagesComponent {
 
   testRoleTeacher() : boolean {
     return this.auth.loginUser.role === 'teacher'
+  }
+
+  showAllReplies(messageId : number) {
+    this.messageService.indexReplies(messageId).subscribe({
+      next : (replies) => { this.selectedReplies = replies ; console.log(replies)},
+      error : err => console.error("can't show all replies... " + err)
+    })
   }
 }

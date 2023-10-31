@@ -38,6 +38,18 @@ export class MessageService {
     );
   }
 
+  indexReplies(messageId : number) : Observable<Message[]> {
+    return this.http.get<Message[]>(this.url + "/" + messageId + "/replies",
+            this.getHttpOptions()).pipe(
+              catchError((err: any) => {
+                console.log(err);
+                return throwError(
+                  () => new Error('MessageService.replies(): error retrieving replies: ' + err)
+                );
+              })
+    )
+  }
+
   create(message: Message, recipientId: number): Observable<Message> {
     return this.http.post<Message>(this.url + "/" + recipientId , message, this.getHttpOptions()).pipe(
       catchError((err: any) => {

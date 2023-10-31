@@ -60,8 +60,14 @@
   </div>
 
 <div *ngFor="let message of messages">
-  {{message.recipient.firstName}} <br>
+  To : {{message.recipient.firstName}} <br>
   {{message.content}}
+  <br>
+  <button class="btn btn-dark">reply</button>
+
+  <button class="btn btn-secondary"
+          (click)="showAllReplies(message.id)"
+  >see all</button>
   <hr>
 </div>
 </div>
