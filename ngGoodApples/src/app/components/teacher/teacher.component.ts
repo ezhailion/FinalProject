@@ -43,6 +43,7 @@ export class TeacherComponent {
   selectedStudents: Student[] | null = null;
   selectedStudent: Student | null = null;
 
+  editClass: Classroom = new Classroom();
   createdClass: Classroom = new Classroom();
   selectedClass: Classroom = new Classroom();
 
@@ -101,8 +102,15 @@ export class TeacherComponent {
 
     this.loadAllBehaviors();
     this.loadAllResources();
+  }
 
-
+  updateClassroom(classroom: Classroom, classroomId: number) {
+    this.teacherService.updateClassroom(classroom, classroomId ).subscribe({
+      next: (classroom) => {
+        console.log(classroom);
+        this.editClass = new Classroom();
+      }
+    })
   }
 
   // this method is for the add class modal
@@ -131,6 +139,7 @@ export class TeacherComponent {
     this.classroomService.show(classId).subscribe({
       next: (clz) => {
         this.selectedClass = clz;
+        this.editClass = clz;
       },
       error: (oopsiedaisy) => {
         console.error(
