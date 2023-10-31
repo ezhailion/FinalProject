@@ -128,7 +128,7 @@ export class TeacherService {
       );
   }
 
-  editOtherUserDetails(studentId: number, userId: number, user: User) {
+  editOtherUserDetails(studentId: number, userId: number, user: User) : Observable<User> {
     return this.http.put<User>(this.url + 'api/users/' + userId + '/students/' + studentId,
     user, this.getHttpOptions()).pipe(
       catchError((err: any) => {

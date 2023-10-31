@@ -124,6 +124,7 @@ export class TeacherComponent {
   editOtherUser(userId: number, studentId: number, user: User){
     this.teacherService.editOtherUserDetails(studentId, userId, user).subscribe({
       next: (user) => {
+        this.loadStudentFromClass(this.selectedClass.id, studentId)
       },
       error: (oops) => {
         console.error('TeacherComponent.editOtherUser(): error editing other user' + oops
