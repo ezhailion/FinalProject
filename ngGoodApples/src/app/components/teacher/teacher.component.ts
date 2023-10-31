@@ -122,6 +122,19 @@ export class TeacherComponent {
 
   //classroomService methods
 
+  removeStudentFromClass(classId: number, studentId: number) {
+    this.classroomService.removeStudentFromClass(classId, studentId).subscribe({
+      next: (classroom) => {
+        console.log(classroom)
+      },
+      error: (oops) => {
+        console.error(
+          'TeacherComponent.removeStudentFromClass(): error removing student from class' + oops
+        );
+      }
+    })
+  }
+
   addStudentToClass(classId: number, studentId: number) {
     this.classroomService.addStudentToClass(classId, studentId).subscribe({
       next: (classroom) => {
