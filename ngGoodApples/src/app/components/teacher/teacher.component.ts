@@ -39,6 +39,7 @@ export class TeacherComponent {
   loggedInUser: User = new User();
   classes: Classroom[] = [];
 
+  filteredStudents: Student[] = [];
   newStudent: User = new User();
   selectedStudents: Student[] | null = null;
   selectedStudent: Student | null = null;
@@ -75,22 +76,23 @@ export class TeacherComponent {
 
   //what the component does right away
   ngOnInit() {
-    if (!this.auth.checkLogin()) {
-      this.router.navigateByUrl('mustBeLoggedIn');
-    }
+    console.log(this.auth.loginUser)
 
-
-    if (this.auth.checkLogin()) {
-      if (this.auth.loginUser.role != "teacher") {
-        this.router.navigateByUrl('mustBeATeacher');
-      }
-    }
 
     this.loadAllClasses();
 
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
         this.loggedInUser = user;
+        if (!this.auth.checkLogin()) {
+          this.router.navigateByUrl('mustBeLoggedIn');
+        }
+
+        if (this.auth.checkLogin()) {
+          if (user.role != "teacher") {
+            this.router.navigateByUrl('mustBeATeacher');
+          }
+        }
       },
       error: (oops) => {
         console.error(
@@ -161,6 +163,27 @@ export class TeacherComponent {
   }
 
   //studentService methods
+
+  loadAllStudentsFilter() {
+    this.studentService.getStudents().subscribe({
+      next: (students) => {
+        for(let student of students) {
+          let addStudent: boolean = true;
+          for(let classroom of student.classrooms) {
+            if(classroom.id == this.selectedClass.id) {
+              addStudent = false;
+            }
+          }
+          if(addStudent){
+            this.filteredStudents.push(student);
+          }
+        }
+      },
+      error: (oops) =>
+      console.error('TeacherComponent.loadAllStudents err ' + oops),
+    });
+  }
+
   loadAllStudentsFromClass(classId: number) {
     this.loadSingleClass(classId);
     this.studentService.indexByClass(classId).subscribe({

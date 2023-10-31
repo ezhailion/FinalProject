@@ -6,21 +6,21 @@ export class Student {
   accommodations : string;
   nickname : string;
   whoami : User;
-  classes: Classroom[];
+  classrooms: Classroom[];
 
   constructor(
     id: number = 0,
     accommodations : string = '',
     nickname : string = '',
     whoami : User = new User (),
-    classes: Classroom[] = []
+    classrooms: Classroom[] = []
 
   ) {
     this.id = id;
     this.accommodations = accommodations;
     this.nickname = nickname;
     this.whoami = whoami;
-    this.classes = classes;
+    this.classrooms = classrooms;
 
   }
 

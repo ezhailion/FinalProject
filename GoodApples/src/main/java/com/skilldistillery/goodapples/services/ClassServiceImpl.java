@@ -116,6 +116,12 @@ public class ClassServiceImpl implements ClassService {
 		}
 		return false;
 	}
+
+	@Override
+	public Classroom addExistingStudentsToClass(int classId, int studentId, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

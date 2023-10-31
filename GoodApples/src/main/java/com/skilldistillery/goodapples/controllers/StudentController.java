@@ -77,5 +77,12 @@ public class StudentController {
 		return createdStudent;
 	}
 	
+	@GetMapping("students")
+	public List<Student> index(HttpServletRequest req, HttpServletResponse res) {	
+		return studentService.index();
+	}
+	
+	
+	
 	
 }
