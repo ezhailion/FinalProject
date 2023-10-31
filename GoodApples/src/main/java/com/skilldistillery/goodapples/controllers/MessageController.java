@@ -32,6 +32,10 @@ public class MessageController {
 		return messageService.index(principal.getName());
 	}
 
+	@GetMapping("messages/{messageId}/replies")
+	public List<Message> indexInReplyTo(Principal principal, @PathVariable int messageId) {
+		return messageService.getInReplyTo(messageId);
+	}
 	
 	@PostMapping("messages/{recipientId}")
 	public Message create (HttpServletResponse res, HttpServletRequest req, Principal principal, @PathVariable int recipientId, @RequestBody Message message) {

@@ -38,4 +38,11 @@ public class MessageServiceImpl implements MessageService {
 		return null;
 	}
 	
+	@Override
+	public List<Message> getInReplyTo(int messageId) {
+		
+		Message msg = messageRepo.searchById(messageId);
+		return msg.getInReplyToMessages();
+		
+	}
 }
