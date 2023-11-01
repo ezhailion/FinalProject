@@ -587,30 +587,35 @@
     </div>
 
     <div class="modal-body">
+      <label for="firstName">First Name</label>
       <input
       class="form-control mb-3"
       type="text"
       name="firstName"
       [(ngModel)]="editUser.firstName"
     />
+    <label for="lastName">Last Name</label>
       <input
       class="form-control mb-3"
       type="text"
       name="lastName"
       [(ngModel)]="editUser.lastName"
     />
+    <label for="email">Email</label>
       <input
       class="form-control mb-3"
       type="text"
       name="email"
       [(ngModel)]="editUser.email"
     />
+    <label for="phone">Phone Number</label>
       <input
       class="form-control mb-3"
       type="text"
       name="phone"
       [(ngModel)]="editUser.phone"
     />
+    <label for="aboutMe">About Me</label>
       <input
       class="form-control mb-3"
       type="text"
@@ -618,12 +623,14 @@
       [(ngModel)]="editUser.aboutMe"
     />
     <div *ngIf="editUser.student">
+      <label for="accommodations">Accommodations</label>
       <input
       class="form-control mb-3"
       type="text"
       name="accommodations"
       [(ngModel)]="editUser.student.accommodations"
     />
+    <label for="nickname">Nickname</label>
       <input
       class="form-control mb-3"
       type="text"
