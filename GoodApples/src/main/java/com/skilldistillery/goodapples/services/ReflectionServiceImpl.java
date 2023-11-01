@@ -58,8 +58,14 @@ public class ReflectionServiceImpl implements ReflectionService {
 
 	@Override
 	public boolean deleteReflection(int reflectionId) {
-		// TODO Auto-generated method stub
-		return false;
+
+		Reflection reflectionToDelete = reflectRepo.searchById(reflectionId);
+		if(reflectionToDelete != null) {
+			reflectionToDelete.setEnabled(false);
+			reflectRepo.saveAndFlush(reflectionToDelete);	
+		return true;
+	}
+	return false;
 	}
 
 }

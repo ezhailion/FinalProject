@@ -128,6 +128,17 @@ export class TeacherService {
       );
   }
 
+  deleteReflection(reflectionId : number): Observable<void> {
+    return this.http.delete<void>(this.url + 'api/reflections/' + reflectionId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('ClassroomService.deleteReflection: error deleting reflection: ' + err)
+        );
+      })
+    )
+  }
+
   editOtherUserDetails(studentId: number, userId: number, user: User) : Observable<User> {
     return this.http.put<User>(this.url + 'api/users/' + userId + '/students/' + studentId,
     user, this.getHttpOptions()).pipe(
@@ -142,7 +153,6 @@ export class TeacherService {
         )
       })
     )
-
   }
 
 }
