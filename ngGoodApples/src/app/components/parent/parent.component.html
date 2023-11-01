@@ -26,6 +26,12 @@
                 <!-- vvvvvvvvv FIX ME vvvvvvvv -->
                 <!-- <img src="{{ kid.whoami.imageUrl }}" /> -->
                 {{ kid.whoami.firstName }} {{ kid.whoami.lastName }}
+                <div *ngIf="kid.whoami.imageUrl != null">
+                  <img width="150" height="180" src="{{kid.whoami.imageUrl}}">
+                  </div>
+                  <div *ngIf="kid.whoami.imageUrl == null">
+                  <img width="150" height="180" src="https://i.pinimg.com/originals/90/de/25/90de257fdac14d35d66a81ab8e282cad.jpg">
+                  </div>
               </h5>
             </div>
           </div>
