@@ -220,7 +220,7 @@ class="btn btn-light"
         type="button"
         class="btn btn-outline-dark"
         (click)="
-          modal.close(createNewMessage(newMessage))
+        modal.close(); createNewMessage(newMessage);
         "
       >
         Submit Edit

@@ -106,7 +106,8 @@ export class MessagesComponent {
     if (recipientId) {
       this.messageService.create(message, recipientId).subscribe({
         next: (createdMessage) => {
-          this.loadAllMessages();
+          location.reload()
+
         },
         error: (oops) => {
           'Messagecomponent.createNewMessage() failed creating message' + oops
@@ -122,7 +123,7 @@ export class MessagesComponent {
     if (recipientId) {
       this.messageService.create(message, recipientId).subscribe({
         next: (createdMessage) => {
-          this.loadAllMessages();
+          this.ngOnInit();
         },
         error: (oops) => {
           'Messagecomponent.createNewMessage() failed creating message' + oops
@@ -172,6 +173,7 @@ export class MessagesComponent {
 
   makeThreadsFromMessages() {
     let msgs = this.messages;
+    this.conversations = new Map();
 
     console.log("MESSEGES LOCAL TO MAKE THREADS")
     console.log(msgs)
