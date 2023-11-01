@@ -10,6 +10,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { EditAccountDetailsComponent } from './components/edit-account-details/edit-account-details.component';
 import { AboutComponent } from './components/about/about.component';
 import { ResourcesComponent } from './components/resources/resources.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'editAccount', component: EditAccountDetailsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'resources', component : ResourcesComponent},
+  { path: 'messages', component : MessagesComponent },
   { path: '**', component: NotFoundComponent }
 
 ];

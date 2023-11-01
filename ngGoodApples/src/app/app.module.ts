@@ -19,6 +19,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ReportComponent } from './components/report/report.component';
 import { AboutComponent } from './components/about/about.component';
 import { ResourcesComponent } from './components/resources/resources.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ResourcesComponent } from './components/resources/resources.component';
     NavigationComponent,
     ReportComponent,
     AboutComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    MessagesComponent
 
   ],
   imports: [

@@ -8,14 +8,23 @@ export class Message {
   lastUpdate: string;
   enabled: boolean;
   recipient : User;
+  sender : User;
+
+  messageToReplyTo : Message | null;
+
+  seen : boolean;
 
   constructor(
-    id: number = 0,
+  id: number = 0,
   content: string = '',
   createDate: string = '',
   lastUpdate: string = '',
   enabled: boolean = false,
-  recipient: User = new User()
+  recipient: User = new User(),
+  sender: User = new User(),
+  messageToReplyTo : Message | null = null,
+  seen : boolean = false,
+
   ) {
     this.id = id;
     this.content = content;
@@ -23,6 +32,9 @@ export class Message {
     this.lastUpdate = lastUpdate;
     this.enabled = enabled;
     this.recipient = recipient;
+    this.sender = sender;
+    this.messageToReplyTo = messageToReplyTo;
+    this.seen = seen;
   }
 
 }

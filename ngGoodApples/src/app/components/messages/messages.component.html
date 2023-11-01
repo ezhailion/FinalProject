@@ -1,0 +1,230 @@
+
+<div class="container-fluid">
+
+<button *ngIf="testRoleParent()"
+        (click)="open(createNewMessageFromParentModal)"
+class="btn btn-info m-3">
+  Draft new message
+</button>
+
+<button *ngIf="testRoleTeacher()"
+  (click) ="open(createNewMessageFromTeacherModal)"
+  class="btn btn-info m-3">
+  Draft new message
+</button>
+
+
+
+<!-- THREADS  -->
+<h1>Direct Messages</h1>
+<hr>
+
+<!-- TOP LEVEL THREAD  -->
+<div *ngIf="!selectedThread">
+<div  *ngFor="let thread of threads">
+
+  <div>
+    To : {{thread[0].recipient.firstName}} <br>
+    From : {{thread[0].sender.firstName }} <br>
+    {{thread[0].content}}
+  </div>
+
+  <button *ngIf="fromSomeoneElse(thread[0])"
+          class="btn btn-dark"
+          (click)="selectedRecipient = thread[0].sender;"
+          (click)="loadReplyMessage(thread[0])"
+          (click)="open(newReplyFormModal)"
+    >reply</button>
+  <button class="btn btn-secondary"
+  (click) = "selectedThread = thread"
+  >see all</button>
+
+  <div  *ngIf="thread[0].sender.id != loggedInUser.id">
+
+    <!-- <button
+    *ngIf="thread[0].seen"
+  class="btn btn-light"
+
+  (click) = "flipRead(thread[0])"
+  >mark as unread</button>
+  <button
+  *ngIf="!thread[0].seen"
+class="btn btn-light"
+
+(click) = "flipRead(thread[0])"
+>mark as read</button> -->
+<button (click)="markAllAsRead(thread[0])"
+  class="btn btn-light">
+  mark all as read
+</button>
+  </div>
+  <hr>
+</div>
+
+</div>
+
+<!-- ALL SELECTED THREADS  -->
+<div *ngIf="selectedThread">
+  <button class="btn btn-secondary"
+          (click)="selectedThread = null"> ⇦ back</button>
+  <div *ngFor="let message of selectedThread">
+    <div>
+      To : {{message.recipient.firstName}} <br>
+      From : {{message.sender.firstName }} <br>
+      {{message.content}}
+
+      <br>
+      <div *ngIf="message.sender.id != loggedInUser.id">
+
+      <button
+      *ngIf="message.seen"
+      class="btn btn-light"
+
+      (click) = "flipRead(message)"
+      >mark as unread</button>
+
+      <button
+      *ngIf="!message.seen"
+      class="btn btn-light"
+
+      (click) = "flipRead(message)"
+      >mark as read</button>
+      </div>
+      <hr>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+  <!-- REPLY MODAL  -->
+  <ng-template #newReplyFormModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">To: {{selectedRecipient?.firstName}}</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="content"
+      placeholder="Enter message"
+      [(ngModel)]="messageInReply.content"
+    />
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+          modal.close(replyToMessage(messageInReply))
+        "
+      >
+        Submit Edit
+      </button>
+    </div>
+  </ng-template>
+
+   <!-- PARENT CREATE MODAL  -->
+   <ng-template #createNewMessageFromParentModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Message</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-control">
+        <input
+        class="form-control mb-3"
+        type="text"
+        name="content"
+        placeholder="Enter message"
+        [(ngModel)]="newMessage.content"
+      />
+
+      <label for="dropDown">To:</label>
+      <select name="recipientUser" id="dropDown"
+              [(ngModel)] = "newMessage.recipient.id">
+        <option  *ngFor="let contact of teacherContacts"
+                [value]="contact.id">
+                {{contact.firstName}} {{contact.lastName}}
+        </option>
+
+      </select>
+
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+          modal.close(createNewMessage(newMessage))
+        "
+      >
+        Submit Edit
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #createNewMessageFromTeacherModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Message</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-control">
+        <input
+        class="form-control mb-3"
+        type="text"
+        name="content"
+        placeholder="Enter message"
+        [(ngModel)]="newMessage.content"
+      />
+
+      <label for="dropDown">To:</label>
+      <select name="recipientUser" id="dropDown"
+              [(ngModel)] = "newMessage.recipient.id">
+
+        <option  *ngFor="let contact of parentContacts"
+                [value]="contact.id">
+                {{contact.firstName}} {{contact.lastName}}
+        </option>
+
+      </select>
+
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+        modal.close(); createNewMessage(newMessage);
+        "
+      >
+        Submit Edit
+      </button>
+    </div>
+  </ng-template>
+</div>

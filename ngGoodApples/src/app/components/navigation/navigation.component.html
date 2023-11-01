@@ -28,9 +28,36 @@
           <a class="nav-link text-light" [routerLink]="['/resources']">Resources</a>
         </li>
       </ul>
+
+      <!-- some silly buttons for mail -->
+      <!-- TODO add logic for is-logged-in() AND role-not-student() -->
+
+      <span style="margin-right: 10px;" class="nav-item" *ngIf="isLoggedIn() && canSeeMail()">
+        <button [routerLink]="['/messages']"
+                class="btn btn-light" style="padding: 0 8px 0 8px;">
+          <svg version="1.1"  height="35px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path d="m100.61 128.07c-6.9729 0-12.678 5.7051-12.678 12.678v17.511l136.68 112.2c16.402 13.47 39.936 13.47 56.338 0l136.61-112.2v-17.511c0-6.9729-5.7051-12.678-12.678-12.678zm-12.678 79.396v136.13c0 6.9729 5.7051 12.678 12.678 12.678h304.27c6.9729 0 12.678-5.7051 12.678-12.678v-136.13l-112.52 92.391c-30.427 24.96-74.245 24.96-104.59 0zm-38.034-66.718c0-27.971 22.741-50.712 50.712-50.712h304.27c27.971 0 50.712 22.741 50.712 50.712v202.85c0 27.971-22.741 50.712-50.712 50.712h-304.27c-27.971 0-50.712-22.741-50.712-50.712z" stroke-width=".79237"/>
+           </svg>
+        </button>
+      </span>
+
+      <span style="margin-right: 10px;" class="nav-item" *ngIf="isLoggedIn() && canSeeMail()">
+        <button [routerLink]="['/messages']"
+                class="btn btn-light" style="padding: 0 8px 0 8px;">
+          <svg version="1.1"  height="35px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path d="m100.61 128.07c-6.9729 0-12.678 5.7051-12.678 12.678v17.511l136.68 112.2c16.402 13.47 39.936 13.47 56.338 0l136.61-112.2v-17.511c0-6.9729-5.7051-12.678-12.678-12.678zm-12.678 79.396v136.13c0 6.9729 5.7051 12.678 12.678 12.678h304.27c6.9729 0 12.678-5.7051 12.678-12.678v-136.13l-112.52 92.391c-30.427 24.96-74.245 24.96-104.59 0zm-38.034-66.718c0-27.971 22.741-50.712 50.712-50.712h304.27c27.971 0 50.712 22.741 50.712 50.712v202.85c0 27.971-22.741 50.712-50.712 50.712h-304.27c-27.971 0-50.712-22.741-50.712-50.712z" stroke-width=".79237"/>
+            <circle cx="407.86" cy="353.63" r="75.84" fill="#f00" stroke="#d40000" stroke-width="1.185"/>
+           </svg>
+        </button>
+      </span>
+      <!-- end silly mail buttons  -->
+
       <span class="nav-item" *ngIf="isLoggedIn()">
         <button class="btn btn-danger" (click)="logout()">Logout</button>
       </span>
+
     </div>
   </div>
 </nav>

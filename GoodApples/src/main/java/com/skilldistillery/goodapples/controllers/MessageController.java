@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,10 @@ public class MessageController {
 		return messageService.index(principal.getName());
 	}
 
+	@GetMapping("messages/{messageId}/replies")
+	public List<Message> indexInReplyTo(Principal principal, @PathVariable int messageId) {
+		return messageService.getInReplyTo(messageId);
+	}
 	
 	@PostMapping("messages/{recipientId}")
 	public Message create (HttpServletResponse res, HttpServletRequest req, Principal principal, @PathVariable int recipientId, @RequestBody Message message) {
@@ -47,5 +52,16 @@ public class MessageController {
 		return createdMessage;
 		
 	}
+	
+	@PutMapping("messages")
+	public Message update(Principal principal, @RequestBody Message message){
+		return messageService.updateRead(message);
+	}
+	
+	@PutMapping("messages/thread")
+	public Message updateThread(Principal principal, @RequestBody Message message){
+		return messageService.updateThreadRead(message);
+	}
+	
 	
 }
