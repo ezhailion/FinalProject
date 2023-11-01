@@ -1,83 +1,130 @@
-<form class="form-control mx-5">
-  <div class="row">
-    <div class="col">
-      <label for="firstName">First Name</label>
-      <input
+<div class="container-fluid">
+  <div class="row pb-5">
+    <div class="col mx-4 mt-3">
 
-        class="form-control mb-3"
-        type="text"
-        name="firstName"
-        [(ngModel)]="loggedInUser.firstName"
-      />
-    </div>
-    <div class="col">
-      <label for="lastName">Last Name</label>
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="lastName"
-        [(ngModel)]="loggedInUser.lastName"
-      />
-    </div>
-  </div>
-  <div class="row">
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <label for="imageUrl">Image URL</label>
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="imageUrl"
-        [(ngModel)]="loggedInUser.imageUrl"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6">
-      <label for="email">Email</label>
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="email"
-        [(ngModel)]="loggedInUser.email"
-      />
-    </div>
-    <div class="col-6">
-      <label for="phone">Phone</label>
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="phone"
-        [(ngModel)]="loggedInUser.phone"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <label for="imageUrl">About Me</label>
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="aboutMe"
-        [(ngModel)]="loggedInUser.aboutMe"
-      />
-    </div>
-  </div>
-  <div class="text-center">
-    <button
-      type="button"
-      class="btn btn-outline-dark"
-      (click)="update(loggedInUser)"
-    >
-      Update Account
+      <span *ngIf="loggedInUser.role === 'teacher'"> <button class="btn btn-secondary mb-3" [routerLink]="['/teacher']">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          class="bi bi-caret-left-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+          />
+        </svg>
+        Back
+      </button>
+    </span>
+
+    <span *ngIf="loggedInUser.role === 'parent'"> <button class="btn btn-secondary mb-3" [routerLink]="['/parent']">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="currentColor"
+        class="bi bi-caret-left-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+        />
+      </svg>
+      Back
     </button>
-    <button class="btn btn-danger"
-    (click)="loggedInUser.enabled = false"
-    (click)="disableSelf(loggedInUser)"
-    (click)="logout()">Delete Account</button>
+  </span>
+
+    </div>
+    <div class="col-8">
+      <form class="form-control px-3 mt-5">
+        <h3 class="mt-3 text-center">Update Account Details</h3>
+        <div class="row">
+          <div class="col mt-3">
+            <label for="firstName">First Name</label>
+            <input
+              class="form-control mb-3"
+              type="text"
+              name="firstName"
+              [(ngModel)]="loggedInUser.firstName"
+            />
+          </div>
+          <div class="col mt-3">
+            <label for="lastName">Last Name</label>
+            <input
+              class="form-control mb-3"
+              type="text"
+              name="lastName"
+              [(ngModel)]="loggedInUser.lastName"
+            />
+          </div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+          <div class="col-8">
+            <label for="imageUrl">Image URL</label>
+            <input
+              class="form-control mb-3"
+              type="text"
+              name="imageUrl"
+              [(ngModel)]="loggedInUser.imageUrl"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="email">Email</label>
+            <input
+              class="form-control mb-3"
+              type="text"
+              name="email"
+              [(ngModel)]="loggedInUser.email"
+            />
+          </div>
+          <div class="col-6">
+            <label for="phone">Phone</label>
+            <input
+              class="form-control mb-3"
+              type="text"
+              name="phone"
+              [(ngModel)]="loggedInUser.phone"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="imageUrl">About Me</label>
+            <input
+              class="form-control mb-3"
+              type="text"
+              name="aboutMe"
+              [(ngModel)]="loggedInUser.aboutMe"
+            />
+          </div>
+        </div>
+        <div class="text-center mb-3 mt-3">
+          <button
+            type="button"
+            class="btn btn-outline-dark mx-1"
+            (click)="update(loggedInUser)"
+          >
+            Update Account
+          </button>
+          <button
+            class="btn btn-danger mx-1"
+            (click)="loggedInUser.enabled = false"
+            (click)="disableSelf(loggedInUser)"
+            (click)="logout()"
+          >
+            Delete Account
+          </button>
+        </div>
+        <p class="lead text-danger text-center" *ngIf="invalidUpdate">
+          Update failed! Please try again.
+        </p>
+      </form>
+    </div>
+    <div class="col"></div>
   </div>
-  <p class="lead text-danger text-center" *ngIf="invalidUpdate">
-    Update failed! Please try again.
-  </p>
-</form>
+</div>

@@ -77,7 +77,7 @@ export class RegisterComponent {
       },
 
       error: (oops) => {
-        console.error('HomeComponent.login(): Error logging in user:');
+        console.error('RegisterComponent.login(): Error logging in user:');
         console.error(oops);
         this.invalidLogin = true;
       },
