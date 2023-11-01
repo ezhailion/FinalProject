@@ -76,6 +76,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+
+	public List<User> getAllTeachers() {
+		return userRepo.findByRole("teacher");
+	}
+
+	@Override
+	public List<User> getAllParents() {
+		return userRepo.findByRole("parent");
+	}
+
 	public User updateOtherUser(String username, int userId, User updatedUser, int studentId) {
 		User updatingUser = userRepo.findByUsername(username);
 		User userToUpdate = userRepo.searchById(userId);
@@ -101,5 +111,6 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return userToUpdate;
+
 	}
 }

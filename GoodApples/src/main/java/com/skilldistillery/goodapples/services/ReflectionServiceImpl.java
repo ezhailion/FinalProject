@@ -58,6 +58,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 
 	@Override
 	public boolean deleteReflection(int reflectionId) {
+
 		Reflection reflectionToDelete = reflectRepo.searchById(reflectionId);
 		if(reflectionToDelete != null) {
 			reflectionToDelete.setEnabled(false);
@@ -66,4 +67,5 @@ public class ReflectionServiceImpl implements ReflectionService {
 	}
 	return false;
 	}
+
 }
