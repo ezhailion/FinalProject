@@ -477,6 +477,7 @@
 
     <div class="modal-body">
       <div *ngFor="let reflection of studentReflectionList">
+        <button class="btn btn-danger" (click)="deleteReflection(reflection.id)">Delete</button>
         {{ reflection.createDate | date }} {{ reflection.content }}
       </div>
     </div>

@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   `recipient_id` INT NOT NULL,
   `enabled` TINYINT NULL,
   `message_id` INT NULL,
-  `read` TINYINT NULL DEFAULT 0,
+  `seen` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `fk_message_user1_idx` (`sender_id` ASC),
   INDEX `fk_message_user2_idx` (`recipient_id` ASC),
@@ -482,12 +482,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `goodapplesdb`;
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (1, 'Our little Morgan will not be attending class tommorow', '2023-10-25', '2023-10-25', 8, 4, 1, NULL, 0);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (2, 'I hope all is well.', '2023-10-25', '2023-10-25', 4, 8, 1, 1, 0);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (3, 'I will send her assignments home with one of the boys.', '2023-10-25', '2023-10-25', 4, 8, 1, 1, 0);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (4, 'Thank you.', '2023-10-25', '2023-10-25', 8, 4, 1, 2, 0);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (5, 'Could you give me the dates for Erics\'s final exam? Thank you.', '2023-10-26', '2023-10-26', 7, 4, 1, NULL, 0);
-INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `read`) VALUES (6, 'Most certainly. The final is on 11-02-2023.', '2023-10-26', '2023-10-26', 4, 7, 1, 5, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `seen`) VALUES (1, 'Our little Morgan will not be attending class tommorow', '2023-10-25', '2023-10-25', 8, 4, 1, NULL, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `seen`) VALUES (2, 'I hope all is well.', '2023-10-25', '2023-10-25', 4, 8, 1, 1, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `seen`) VALUES (3, 'I will send her assignments home with one of the boys.', '2023-10-25', '2023-10-25', 4, 8, 1, 1, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `seen`) VALUES (4, 'Thank you.', '2023-10-25', '2023-10-25', 8, 4, 1, 2, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `seen`) VALUES (5, 'Could you give me the dates for Erics\'s final exam? Thank you.', '2023-10-26', '2023-10-26', 7, 4, 1, NULL, 0);
+INSERT INTO `message` (`id`, `content`, `create_date`, `last_update`, `sender_id`, `recipient_id`, `enabled`, `message_id`, `seen`) VALUES (6, 'Most certainly. The final is on 11-02-2023.', '2023-10-26', '2023-10-26', 4, 7, 1, 5, 0);
 
 COMMIT;
 
