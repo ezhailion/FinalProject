@@ -1,8 +1,10 @@
 <div class="container-fluid mb-3">
   <div class="row px-5">
     <div class="col" *ngIf="!selectedStudents && !selectedStudent">
-      <img class="mx-5 mt-5" style="width: 220px;" src="{{loggedInUser.imageUrl}}">
-      <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
+
+      <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!
+        <img class="mx-5 mt-5 shadow" style="width: 150px; border-radius: 50%;" src="{{loggedInUser.imageUrl}}">
+      </h1>
     </div>
     <div class="col mt-1" *ngIf="!selectedStudents && !selectedStudent">
       <button

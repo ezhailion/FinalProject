@@ -1,7 +1,8 @@
 <div class="container-fluid">
   <div class="row px-5">
-    <img class="mx-5 mt-5" style="width: 220px;" src="{{loggedInUser.imageUrl}}">
-    <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
+    <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!
+      <img class="mx-5 mt-5 shadow" style="width: 150px; border-radius: 50%;" src="{{loggedInUser.imageUrl}}">
+    </h1>
     <div class="col mx-4">
       <form class="form-control mx-2 mt-1">
 
