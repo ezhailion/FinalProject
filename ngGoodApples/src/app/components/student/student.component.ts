@@ -33,7 +33,16 @@ export class StudentComponent {
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
         this.loggedInUser = user;
-        console.log(this.loggedInUser)
+        this.loggedInUser = user;
+        if (!this.auth.checkLogin()) {
+          this.router.navigateByUrl('mustBeLoggedIn');
+        }
+
+        if (this.auth.checkLogin()) {
+          if (user.role != "student") {
+            this.router.navigateByUrl('mustBeAStudent');
+          }
+        }
       },
       error: (oops) => {
         console.error(
