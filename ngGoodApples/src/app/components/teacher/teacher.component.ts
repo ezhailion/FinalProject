@@ -1,7 +1,7 @@
+import { Classroom } from './../../models/classroom';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Classroom } from 'src/app/models/classroom';
 import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/user';
 import { Report } from 'src/app/models/report';
@@ -39,10 +39,12 @@ export class TeacherComponent {
   loggedInUser: User = new User();
   classes: Classroom[] = [];
 
+  editStudent: Student = new Student();
   filteredStudents: Student[] = [];
   newStudent: User = new User();
   selectedStudents: Student[] | null = null;
   selectedStudent: Student | null = null;
+  editUser: User = new User();
 
   editClass: Classroom = new Classroom();
   createdClass: Classroom = new Classroom();
@@ -110,7 +112,23 @@ export class TeacherComponent {
     this.teacherService.updateClassroom(classroom, classroomId ).subscribe({
       next: (classroom) => {
         console.log(classroom);
-        this.editClass = new Classroom();
+        this.editClass = this.selectedClass;
+      }
+    })
+  }
+  setEditUser() {
+    this.editUser = Object.assign({}, this.selectedStudent?.whoami);
+  }
+
+
+  editOtherUser(userId: number, studentId: number, user: User){
+    this.teacherService.editOtherUserDetails(studentId, userId, user).subscribe({
+      next: (user) => {
+        this.loadStudentFromClass(this.selectedClass.id, studentId)
+      },
+      error: (oops) => {
+        console.error('TeacherComponent.editOtherUser(): error editing other user' + oops
+        );
       }
     })
   }
@@ -121,6 +139,50 @@ export class TeacherComponent {
   }
 
   //classroomService methods
+
+  disableClass(classId: number) {
+    this.classroomService.disable(classId).subscribe({
+      next: () => {
+        // pretty sure reload the classroom list *******************
+      },
+      error: (oops) => {
+        console.error(
+          'TeacherComponent.disableClass(): error disabling class' + oops
+        )
+      }
+    })
+  }
+
+  removeStudentFromClass(classId: number, studentId: number) {
+    this.classroomService.removeStudentFromClass(classId, studentId).subscribe({
+      next: (classroom) => {
+        console.log(classroom)
+        this.loadAllStudentsFromClass(classId);
+        this.loadAllStudentsFilter();
+      },
+      error: (oops) => {
+        console.error(
+          'TeacherComponent.removeStudentFromClass(): error removing student from class' + oops
+        );
+      }
+    })
+  }
+
+  addStudentToClass(classId: number, studentId: number) {
+    this.classroomService.addStudentToClass(classId, studentId).subscribe({
+      next: (classroom) => {
+        console.log(classroom)
+        this.loadAllStudentsFromClass(classId);
+        this.loadAllStudentsFilter();
+      },
+      error: (oops) => {
+        console.error(
+          'TeacherComponent.addStudentToClass(): error adding student to class' + oops
+        );
+      }
+    })
+  }
+
   loadAllClasses() {
     this.classroomService.index().subscribe({
       next: (classes) => {
@@ -164,9 +226,11 @@ export class TeacherComponent {
 
   //studentService methods
 
+
   loadAllStudentsFilter() {
     this.studentService.getStudents().subscribe({
       next: (students) => {
+        this.filteredStudents = [];
         for(let student of students) {
           let addStudent: boolean = true;
           for(let classroom of student.classrooms) {

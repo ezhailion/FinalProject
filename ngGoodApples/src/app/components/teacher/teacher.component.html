@@ -18,14 +18,18 @@
       </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudents">
-      <button class="btn btn-dark mx-1 mt-5 float-end"
-      (click)="open(editClassroomDetails)">
+      <button
+        class="btn btn-dark mx-1 mt-5 float-end"
+        (click)="open(editClassroomDetails)"
+      >
         Edit Class Details
       </button>
-      <button class="btn btn-secondary mx-1 mt-5 float-end"
-      (click)="loadAllStudentsFilter()"
-      (click)="open(filteredStudentsList)" >
-        Add Existing Student
+      <button
+        class="btn btn-secondary mx-1 mt-5 float-end"
+        (click)="loadAllStudentsFilter()"
+        (click)="open(filteredStudentsList)"
+      >
+        Add or Remove Students
       </button>
       <button
         (click)="open(createStudentModal)"
@@ -35,11 +39,16 @@
       </button>
     </div>
     <div class="col mt-1" *ngIf="selectedStudent">
-
-      <button class="btn btn-dark mx-1 mt-5 float-end">
+      <button class="btn btn-dark mx-1 mt-5 float-end"
+      (click)="open(editStudentDetails)"
+      (click)="setEditUser()">
         Edit {{ selectedStudent.whoami.firstName }}'s Details
       </button>
-      <button class="btn btn-secondary mx-1 mt-5 float-end" (click)="open(studentReflections)" (click)="loadAllReflectionsForStudent(selectedStudent.id)">
+      <button
+        class="btn btn-secondary mx-1 mt-5 float-end"
+        (click)="open(studentReflections)"
+        (click)="loadAllReflectionsForStudent(selectedStudent.id)"
+      >
         View {{ selectedStudent.whoami.firstName }}'s Reflections
       </button>
       <button
@@ -136,7 +145,7 @@
         <div class="col-12">
           <app-report
             [item]="studentReports"
-            [studentName]="selectedStudent.whoami.firstName"
+
           ></app-report>
         </div>
       </div>
@@ -190,11 +199,11 @@
           <strong>Notes: </strong>{{ selectedReport.notes }}
           <hr />
           <strong>Resources:</strong>
-              <div *ngFor="let resource of selectedReportResources">
-                <a target="_blank" href="{{resource.link}}">
-                  {{resource.title}}
-                </a>
-            </div>
+          <div *ngFor="let resource of selectedReportResources">
+            <a target="_blank" href="{{ resource.link }}">
+              {{ resource.title }}
+            </a>
+          </div>
 
           <hr />
           <div class="mt-1">
@@ -279,15 +288,12 @@
           </label>
         </div>
       </div>
-
     </div>
     <div class="modal-footer" *ngIf="selectedStudent">
       <button
         type="button"
         class="btn btn-outline-dark"
-        (click)="
-        modal.close(resetNewReport(selectedStudent.id))
-        "
+        (click)="modal.close(resetNewReport(selectedStudent.id))"
       >
         Add Report
       </button>
@@ -455,99 +461,184 @@
     </div>
   </ng-template>
 
-<!-- VIEW STUDENT REFLECTIONS MODAL -->
-<ng-template #studentReflections let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{selectedStudent?.whoami?.firstName}}'s Reflections</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
-  </div>
-
-  <div class="modal-body">
-   <div *ngFor="let reflection of studentReflectionList">
-    {{reflection.createDate | date}} {{reflection.content}}
-   </div>
-  </div>
-  <div class="modal-footer">
-  </div>
-</ng-template>
-
-<!-- edit classroom details modal -->
-<ng-template #editClassroomDetails let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edit Classroom Details</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
-  </div>
-
-  <div class="modal-body">
-    <input
-    class="form-control mb-3"
-    type="text"
-    name="name"
-    [(ngModel)]="editClass.name"
-  />
-  <input
-    class="form-control mb-3"
-    type="time"
-    name="startTime"
-    [(ngModel)]="editClass.startTime"
-  />
-
-  <input
-    class="form-control mb-3"
-    type="time"
-    name="endTime"
-    [(ngModel)]="editClass.endTime"
-  />
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-dark"
-      (click)="
-        modal.close(updateClassroom(editClass, editClass.id))
-      "
-    >
-      Submit Edit
-    </button>
-  </div>
-</ng-template>
-<ng-template #filteredStudentsList let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add Existing Students</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
-  </div>
-
-  <div class="modal-body">
-    <div *ngFor="let student of filteredStudents">
-      {{student.whoami.firstName}} {{student.whoami.lastName}}
-      <button  class="btn btn-secondary">Add to Class</button>
+  <!-- VIEW STUDENT REFLECTIONS MODAL -->
+  <ng-template #studentReflections let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ selectedStudent?.whoami?.firstName }}'s Reflections
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
     </div>
+
+    <div class="modal-body">
+      <div *ngFor="let reflection of studentReflectionList">
+        {{ reflection.createDate | date }} {{ reflection.content }}
+      </div>
+    </div>
+    <div class="modal-footer"></div>
+  </ng-template>
+
+  <!-- edit classroom details modal -->
+  <ng-template #editClassroomDetails let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Classroom Details</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <input
+        class="form-control mb-3"
+        type="text"
+        name="name"
+        [(ngModel)]="editClass.name"
+      />
+      <input
+        class="form-control mb-3"
+        type="time"
+        name="startTime"
+        [(ngModel)]="editClass.startTime"
+      />
+
+      <input
+        class="form-control mb-3"
+        type="time"
+        name="endTime"
+        [(ngModel)]="editClass.endTime"
+      />
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger"
+      (click)="disableClass(editClass.id)">
+        Delete Class
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close(updateClassroom(editClass, editClass.id))"
+      >
+        Submit Edit
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #filteredStudentsList let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add or Remove Existing Students</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <div class="row">
+      <div class="col">
+        <h4>Add Student</h4>
+        <div *ngFor="let student of filteredStudents">
+
+          <button
+            class="btn btn-secondary mb-3"
+            (click)="addStudentToClass(selectedClass.id, student.id)"
+          >
+          {{ student.whoami.firstName }} {{ student.whoami.lastName }}
+          </button>
+        </div>
+      </div>
+      <div class="col">
+        <h4>Remove Student</h4>
+        <div *ngFor="let student of selectedStudents">
+          <button
+            class="btn btn-danger mb-3"
+            (click)="removeStudentFromClass(selectedClass.id, student.id)"
+          >
+          {{ student.whoami.firstName }} {{ student.whoami.lastName }}
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </ng-template>
+
+  <ng-template #editStudentDetails let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit {{selectedStudent?.whoami?.firstName}}'s Details</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="firstName"
+      [(ngModel)]="editUser.firstName"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="lastName"
+      [(ngModel)]="editUser.lastName"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="email"
+      [(ngModel)]="editUser.email"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="phone"
+      [(ngModel)]="editUser.phone"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="aboutMe"
+      [(ngModel)]="editUser.aboutMe"
+    />
+    <div *ngIf="editUser.student">
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="accommodations"
+      [(ngModel)]="editUser.student.accommodations"
+    />
+      <input
+      class="form-control mb-3"
+      type="text"
+      name="nickname"
+      [(ngModel)]="editUser.student.nickname"
+    />
   </div>
-  <div class="modal-footer">
-    <button
+</div>
+
+    <div class="modal-footer"
+    *ngIf="editUser.student">
+      <button
       type="button"
       class="btn btn-outline-dark"
-      (click)="
-        modal.close(updateClassroom(editClass, editClass.id))
-      "
+      (click)="modal.close(editOtherUser(editUser.id, editUser.student.id, editUser))"
     >
       Submit Edit
     </button>
   </div>
-</ng-template>
+  </ng-template>
 </div>

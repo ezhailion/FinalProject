@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.goodapples.entities.Student;
 import com.skilldistillery.goodapples.entities.User;
+import com.skilldistillery.goodapples.repositories.StudentRepository;
 import com.skilldistillery.goodapples.repositories.UserRepository;
 
 @Service
@@ -14,6 +15,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepo;
+
+	@Autowired
+	StudentRepository studentRepo;
 
 	@Override
 	public User update(User user, String username) {
@@ -72,6 +76,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+
 	public List<User> getAllTeachers() {
 		return userRepo.findByRole("teacher");
 	}
@@ -79,5 +84,33 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllParents() {
 		return userRepo.findByRole("parent");
+	}
+
+	public User updateOtherUser(String username, int userId, User updatedUser, int studentId) {
+		User updatingUser = userRepo.findByUsername(username);
+		User userToUpdate = userRepo.searchById(userId);
+		Student studentWithUpdates = updatedUser.getStudent(); 
+		Student studentToUpdate = studentRepo.findByWhoami_Username(userToUpdate.getUsername());
+		if(updatingUser != null && userToUpdate != null) {
+			studentToUpdate.setAccommodations(studentWithUpdates.getAccommodations());
+			studentToUpdate.setNickname(studentWithUpdates.getNickname());
+			studentRepo.saveAndFlush(studentToUpdate);
+			userToUpdate.setStudent(studentToUpdate);
+			
+			userToUpdate.setFirstName(updatedUser.getFirstName());
+			userToUpdate.setLastName(updatedUser.getLastName());
+			userToUpdate.setEmail(updatedUser.getEmail());
+			userToUpdate.setPhone(updatedUser.getPhone());
+			userToUpdate.setImageUrl(updatedUser.getImageUrl());
+			userToUpdate.setAboutMe(updatedUser.getAboutMe());
+			System.out.println( studentWithUpdates +"studentWithUpdates********************************************************************studentWithUpdates");
+			System.out.println( studentToUpdate +"studentToUpdate********************************************************************studentToUpdate");
+//			userToUpdate.getStudent().setAccommodations(updatedUser.getStudent().getAccommodations());
+//			userToUpdate.getStudent().setNickname(updatedUser.getStudent().getNickname());
+			userRepo.saveAndFlush(userToUpdate);
+		}
+		
+		return userToUpdate;
+
 	}
 }

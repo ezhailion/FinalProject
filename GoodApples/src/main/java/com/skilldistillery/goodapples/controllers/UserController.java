@@ -29,7 +29,7 @@ public class UserController {
 	private UserService userService;
 
 	@PutMapping("users")
-	public User update(HttpServletRequest req, HttpServletResponse res, @RequestBody User userWithUpdates,
+	public User updateOwnAccount(HttpServletRequest req, HttpServletResponse res, @RequestBody User userWithUpdates,
 			Principal principal) {
 		User updatedUser = null;
 		try {
@@ -43,7 +43,22 @@ public class UserController {
 			res.setStatus(400);
 		}
 		return updatedUser;
-
+	}
+	@PutMapping("users/{userId}/students/{studentId}")
+	public User updateOtherUserAccount(HttpServletRequest req, HttpServletResponse res, @RequestBody User userWithUpdates,
+			@PathVariable int userId, @PathVariable int studentId, Principal principal) {
+		User updatedUser = null;
+		try {
+			updatedUser = userService.updateOtherUser(principal.getName(), userId, userWithUpdates, studentId );
+			if (updatedUser == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			System.err.println("UserController.updateOtherUserAccount(): error updating other user");
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+		return updatedUser;
 	}
 
 //	 dissabling other user account?

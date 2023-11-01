@@ -103,5 +103,24 @@ public class ClassController {
 		}
 	}
 	
+	@PostMapping("classes/{classId}/students/{studentId}")
+			public Classroom addStudentToClassroom(@PathVariable int classId, @PathVariable int studentId,
+					Principal principal, HttpServletResponse res) {
+		Classroom updatedClassroom = classService.addExistingStudentToClass(classId, studentId, principal.getName());
+		if(updatedClassroom == null) {
+			res.setStatus(404);
+		}
+		return updatedClassroom;
+	}
+	@DeleteMapping("classes/{classId}/students/{studentId}")
+	public Classroom removeStudentFromClassroom(@PathVariable int classId, @PathVariable int studentId,
+			Principal principal, HttpServletResponse res) {
+		Classroom updatedClassroom = classService.removeExistingStudentToClass(classId, studentId, principal.getName());
+		if(updatedClassroom == null) {
+			res.setStatus(404);
+		}
+		return updatedClassroom;
+	}
+	
 	
 }
