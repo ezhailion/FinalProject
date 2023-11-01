@@ -435,14 +435,14 @@ START TRANSACTION;
 USE `goodapplesdb`;
 INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (1, 'Eric made many astute observations during todays lecture.', 4, 1, '2023-10-02', '2023-10-02', 1);
 INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (2, 'Eric worked well with his classmates on the group project.', 4, 1, '2023-10-04', '2023-10-04', 1);
-INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (3, 'Eric really struggled with his lesson today but kept trying until he grasped the concepts. He was also getting a bit confrontational with one of the students.', 4, 1, '2023-10-05', '2023-10-05', 1);
-INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (4, 'Eric put gum in a girls hair today. When confronted, he addmited to commiting the deed.', 4, 1, '2023-10-10', '2023-10-10', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (3, 'Eric really struggled with his lesson today but kept trying until he grasped the concepts. He was also getting a bit confrontational with one of the students.', 5, 1, '2023-10-05', '2023-10-05', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (4, 'Eric put gum in a girls hair today. When confronted, he addmited to commiting the deed.', 5, 1, '2023-10-10', '2023-10-10', 1);
 INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (5, 'Eric was not paying attention in class. He was rushing trying to complete a past due assignment for another class. He also called me Mr. meenie.', 4, 1, '2023-10-11', '2023-10-11', 1);
-INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (6, 'Eric showed no interest in any aspect of class today.', 4, 1, '2023-10-15', '2023-10-15', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (6, 'Eric showed no interest in any aspect of class today.', 6, 1, '2023-10-15', '2023-10-15', 1);
 INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (7, 'Eric help a kid that was being bullied. He informed the staff of the situation.', 4, 1, '2023-10-19', '2023-10-19', 1);
-INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (8, 'Eric found my walet and returned it to me with no missing items.', 4, 1, '2023-10-20', '2023-10-20', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (8, 'Eric found my walet and returned it to me with no missing items.', 6, 1, '2023-10-20', '2023-10-20', 1);
 INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (9, 'Eric worked well with his classmates on a difficult project.', 4, 1, '2023-10-23', '2023-10-23', 1);
-INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (10, 'Eric and his classmates put in a lot of effort in their project but the end result was lacking. Eric took responsibility for the poor result.', 4, 1, '2023-10-24', '2023-10-24', 1);
+INSERT INTO `report` (`id`, `notes`, `teacher_id`, `student_id`, `create_date`, `last_update`, `enabled`) VALUES (10, 'Eric and his classmates put in a lot of effort in their project but the end result was lacking. Eric took responsibility for the poor result.', 5, 1, '2023-10-24', '2023-10-24', 1);
 
 COMMIT;
 
