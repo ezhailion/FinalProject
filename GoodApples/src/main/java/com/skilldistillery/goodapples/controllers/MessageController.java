@@ -38,6 +38,11 @@ public class MessageController {
 		return messageService.getInReplyTo(messageId);
 	}
 	
+	@GetMapping("messages/unread")
+	public List<Message> indexUnread(Principal principal) {
+		return messageService.indexUnread(principal.getName());
+	}
+	
 	@PostMapping("messages/{recipientId}")
 	public Message create (HttpServletResponse res, HttpServletRequest req, Principal principal, @PathVariable int recipientId, @RequestBody Message message) {
 		Message createdMessage = null;

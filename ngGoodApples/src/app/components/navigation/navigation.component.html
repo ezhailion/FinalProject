@@ -32,7 +32,7 @@
       <!-- some silly buttons for mail -->
       <!-- TODO add logic for is-logged-in() AND role-not-student() -->
 
-      <span style="margin-right: 10px;" class="nav-item" *ngIf="isLoggedIn() && canSeeMail()">
+      <span style="margin-right: 10px;" class="nav-item" *ngIf="isLoggedIn() && canSeeMail() && messageService.listOfUnreadMessages.length == 0">
         <button [routerLink]="['/messages']"
                 class="btn btn-light" style="padding: 0 8px 0 8px;">
           <svg version="1.1"  height="35px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@
         </button>
       </span>
 
-      <span style="margin-right: 10px;" class="nav-item" *ngIf="isLoggedIn() && canSeeMail()">
+      <span style="margin-right: 10px;" class="nav-item" *ngIf="isLoggedIn() && canSeeMail() && messageService.listOfUnreadMessages.length > 0">
         <button [routerLink]="['/messages']"
                 class="btn btn-light" style="padding: 0 8px 0 8px;">
           <svg version="1.1"  height="35px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
