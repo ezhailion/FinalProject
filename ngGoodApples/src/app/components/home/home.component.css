@@ -8,3 +8,7 @@
   color: #EFEFEF;
   text-shadow: 2px 2px 5px black;
 }
+
+.appleLogo {
+  max-height: 30vh;
+}
