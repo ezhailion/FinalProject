@@ -74,8 +74,6 @@ private auth: AuthService
           );
         })
       )
-
-
   }
 
   //UNTESTED

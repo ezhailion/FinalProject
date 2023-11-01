@@ -126,8 +126,7 @@ public class ReportController {
 		}
 		return updatedReport;
 	}
-	
-//	disable report
+
 	@DeleteMapping("reports/{reportId}") 
 	public boolean deleteReport(@PathVariable int reportId, Principal principal,
 			HttpServletResponse res) {
@@ -140,7 +139,7 @@ public class ReportController {
 				res.setStatus(404);
 			}
 		} catch (Exception e) {
-			System.err.println("ReportController.disable(): error disabling user");
+			System.err.println("ReportController.deleteReport(): error deleting report");
 			e.printStackTrace();
 			res.setStatus(400);
 		}

@@ -56,4 +56,14 @@ public class ReflectionServiceImpl implements ReflectionService {
 		return reflectRepo.findByStudentId(studentId);
 	}
 
+	@Override
+	public boolean deleteReflection(int reflectionId) {
+		Reflection reflectionToDelete = reflectRepo.searchById(reflectionId);
+		if(reflectionToDelete != null) {
+			reflectionToDelete.setEnabled(false);
+			reflectRepo.saveAndFlush(reflectionToDelete);	
+		return true;
+	}
+	return false;
+	}
 }

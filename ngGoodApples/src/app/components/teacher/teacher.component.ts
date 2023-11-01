@@ -398,7 +398,7 @@ export class TeacherComponent {
     })
   }
   deleteReflection(reflectionId: number) {
-    this.teacherService.deleteReport(reflectionId).subscribe({
+    this.teacherService.deleteReflection(reflectionId).subscribe({
       next: (reflection) => {
        console.log("reflection" + reflection);
        if(this.selectedStudent != null) {
@@ -406,7 +406,7 @@ export class TeacherComponent {
         this.selectedReport = null;
        }
       },
-      error: (oopsie) => console.error("Teacher component. remove reflection. " + oopsie)
+      error: (oopsie) => console.error("Teacher component.remove reflection. " + oopsie)
     })
   }
 

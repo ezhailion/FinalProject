@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,5 +54,22 @@ public class ReflectionController {
 		return createdRefl;
 	}
 	
-	
+	@DeleteMapping("reflections/{reflectionId}") 
+	public boolean deleteResponse(@PathVariable int reflectionId, Principal principal,
+			HttpServletResponse res) {
+		boolean deleted = false;
+		try {
+			if(reflectServ.deleteReflection(reflectionId)) {
+				res.setStatus(200);
+				deleted = true;
+			} else {
+				res.setStatus(404);
+			}
+			} catch (Exception e) {
+				System.err.println("ReflectionController.deleteResponse(): error deleting reflection");
+				e.printStackTrace();
+				res.setStatus(400);
+			}
+			return deleted;
+		}
 }
