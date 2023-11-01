@@ -1,6 +1,7 @@
 <div class="container-fluid mb-3">
   <div class="row px-5">
     <div class="col" *ngIf="!selectedStudents && !selectedStudent">
+      <img class="mx-5 mt-5" style="width: 220px;" src="{{loggedInUser.imageUrl}}">
       <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
     </div>
     <div class="col mt-1" *ngIf="!selectedStudents && !selectedStudent">
@@ -106,6 +107,12 @@
             <div class="card-body">
               <h5 class="">
                 {{ student.whoami.firstName }} {{ student.whoami.lastName }}
+                <div *ngIf="student.whoami.imageUrl != null">
+                <img width="150" height="180" src="{{student.whoami.imageUrl}}">
+                </div>
+                <div *ngIf="student.whoami.imageUrl == null">
+                <img width="150" height="180" src="https://i.pinimg.com/originals/90/de/25/90de257fdac14d35d66a81ab8e282cad.jpg">
+                </div>
               </h5>
             </div>
           </div>
@@ -135,6 +142,7 @@
         </button></span
       >
       <h3 class="mb-3">
+        <img style="width: 220px;" src="{{selectedStudent.whoami.imageUrl}}"><br>
         {{ selectedStudent.whoami.firstName }}
         {{ selectedStudent.whoami.lastName }}
       </h3>
