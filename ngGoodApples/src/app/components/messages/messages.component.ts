@@ -123,7 +123,7 @@ export class MessagesComponent {
     if (recipientId) {
       this.messageService.create(message, recipientId).subscribe({
         next: (createdMessage) => {
-          this.ngOnInit();
+          location.reload();
         },
         error: (oops) => {
           'Messagecomponent.createNewMessage() failed creating message' + oops
