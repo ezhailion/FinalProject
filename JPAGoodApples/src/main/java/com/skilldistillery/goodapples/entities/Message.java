@@ -55,7 +55,8 @@ public class Message {
 	@OneToMany(mappedBy = "messageToReplyTo")
 	private List<Message> inReplyToMessages;
 	
-	//TODO: user and message relationships
+	private Boolean read;
+	
 
 	public Message() {
 		super();
@@ -133,6 +134,16 @@ public class Message {
 		this.inReplyToMessages = inReplyToMessages;
 	}
 
+	
+	public Boolean getRead() {
+		return read;
+	}
+
+	public void setRead(Boolean read) {
+		this.read = read;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

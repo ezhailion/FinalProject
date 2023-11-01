@@ -213,4 +213,48 @@ export class MessagesComponent {
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
+
+  fromSomeoneElse(message : Message) : boolean {
+   return !( message.sender.id === this.loggedInUser.id)
+  }
+
+  /*
+   * Mark all as read should only mark messages where
+   * the current user is not the sender of that message.
+   * so as not to mess with the other person's notion of read.
+  */
+ markAllAsRead(msg : Message | null)  {
+
+  console.log("HERE")
+  if (msg === null) {
+    return
+  } else if (msg.sender.id === this.loggedInUser.id) {
+    this.markAllAsRead(msg.messageToReplyTo) // skip
+  } else {
+    console.log("MARKED")
+    msg.read = true;
+    this.markAllAsRead(msg.messageToReplyTo)
+  }
+
+ }
+
+ // it turns out recursive funtions do not work with these
+ // classes bc of 'this' keyword. need an arrow function:
+
+
+
+  // markAllAsRead(msg : Message | null) {
+  //   markAllAsReadHlp(msg, this.loggedInUser.id)
+  // }
+
 }
+// const markAllAsReadHlp = (msg : Message | null, userId : number)  => {
+//   if (msg === null) {
+//     return
+//   } else if (msg.sender.id === userId) {
+//     markAllAsReadHlp(msg.messageToReplyTo, userId)
+//   } else {
+//     msg.read = true;
+//     markAllAsReadHlp
+//   }
+//  }

@@ -5,7 +5,7 @@
   Draft new message
 </button>
 
-<!-- !!!!!!!!!!!!!!!!! PARENTS VERSION !!!!!!!!!!  -->
+<!-- !!!!!!!!!!!!!!!!! PARENTS VERSION of dropdown to all teachers !!!!!!!!!!  -->
 <div *ngIf="testRoleParent()">
 <div class="m-3">
   <form class="form-control">
@@ -32,7 +32,7 @@
 </div>
 
 
-<!-- !!!!!!!!!!!!!! TEACHERS VERSION  -->
+<!-- !!!!!!!!!!!!!! TEACHERS VERSION of dropdown to all parents !!!!!!!!!!! -->
 <div *ngIf="testRoleTeacher()">
   <div class="m-3">
     <form class="form-control">
@@ -62,7 +62,7 @@
 
 
 
-<!-- MESSAGES  -->
+<!-- MESSAGES
 <div *ngFor="let message of messages">
   To : {{message.recipient.firstName}} <br>
   From : {{message.sender.firstName }} <br>
@@ -80,9 +80,10 @@
 
   <hr>
 </div>
+-->
 
 <!-- THREADS  -->
-<h1>Threads prototype</h1>
+<h1>Direct Messages</h1>
 <hr>
 
 <!-- TOP LEVEL THREAD  -->
@@ -95,7 +96,8 @@
     {{thread[0].content}}
   </div>
 
-  <button class="btn btn-dark"
+  <button *ngIf="fromSomeoneElse(thread[0])"
+          class="btn btn-dark"
           (click)="selectedRecipient = thread[0].sender;"
           (click)="loadReplyMessage(thread[0])"
           (click)="open(newReplyFormModal)"
@@ -104,6 +106,10 @@
   (click) = "selectedThread = thread"
   >see all</button>
 
+  <button class="btn btn-light"
+
+  (click) = "markAllAsRead(thread[0]); log(thread[0])"
+  >mark all as read</button>
   <hr>
 </div>
 
@@ -125,30 +131,9 @@
 
 </div>
 
-  <!-- TEMPORARY NEW REPLY FORM  -->
-  <div  class="m-3">
-    <form class="form-control">
-      <input
-      class="form-control mb-3"
-      type="text"
-      name="content"
-      placeholder="Enter message"
-      [(ngModel)]="messageInReply.content"
-    />
 
 
-    <div>to : {{selectedRecipient?.firstName}}</div>
-
-
-    <button class="btn btn-dark"
-    (click)="replyToMessage(messageInReply)">Send</button>
-
-
-    </form>
-
-  </div>
-
-  <!-- MAH MODAL  -->
+  <!-- REPLY MODAL  -->
   <ng-template #newReplyFormModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">To: {{selectedRecipient?.firstName}}</h4>

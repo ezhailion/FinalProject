@@ -12,6 +12,8 @@ export class Message {
 
   messageToReplyTo : Message | null;
 
+  read : boolean;
+
   constructor(
   id: number = 0,
   content: string = '',
@@ -20,7 +22,8 @@ export class Message {
   enabled: boolean = false,
   recipient: User = new User(),
   sender: User = new User(),
-  messageToReplyTo : Message | null = null
+  messageToReplyTo : Message | null = null,
+  read : boolean = false,
 
   ) {
     this.id = id;
@@ -31,6 +34,7 @@ export class Message {
     this.recipient = recipient;
     this.sender = sender;
     this.messageToReplyTo = messageToReplyTo;
+    this.read = read;
   }
 
 }
