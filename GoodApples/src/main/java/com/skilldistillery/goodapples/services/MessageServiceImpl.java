@@ -50,10 +50,29 @@ public class MessageServiceImpl implements MessageService {
 	public Message updateRead(Message message) {
 		Message messageToUpdate = messageRepo.searchById(message.getId());
 		
-		messageToUpdate.setRead(message.getRead());
+		messageToUpdate.setSeen(message.getSeen());
 
 		
 		return messageRepo.saveAndFlush(messageToUpdate);
+	}
+	
+	@Override
+	public Message updateThreadRead(Message message) {
+		Message messageToUpdate = messageRepo.searchById(message.getId());
+		
+		setAllSeen(messageToUpdate, message);
+
+		
+		return messageRepo.saveAndFlush(messageToUpdate);
+	}
+	
+	public void setAllSeen(Message toUpdate, Message updateFrom) {
+		if (toUpdate == null || updateFrom == null) {
+			return;
+		} else {
+			toUpdate.setSeen(updateFrom.getSeen());
+			setAllSeen(toUpdate.getMessageToReplyTo(), updateFrom.getMessageToReplyTo());
+		}
 	}
 	
 

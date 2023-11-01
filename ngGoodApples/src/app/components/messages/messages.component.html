@@ -106,12 +106,25 @@
   (click) = "selectedThread = thread"
   >see all</button>
 
-  <button
-  *ngIf="thread[0].sender.id != loggedInUser.id"
+  <div  *ngIf="thread[0].sender.id != loggedInUser.id">
+
+    <!-- <button
+    *ngIf="thread[0].seen"
   class="btn btn-light"
 
-  (click) = "log(thread[0])"
-  >mark as read</button>
+  (click) = "flipRead(thread[0])"
+  >mark as unread</button>
+  <button
+  *ngIf="!thread[0].seen"
+class="btn btn-light"
+
+(click) = "flipRead(thread[0])"
+>mark as read</button> -->
+<button (click)="markAllAsRead(thread[0])"
+  class="btn btn-light">
+  mark all as read
+</button>
+  </div>
   <hr>
 </div>
 

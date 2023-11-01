@@ -58,5 +58,10 @@ public class MessageController {
 		return messageService.updateRead(message);
 	}
 	
+	@PutMapping("messages/thread")
+	public Message updateThread(Principal principal, @RequestBody Message message){
+		return messageService.updateThreadRead(message);
+	}
+	
 	
 }

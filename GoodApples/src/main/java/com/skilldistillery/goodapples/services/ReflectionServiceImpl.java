@@ -56,4 +56,10 @@ public class ReflectionServiceImpl implements ReflectionService {
 		return reflectRepo.findByStudentId(studentId);
 	}
 
+	@Override
+	public boolean deleteReflection(int reflectionId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

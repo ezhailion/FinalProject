@@ -55,7 +55,7 @@ public class Message {
 	@OneToMany(mappedBy = "messageToReplyTo")
 	private List<Message> inReplyToMessages;
 	
-	private Boolean read;
+	private Boolean seen;
 	
 
 	public Message() {
@@ -135,12 +135,13 @@ public class Message {
 	}
 
 	
-	public Boolean getRead() {
-		return read;
+	
+	public Boolean getSeen() {
+		return seen;
 	}
 
-	public void setRead(Boolean read) {
-		this.read = read;
+	public void setSeen(Boolean seen) {
+		this.seen = seen;
 	}
 
 	

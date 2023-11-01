@@ -11,4 +11,5 @@ public interface MessageService {
 	List<Message> getInReplyTo(int messageId);
 	
 	Message updateRead(Message message);
+	Message updateThreadRead(Message message);
 }

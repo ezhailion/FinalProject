@@ -12,7 +12,7 @@ export class Message {
 
   messageToReplyTo : Message | null;
 
-  read : boolean;
+  seen : boolean;
 
   constructor(
   id: number = 0,
@@ -23,7 +23,7 @@ export class Message {
   recipient: User = new User(),
   sender: User = new User(),
   messageToReplyTo : Message | null = null,
-  read : boolean = false,
+  seen : boolean = false,
 
   ) {
     this.id = id;
@@ -34,7 +34,7 @@ export class Message {
     this.recipient = recipient;
     this.sender = sender;
     this.messageToReplyTo = messageToReplyTo;
-    this.read = read;
+    this.seen = seen;
   }
 
 }

@@ -230,7 +230,7 @@ export class MessagesComponent {
   } else if (msg.sender.id === this.loggedInUser.id) {
     this.markAllAsReadRec(msg.messageToReplyTo) // skip
   } else {
-    msg.read = true;
+    msg.seen = true;
     this.markAllAsReadRec(msg.messageToReplyTo)
   }
 
@@ -238,14 +238,14 @@ export class MessagesComponent {
 
  markAllAsRead(msg : Message) {
   this.markAllAsReadRec(msg);
-  this.messageService.updateRead(msg).subscribe({
+  this.messageService.updateThreadRead(msg).subscribe({
     next : (msg) => { console.log("todo: refresh")},
     error : (err) => console.error("mark all as read" + err)
   })
  }
 
  flipRead(msg : Message) {
-  msg.read = !msg.read;
+  msg.seen = !msg.seen;
   console.log(msg)
   this.messageService.updateRead(msg).subscribe({
     next : (msg) => { console.log("todo: refresh")},
