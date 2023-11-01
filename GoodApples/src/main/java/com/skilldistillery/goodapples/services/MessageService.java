@@ -12,4 +12,6 @@ public interface MessageService {
 	
 	Message updateRead(Message message);
 	Message updateThreadRead(Message message);
+	
+	List<Message> indexUnread(String username);
 }

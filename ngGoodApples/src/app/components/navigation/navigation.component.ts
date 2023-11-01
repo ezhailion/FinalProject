@@ -1,7 +1,10 @@
+import { Student } from './../../models/student';
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-navigation',
@@ -12,26 +15,36 @@ export class NavigationComponent{
   isCollapsed: boolean = false;
   display : boolean = false;
 
+  loggedInUser : User = new User();
 
+  unseenMessages : Message[] = [];
 
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+    public messageService: MessageService
+    ) {}
 
-  constructor(public auth: AuthService, private router: Router) {}
-
-
-  checkUserRole(): string {
+  ngOnInit() {
+    if (!this.auth.checkLogin()) {
+      this.router.navigateByUrl('mustBeLoggedIn');
+    }
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
-        return user.role;
+        this.loggedInUser = user;
+        this.getUnreadMessages();
+
       },
       error: (oops) => {
         console.error(
-          'NavigationComponent.checkUserRole() failed getting logged in user'
+          'ParentComponent.getLoggedInUser() failed getting logged in user'
         );
         console.error(oops);
       },
     });
-    return '';
+
   }
+
 
 
   isLoggedIn() {
@@ -45,8 +58,21 @@ export class NavigationComponent{
   }
 
   canSeeMail() : boolean {
-    let leRole = this.auth.loginUser.role;
+    let leRole = this.loggedInUser.role;
     return leRole === 'teacher' || leRole === 'parent'
   }
 
+  getUnreadMessages() {
+    this.messageService.indexUnread().subscribe({
+      next: msgs => {
+        this.unseenMessages = msgs;
+        this.messageService.listOfMessages = msgs;
+      },
+      error: err => console.log("error loading messages" + err)
+    })
+  }
+
+  hasUnseenMessages() : boolean {
+    return this.unseenMessages.length > 0;
+  }
 }

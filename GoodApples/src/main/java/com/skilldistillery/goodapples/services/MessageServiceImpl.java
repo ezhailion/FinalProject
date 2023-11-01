@@ -74,6 +74,12 @@ public class MessageServiceImpl implements MessageService {
 			setAllSeen(toUpdate.getMessageToReplyTo(), updateFrom.getMessageToReplyTo());
 		}
 	}
+
+	@Override
+	public List<Message> indexUnread(String username) {
+		
+		return messageRepo.findBySeen_AndRecipientUsername(false, username);
+	}
 	
 
 }

@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
 import { User } from 'src/app/models/user';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NavigationComponent } from '../navigation/navigation.component';
 
 @Component({
   selector: 'app-messages',
@@ -45,7 +46,8 @@ export class MessagesComponent {
     public auth : AuthService,
     private router : Router,
     private messageService : MessageService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
+
   ){}
 
   ngOnInit() {
@@ -64,12 +66,6 @@ export class MessagesComponent {
         this.loadAllTeacherContacts();
         this.loadAllParentContacts();
 
-
-
-        console.log("conversations")
-        console.log(this.conversations)
-        console.log("threads!!!")
-        console.log(this.threads)
       },
       error: (oops) => {
         console.error(
@@ -80,16 +76,20 @@ export class MessagesComponent {
     });
 
 
-
-    console.log("DO WE HAVE NAME")
-    console.log(this.loggedInUser.firstName)
-
   }
 
 
   loadAllMessages() {
     this.messageService.index().subscribe({
       next: (messages) => {
+        this.messageService.listOfMessages = messages;
+        this.messageService.indexUnread().subscribe({
+          next: msgs => {
+            this.messageService.listOfUnreadMessages = msgs;
+          },
+          error: oops => console.error(oops)
+
+        })
         this.messages = messages.reverse();
         console.log(messages)
         this.makeThreadsFromMessages();
@@ -233,7 +233,7 @@ export class MessagesComponent {
  markAllAsRead(msg : Message) {
   this.markAllAsReadRec(msg);
   this.messageService.updateThreadRead(msg).subscribe({
-    next : (msg) => { console.log("todo: refresh")},
+    next : (msg) => { console.log("todo: refresh");},
     error : (err) => console.error("mark all as read" + err)
   })
  }
@@ -242,27 +242,12 @@ export class MessagesComponent {
   msg.seen = !msg.seen;
   console.log(msg)
   this.messageService.updateRead(msg).subscribe({
-    next : (msg) => { console.log("todo: refresh")},
+    next : (msg) => {
+      console.log("todo: refresh");
+      this.loadAllMessages();
+  },
     error : (err) => console.error("mark all as read" + err)
   })
  }
- // it turns out recursive funtions do not work with these
- // classes bc of 'this' keyword. need an arrow function:
-
-
-
-  // markAllAsRead(msg : Message | null) {
-  //   markAllAsReadHlp(msg, this.loggedInUser.id)
-  // }
 
 }
-// const markAllAsReadHlp = (msg : Message | null, userId : number)  => {
-//   if (msg === null) {
-//     return
-//   } else if (msg.sender.id === userId) {
-//     markAllAsReadHlp(msg.messageToReplyTo, userId)
-//   } else {
-//     msg.read = true;
-//     markAllAsReadHlp
-//   }
-//  }

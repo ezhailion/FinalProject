@@ -9,5 +9,6 @@ import com.skilldistillery.goodapples.entities.Message;
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 	Message searchById(int id);
 	List<Message> findBySender_UsernameOrRecipient_Username(String username, String username2);
-	
+	List<Message> findBySeen_AndRecipientUsername(Boolean seen, String username);
+
 }

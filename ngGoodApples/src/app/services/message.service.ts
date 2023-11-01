@@ -1,3 +1,4 @@
+import { RegisterComponent } from './../components/register/register.component';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
@@ -12,10 +13,13 @@ import { User } from '../models/user';
 export class MessageService {
   private url = environment.baseUrl + 'api/messages';
 
+  public listOfMessages : Message[] = [];
+  public listOfUnreadMessages : Message[] = [];
   constructor(
     private auth: AuthService,
     private http: HttpClient
   ) { }
+
 
   getHttpOptions() {
     let options = {
@@ -49,7 +53,16 @@ export class MessageService {
               })
     )
   }
-
+  indexUnread() : Observable<Message[]> {
+    return this.http.get<Message[]>(this.url + "/unread", this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MessageService.create(): error creating message: ' + err)
+        );
+      })
+    )
+  }
   create(message: Message, recipientId: number): Observable<Message> {
     return this.http.post<Message>(this.url + "/" + recipientId , message, this.getHttpOptions()).pipe(
       catchError((err: any) => {
@@ -103,4 +116,6 @@ export class MessageService {
       })
     )
   }
+
+
 }
