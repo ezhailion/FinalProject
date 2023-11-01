@@ -55,6 +55,7 @@ export class NavigationComponent{
   logout() {
     this.auth.logout();
     this.router.navigateByUrl('/home');
+
   }
 
   canSeeMail() : boolean {
@@ -63,6 +64,7 @@ export class NavigationComponent{
   }
 
   getUnreadMessages() {
+
     this.messageService.indexUnread().subscribe({
       next: msgs => {
         this.unseenMessages = msgs;
