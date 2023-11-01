@@ -19,6 +19,8 @@ export class ParentComponent {
   loggedInUser: User = new User();
   messages : Message [] = [];
 
+  selectedReport: Report | null = null;
+
   selectedStudent: Student | null = null;
   studentReports: Report[] = [];
   myKiddos : Student[] = [];
