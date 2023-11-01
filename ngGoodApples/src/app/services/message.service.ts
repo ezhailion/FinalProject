@@ -15,6 +15,7 @@ export class MessageService {
 
   public listOfMessages : Message[] = [];
   public listOfUnreadMessages : Message[] = [];
+  
   constructor(
     private auth: AuthService,
     private http: HttpClient
