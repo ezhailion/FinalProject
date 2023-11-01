@@ -9,4 +9,5 @@ public interface ReflectionService {
 	Reflection create(String username, Reflection reflection);
 	Reflection show(String username, int reflectionId);
 	List <Reflection> findAllReflectionsForASpecificStudent(int studentId);
+	boolean deleteReflection(int reflectionId);
 }
