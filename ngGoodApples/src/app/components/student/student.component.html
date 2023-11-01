@@ -1,8 +1,10 @@
 <div class="container-fluid">
   <div class="row px-5">
-    <img class="mx-5 mt-5" style="width: 220px;" src="{{loggedInUser.imageUrl}}">
-    <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
-    <div class="col mx-4">
+    <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!
+      <img class="mx-5 mt-5 shadow" style="width: 150px; border-radius: 50%;" src="{{loggedInUser.imageUrl}}">
+    </h1>
+    <div class="col mx-4 mt-3">
+      <h3 class="mb-3 mx-3">Make a New Reflection</h3>
       <form class="form-control mx-2 mt-1">
 
         <div class="mb-3 mt-3">
@@ -40,7 +42,8 @@
         </button>
       </form>
     </div>
-    <div class="col mx-4">
+    <div class="col mx-4 mt-3">
+      <h3 class="mb-3">My Reflections</h3>
       <div *ngFor="let reflection of reflections">
         <p>{{ reflection.createDate | date }} {{ reflection.content }}</p>
       </div>
