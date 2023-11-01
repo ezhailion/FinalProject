@@ -106,10 +106,12 @@
   (click) = "selectedThread = thread"
   >see all</button>
 
-  <button class="btn btn-light"
+  <button
+  *ngIf="thread[0].sender.id != loggedInUser.id"
+  class="btn btn-light"
 
-  (click) = "markAllAsRead(thread[0]); log(thread[0])"
-  >mark all as read</button>
+  (click) = "log(thread[0])"
+  >mark as read</button>
   <hr>
 </div>
 
@@ -124,7 +126,18 @@
       To : {{message.recipient.firstName}} <br>
       From : {{message.sender.firstName }} <br>
       {{message.content}}
+
+      <br>
+      <div *ngIf="message.sender.id != loggedInUser.id">
+      <button
+
+      class="btn btn-light"
+
+      (click) = "flipRead(message)"
+      >mark as read</button>
+      </div>
       <hr>
+
     </div>
 
   </div>

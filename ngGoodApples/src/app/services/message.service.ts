@@ -82,4 +82,15 @@ export class MessageService {
       })
     )
   }
+
+  updateRead(message : Message) : Observable<Message> {
+    return this.http.put<Message>(environment.baseUrl + "api/messages", message, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MessageService.indexparents(): error gettin parents: ' + err)
+        );
+      })
+    )
+  }
 }

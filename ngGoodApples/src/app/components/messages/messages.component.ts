@@ -223,21 +223,35 @@ export class MessagesComponent {
    * the current user is not the sender of that message.
    * so as not to mess with the other person's notion of read.
   */
- markAllAsRead(msg : Message | null)  {
+ markAllAsReadRec(msg : Message | null)  {
 
-  console.log("HERE")
   if (msg === null) {
     return
   } else if (msg.sender.id === this.loggedInUser.id) {
-    this.markAllAsRead(msg.messageToReplyTo) // skip
+    this.markAllAsReadRec(msg.messageToReplyTo) // skip
   } else {
-    console.log("MARKED")
     msg.read = true;
-    this.markAllAsRead(msg.messageToReplyTo)
+    this.markAllAsReadRec(msg.messageToReplyTo)
   }
 
  }
 
+ markAllAsRead(msg : Message) {
+  this.markAllAsReadRec(msg);
+  this.messageService.updateRead(msg).subscribe({
+    next : (msg) => { console.log("todo: refresh")},
+    error : (err) => console.error("mark all as read" + err)
+  })
+ }
+
+ flipRead(msg : Message) {
+  msg.read = !msg.read;
+  console.log(msg)
+  this.messageService.updateRead(msg).subscribe({
+    next : (msg) => { console.log("todo: refresh")},
+    error : (err) => console.error("mark all as read" + err)
+  })
+ }
  // it turns out recursive funtions do not work with these
  // classes bc of 'this' keyword. need an arrow function:
 

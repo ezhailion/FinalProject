@@ -10,4 +10,5 @@ public interface MessageService {
 	Message create(String username, Message message, int recipientId);
 	List<Message> getInReplyTo(int messageId);
 	
+	Message updateRead(Message message);
 }

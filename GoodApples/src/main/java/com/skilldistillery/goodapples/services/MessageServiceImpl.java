@@ -45,4 +45,16 @@ public class MessageServiceImpl implements MessageService {
 		return msg.getInReplyToMessages();
 		
 	}
+
+	@Override
+	public Message updateRead(Message message) {
+		Message messageToUpdate = messageRepo.searchById(message.getId());
+		
+		messageToUpdate.setRead(message.getRead());
+
+		
+		return messageRepo.saveAndFlush(messageToUpdate);
+	}
+	
+
 }
