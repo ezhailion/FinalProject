@@ -26,18 +26,14 @@ export class NavigationComponent{
     ) {}
 
   ngOnInit() {
-    if (!this.auth.checkLogin()) {
-      this.router.navigateByUrl('mustBeLoggedIn');
-    }
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
         this.loggedInUser = user;
         this.getUnreadMessages();
-
       },
       error: (oops) => {
         console.error(
-          'ParentComponent.getLoggedInUser() failed getting logged in user'
+          'NavComponent.getLoggedInUser() failed getting logged in user'
         );
         console.error(oops);
       },
@@ -58,7 +54,10 @@ export class NavigationComponent{
   }
 
   canSeeMail() : boolean {
-    let leRole = this.loggedInUser.role;
+    let leRole = this.auth.loginUser.role;
+    if(!leRole){
+      leRole = this.loggedInUser.role;
+    }
     return leRole === 'teacher' || leRole === 'parent'
   }
 
