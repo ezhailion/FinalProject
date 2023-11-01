@@ -1,86 +1,19 @@
 
 <div class="container-fluid">
 
-<button class="btn btn-info m-3">
+<button *ngIf="testRoleParent()"
+        (click)="open(createNewMessageFromParentModal)"
+class="btn btn-info m-3">
   Draft new message
 </button>
 
-<!-- !!!!!!!!!!!!!!!!! PARENTS VERSION of dropdown to all teachers !!!!!!!!!!  -->
-<div *ngIf="testRoleParent()">
-<div class="m-3">
-  <form class="form-control">
-    <input
-    class="form-control mb-3"
-    type="text"
-    name="content"
-    placeholder="Enter message"
-    [(ngModel)]="newMessage.content"
-  />
-
-  <label for="dropDown">To:</label>
-  <select name="recipientUser" id="dropDown"
-          [(ngModel)] = "newMessage.recipient.id">
-    <option  *ngFor="let contact of teacherContacts"
-            [value]="contact.id">
-            {{contact.firstName}} {{contact.lastName}}
-    </option>
-
-  </select>
-  <button class="btn btn-dark" (click)="createNewMessage(newMessage)">Send</button>
-  </form>
-</div>
-</div>
+<button *ngIf="testRoleTeacher()"
+  (click) ="open(createNewMessageFromTeacherModal)"
+  class="btn btn-info m-3">
+  Draft new message
+</button>
 
 
-<!-- !!!!!!!!!!!!!! TEACHERS VERSION of dropdown to all parents !!!!!!!!!!! -->
-<div *ngIf="testRoleTeacher()">
-  <div class="m-3">
-    <form class="form-control">
-      <input
-      class="form-control mb-3"
-      type="text"
-      name="content"
-      placeholder="Enter message"
-      [(ngModel)]="newMessage.content"
-    />
-
-    <label for="dropDown">To:</label>
-    <select name="recipientUser" id="dropDown"
-            [(ngModel)] = "newMessage.recipient.id">
-
-      <option  *ngFor="let contact of parentContacts"
-              [value]="contact.id">
-              {{contact.firstName}} {{contact.lastName}}
-      </option>
-
-    </select>
-    <button class="btn btn-dark" (click)="createNewMessage(newMessage)">Send</button>
-    </form>
-  </div>
-  </div>
-
-
-
-
-<!-- MESSAGES
-<div *ngFor="let message of messages">
-  To : {{message.recipient.firstName}} <br>
-  From : {{message.sender.firstName }} <br>
-  {{message.content}}
-  <br>
-  <button class="btn btn-dark"
-          (click)="selectedRecipient = message.sender; log('RECIPIENT'); log(message.sender);"
-          (click)="loadReplyMessage(message)"
-    >reply</button>
-
-  <button class="btn btn-secondary"
-          (click)="showAllReplies(message.id)"
-  >see all</button>
-
-
-  <hr>
-</div>
--->
 
 <!-- THREADS  -->
 <h1>Direct Messages</h1>
@@ -142,8 +75,16 @@ class="btn btn-light"
 
       <br>
       <div *ngIf="message.sender.id != loggedInUser.id">
-      <button
 
+      <button
+      *ngIf="message.seen"
+      class="btn btn-light"
+
+      (click) = "flipRead(message)"
+      >mark as unread</button>
+
+      <button
+      *ngIf="!message.seen"
       class="btn btn-light"
 
       (click) = "flipRead(message)"
@@ -193,4 +134,97 @@ class="btn btn-light"
     </div>
   </ng-template>
 
+   <!-- PARENT CREATE MODAL  -->
+   <ng-template #createNewMessageFromParentModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Message</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-control">
+        <input
+        class="form-control mb-3"
+        type="text"
+        name="content"
+        placeholder="Enter message"
+        [(ngModel)]="newMessage.content"
+      />
+
+      <label for="dropDown">To:</label>
+      <select name="recipientUser" id="dropDown"
+              [(ngModel)] = "newMessage.recipient.id">
+        <option  *ngFor="let contact of teacherContacts"
+                [value]="contact.id">
+                {{contact.firstName}} {{contact.lastName}}
+        </option>
+
+      </select>
+
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+          modal.close(createNewMessage(newMessage))
+        "
+      >
+        Submit Edit
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #createNewMessageFromTeacherModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Message</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-control">
+        <input
+        class="form-control mb-3"
+        type="text"
+        name="content"
+        placeholder="Enter message"
+        [(ngModel)]="newMessage.content"
+      />
+
+      <label for="dropDown">To:</label>
+      <select name="recipientUser" id="dropDown"
+              [(ngModel)] = "newMessage.recipient.id">
+
+        <option  *ngFor="let contact of parentContacts"
+                [value]="contact.id">
+                {{contact.firstName}} {{contact.lastName}}
+        </option>
+
+      </select>
+
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="
+          modal.close(createNewMessage(newMessage))
+        "
+      >
+        Submit Edit
+      </button>
+    </div>
+  </ng-template>
 </div>

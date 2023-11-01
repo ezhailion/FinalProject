@@ -147,11 +147,11 @@ export class MessagesComponent {
   }
 
   testRoleParent() : boolean {
-    return this.auth.loginUser.role === 'parent'
+    return this.loggedInUser.role === 'parent'
   }
 
   testRoleTeacher() : boolean {
-    return this.auth.loginUser.role === 'teacher'
+    return this.loggedInUser.role === 'teacher'
   }
 
   showAllReplies(messageId : number) {
@@ -169,14 +169,6 @@ export class MessagesComponent {
 
 
   log(x : any) { console.log(x)}
-
-  inTheSameThread(msg1 : Message, msg2 : Message) : boolean {
-    let r1 = msg1.recipient.id;
-    let r2 = msg2.recipient.id;
-    let s1 = msg1.sender.id;
-    let s2 = msg2.sender.id;
-    return r1 === s2 && r2 === s1
-  }
 
   makeThreadsFromMessages() {
     let msgs = this.messages;
