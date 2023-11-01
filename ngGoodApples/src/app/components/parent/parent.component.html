@@ -1,25 +1,67 @@
-
-
-
-<div *ngIf="!selectedStudent">
-<h3>My kids: </h3>
-<div *ngFor = "let kid of myKiddos">
-  <p (click)="loadAllReportsForStudent(kid.id)"
-     (click)="selectedStudent = kid">
-    {{kid.whoami.firstName}} {{kid.whoami.lastName}}</p>
-</div>
-</div>
-<div *ngIf="selectedStudent">
-  <button class="btn btn-secondary"
-  (click)="selectedStudent = null"
-  >Back to My Kids</button>
-  <h2>{{selectedStudent.whoami.firstName}}
-  {{selectedStudent.whoami.lastName}}</h2><br>
-  <!-- <img width="200" src="{{selectedStudent.whoami.imageUrl}}"> -->
-<div *ngFor="let report of studentReports " >
-  <div *ngIf="report.enabled">
-    <p>{{report.createDate | date}}<br>
-    {{report.notes}}</p>
+<div class="container-fluid mb-3">
+  <div class="row px-5">
+    <div class="col" *ngIf="!selectedStudent">
+      <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
+    </div>
+    <div class="col mt-1" *ngIf="!selectedStudent">
+      <button
+        class="btn btn-dark mx-1 mt-5 float-end"
+        [routerLink]="['/editAccount']"
+      >
+        Edit Account Details
+      </button>
+    </div>
+    <div class="row mx-4 mt-5" *ngIf="!selectedStudent">
+      <h3 class="mb-3">My Kids</h3>
+      <div class="grid">
+        <div class="grid-item text-center" *ngFor="let kid of myKiddos">
+          <div
+            class="card mx-3 mb-5"
+            (click)="loadAllReportsForStudent(kid.id)"
+            (click)="selectedStudent = kid"
+          >
+            <div class="card-body">
+              <h5 class="">{{ kid.whoami.firstName }} {{ kid.whoami.lastName }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+
+
+
+
+
+
+
+    <!-- <h3>My kids:</h3>
+    <div *ngFor="let kid of myKiddos">
+      <p
+        (click)="loadAllReportsForStudent(kid.id)"
+        (click)="selectedStudent = kid"
+      >
+        {{ kid.whoami.firstName }} {{ kid.whoami.lastName }}
+      </p>
+    </div> -->
+  <div *ngIf="selectedStudent">
+    <button class="btn btn-secondary" (click)="selectedStudent = null">
+      Back to My Kids
+    </button>
+    <h2>
+      {{ selectedStudent.whoami.firstName }}
+      {{ selectedStudent.whoami.lastName }}
+    </h2>
+    <br />
+    <!-- <img width="200" src="{{selectedStudent.whoami.imageUrl}}"> -->
+    <div *ngFor="let report of studentReports">
+      <div *ngIf="report.enabled">
+        <p>
+          {{ report.createDate | date }}<br />
+          {{ report.notes }}
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
