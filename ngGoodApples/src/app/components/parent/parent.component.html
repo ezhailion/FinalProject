@@ -1,25 +1,113 @@
+<div class="container-fluid mb-3">
+  <div class="row px-5">
+    <div class="col" *ngIf="!selectedStudent">
+      <h1 class="mx-5 mt-5">Hello, {{ loggedInUser.firstName }}!</h1>
+    </div>
+    <div class="col mt-1" *ngIf="!selectedStudent">
+      <button
+        class="btn btn-dark mx-1 mt-5 float-end"
+        [routerLink]="['/editAccount']"
+      >
+        Edit Account Details
+      </button>
+    </div>
+    <div class="row mx-4 mt-5" *ngIf="!selectedStudent">
+      <h3 class="mb-3">My Kids</h3>
+      <div class="grid">
+        <div class="grid-item text-center" *ngFor="let kid of myKiddos">
+          <div
+            class="card mx-3 mb-5"
+            (click)="loadAllReportsForStudent(kid.id)"
+            (click)="selectedStudent = kid"
+          >
+            <div class="card-body">
+              <h5>
+                <!-- vvvvvvvvv FIX ME vvvvvvvv -->
+                <!-- <img src="{{ kid.whoami.imageUrl }}" /> -->
+                {{ kid.whoami.firstName }} {{ kid.whoami.lastName }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- <h3>My kids:</h3>
+      <div *ngFor="let kid of myKiddos">
+        <p
+        (click)="loadAllReportsForStudent(kid.id)"
+        (click)="selectedStudent = kid"
+        >
+        {{ kid.whoami.firstName }} {{ kid.whoami.lastName }}
+      </p>
+    </div> -->
+    <div class="col mx-4 mt-3" *ngIf="selectedStudent">
+      <button class="btn btn-secondary mb-3" (click)="selectedStudent = null">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          class="bi bi-caret-left-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+          />
+        </svg>
+        Back to My Kids
+      </button>
+      <h2>
+        {{ selectedStudent.whoami.firstName }}
+        {{ selectedStudent.whoami.lastName }}
+      </h2>
+      <h3 class="mt-5">
+        All Reports for {{ selectedStudent.whoami.firstName }}
+        {{ selectedStudent.whoami.lastName }}
+      </h3>
+      <div class="row" *ngFor="let report of studentReports">
+        <div class="col-6" *ngIf="report.enabled">
+          <div class="btn btn-dark mx-1 mb-1 mt-1 w-100 text-start"
+          (click)="selectedReport = report">
+            Report Submitted by: {{ report.teacher.firstName }}
+            {{ report.teacher.lastName }} on {{ report.createDate | date }}
+          </div>
+          <br />
+        </div>
 
+        <!-- DIV TO DISPLAY WHEN A REPORT IS CLICKED -->
+        <div
+          class="col-6"
+          *ngIf="selectedReport && selectedReport.id === report.id"
+        >
+          <h3>
+            Behavior Report for {{ selectedStudent.whoami.firstName }}
+            {{ selectedStudent.whoami.lastName }}
+          </h3>
+          <p>
+            <strong>Created: {{ selectedReport.createDate | date }}</strong>
+            <span class="float-end">
+              <em
+                >Last Updated: {{ selectedReport.lastUpdate | date }}
+              </em></span
+            >
+          </p>
+          <hr />
 
-<div *ngIf="!selectedStudent">
-<h3>My kids: </h3>
-<div *ngFor = "let kid of myKiddos">
-  <p (click)="loadAllReportsForStudent(kid.id)"
-     (click)="selectedStudent = kid">
-    {{kid.whoami.firstName}} {{kid.whoami.lastName}}</p>
-</div>
-</div>
-<div *ngIf="selectedStudent">
-  <button class="btn btn-secondary"
-  (click)="selectedStudent = null"
-  >Back to My Kids</button>
-  <h2>{{selectedStudent.whoami.firstName}}
-  {{selectedStudent.whoami.lastName}}</h2><br>
-  <!-- <img width="200" src="{{selectedStudent.whoami.imageUrl}}"> -->
-<div *ngFor="let report of studentReports " >
-  <div *ngIf="report.enabled">
-    <p>{{report.createDate | date}}<br>
-    {{report.notes}}</p>
+          <div *ngFor="let behavior of selectedReport.behaviors">
+            <span *ngIf="behavior.behaviorType.name === 'good'"
+              ><strong>Celebration: </strong>{{ behavior.name }}</span
+            >
+            <span *ngIf="behavior.behaviorType.name === 'bad'"
+              ><strong>Challenge: </strong> {{ behavior.name }}</span
+            >
+          </div>
+
+          <strong>Notes: </strong>{{ selectedReport.notes }}
+          <hr />
+          <button class="btn btn-outline-dark">Message {{selectedReport.teacher.firstName}} {{selectedReport.teacher.lastName}}</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </div>
