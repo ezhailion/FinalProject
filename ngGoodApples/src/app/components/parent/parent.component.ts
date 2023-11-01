@@ -39,9 +39,17 @@ export class ParentComponent {
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
         this.loggedInUser = user;
+        this.loggedInUser = user;
+        if (!this.auth.checkLogin()) {
+          this.router.navigateByUrl('mustBeLoggedIn');
+        }
 
-        console.log("USER")
-        console.log(user)
+        if (this.auth.checkLogin()) {
+          if (user.role != "parent") {
+            this.router.navigateByUrl('mustBeAParent');
+          }
+        }
+
       },
       error: (oops) => {
         console.error(

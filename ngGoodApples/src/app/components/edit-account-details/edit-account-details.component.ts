@@ -16,6 +16,7 @@ register(arg0: any) {
 throw new Error('Method not implemented.');
 }
 invalidUpdate: boolean = false;
+successfulUpdate: boolean = false;
 editAccount: User | null = null;
 
 constructor(private auth: AuthService,
@@ -26,6 +27,7 @@ constructor(private auth: AuthService,
     this.teacherService.update(user).subscribe({
       next: (user) => {
         console.log(user);
+        this.successfulUpdate = true;
       }
     })
   }
