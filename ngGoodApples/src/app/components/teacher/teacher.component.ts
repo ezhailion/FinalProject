@@ -355,32 +355,25 @@ export class TeacherComponent {
     )
   }
 
-  //this method helps check the behaviors we need for the edit form
+  //this method helps check the existing behaviors we need for the edit form
   haveBehavior(behaviorId: number, report: Report): boolean {
     return report.behaviors.some((b) => b.id === behaviorId);
   }
 
+  //this method subscribes to the corresponding add or remove endpoint
   toggleReportBehavior(behaviorId: number, event: Event, reportId: number) {
-    console.log(behaviorId)
-    console.log(event)
-    console.log(typeof event.target)
     let isChecked = (<HTMLInputElement>event.target).checked
-    console.log(isChecked);
 
     if(isChecked) {
       this.teacherService.addBehaviorToReport(reportId, behaviorId).subscribe({
-        next: (report) => {
-          console.log(report);
-        },
-        error: (oopsie) => console.error("Teacher component. toggle behavior: on . " + oopsie)
+        next: (report) => {},
+        error: (oopsie) => console.error("TeacherComponent. toggle behavior: on . " + oopsie)
       })
     }
     if(!isChecked) {
       this.teacherService.removeBehaviorFromReport(reportId, behaviorId).subscribe({
-        next: () => {
-          //maybe something here?
-        },
-        error: (oopsie) => console.error("Teacher component. toggle behavior: off . " + oopsie)
+        next: () => {},
+        error: (oopsie) => console.error("TeacherComponent. toggle behavior: off . " + oopsie)
       })
     }
   }
