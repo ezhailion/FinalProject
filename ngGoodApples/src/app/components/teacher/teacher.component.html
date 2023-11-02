@@ -144,9 +144,9 @@
         </button></span
       >
       <h3 class="mb-3">
-        <img style="width: 220px;" src="{{selectedStudent.whoami.imageUrl}}"><br>
         {{ selectedStudent.whoami.firstName }}
         {{ selectedStudent.whoami.lastName }}
+        <img class="shadow "style="width: 100px; border-radius: 50%;" src="{{selectedStudent.whoami.imageUrl}}">
       </h3>
 
       <!-- REPORT STARTS HERE -->
@@ -155,7 +155,6 @@
         <div class="col-12">
           <app-report
             [item]="studentReports"
-
           ></app-report>
         </div>
       </div>
@@ -559,7 +558,6 @@
       <div class="col">
         <h4>Add Student</h4>
         <div *ngFor="let student of filteredStudents">
-
           <button
             class="btn btn-secondary mb-3"
             (click)="addStudentToClass(selectedClass.id, student.id)"

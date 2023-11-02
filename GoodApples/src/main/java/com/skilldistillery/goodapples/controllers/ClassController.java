@@ -34,7 +34,7 @@ public class ClassController {
 	public List<Classroom> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		return classService.index(principal.getName());
 	}
-	
+
 	@GetMapping("classes/{classId}")
 	public Classroom show(@PathVariable int classId, HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
@@ -86,7 +86,7 @@ public class ClassController {
 		return updatedClassroom;
 	}
 
-	// CHANGING DELETE TO DISABLE 
+	// CHANGING DELETE TO DISABLE
 	@DeleteMapping("classes/{classId}")
 	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable int classId,
 			Principal principal) {
@@ -102,25 +102,25 @@ public class ClassController {
 			res.setStatus(400);
 		}
 	}
-	
+
 	@PostMapping("classes/{classId}/students/{studentId}")
-			public Classroom addStudentToClassroom(@PathVariable int classId, @PathVariable int studentId,
-					Principal principal, HttpServletResponse res) {
+	public Classroom addStudentToClassroom(@PathVariable int classId, @PathVariable int studentId, Principal principal,
+			HttpServletResponse res) {
 		Classroom updatedClassroom = classService.addExistingStudentToClass(classId, studentId, principal.getName());
-		if(updatedClassroom == null) {
+		if (updatedClassroom == null) {
 			res.setStatus(404);
 		}
 		return updatedClassroom;
 	}
+
 	@DeleteMapping("classes/{classId}/students/{studentId}")
 	public Classroom removeStudentFromClassroom(@PathVariable int classId, @PathVariable int studentId,
 			Principal principal, HttpServletResponse res) {
 		Classroom updatedClassroom = classService.removeExistingStudentToClass(classId, studentId, principal.getName());
-		if(updatedClassroom == null) {
+		if (updatedClassroom == null) {
 			res.setStatus(404);
 		}
 		return updatedClassroom;
 	}
-	
-	
+
 }
