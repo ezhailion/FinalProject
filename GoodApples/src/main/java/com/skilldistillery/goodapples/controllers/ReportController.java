@@ -116,10 +116,10 @@ public class ReportController {
 		}
 		return updatedReport;
 	}
-	
+
 	@DeleteMapping("reports/{reportId}/behaviors/{behaviorId}")
-	public Report removeBehaviorFromReport(@PathVariable int reportId, @PathVariable int behaviorId, Principal principal,
-			HttpServletResponse res) {
+	public Report removeBehaviorFromReport(@PathVariable int reportId, @PathVariable int behaviorId,
+			Principal principal, HttpServletResponse res) {
 		Report updatedReport = repoService.removeBehavior(reportId, behaviorId, principal.getName());
 		if (updatedReport == null) {
 			res.setStatus(404);
@@ -127,9 +127,8 @@ public class ReportController {
 		return updatedReport;
 	}
 
-	@DeleteMapping("reports/{reportId}") 
-	public boolean deleteReport(@PathVariable int reportId, Principal principal,
-			HttpServletResponse res) {
+	@DeleteMapping("reports/{reportId}")
+	public boolean deleteReport(@PathVariable int reportId, Principal principal, HttpServletResponse res) {
 		boolean deleted = false;
 		try {
 			if (repoService.deleteReport(reportId)) {
