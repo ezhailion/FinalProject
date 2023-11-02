@@ -12,7 +12,7 @@ export class User {
   dateOfBirth: string;
   email: string;
   phone: string;
-  imageUrl: string;
+  imageUrl: string | null;
   aboutMe: string;
   createDate: string;
   lastUpdate: string;
@@ -31,7 +31,7 @@ export class User {
     dateOfBirth: string = '',
     email: string = '',
     phone: string = '',
-    imageUrl: string = '',
+    imageUrl: string | null = null,
     aboutMe: string = '',
     createDate: string = '',
     lastUpdate: string = '',
